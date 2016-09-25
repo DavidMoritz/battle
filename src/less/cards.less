@@ -1,0 +1,436 @@
+.cards {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+.play-card-display-holder {
+	clear: both;
+	display: flex;
+	justify-content: space-around;
+	.play-card-display {
+		border-right: solid 1px gray;
+		flex: 2;
+	}
+}
+.active-card {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+}
+.held-card {
+	cursor: pointer;
+}
+.played-card,
+.recruit-card,
+.ability,
+.held-card {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	margin: 3px;
+	border-radius: 5px;
+	padding: 5px;
+	&.small {
+		padding: 2px;
+	}
+	&.support-section {
+		position: absolute;
+		margin: -6px 25px;
+		display: flex;
+		justify-content: flex-end;
+		.item {
+			border: dashed 1px;
+			border-radius: 5px;
+			height: 32px;
+			padding: 0 3px;
+			margin: 3px;
+			width: 35px;
+			background-color: rgba(255, 255, 255, 0.5);
+		}
+	}
+	&.relative {
+		position: relative;
+	}
+	.card-name {
+		font-size: 16px;
+		margin: 0 0 12px 27px;
+		width: 100px;
+		text-align: center;
+		background: rgba(220, 220, 220, 0.7);
+	}
+	.card-info {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		.strength {
+			display: inline-block;
+			min-width: 10px;
+			padding: 4px 10px;
+			font-size: 13px;
+			font-weight: bold;
+			color: black;
+			vertical-align: middle;
+			white-space: nowrap;
+			text-align: center;
+			border-radius: 13px;
+			&.small {
+				min-width: 7px;
+				padding: 2px 5px;
+				font-size: 10px;
+			}
+		}
+	}
+}
+.bgpos(@ex; @why) {
+	// -21px -266px
+	background-position: (@ex + 2) (@why + 3);
+	&.small {
+		background-position: @ex/ 2 @why/2;
+	}
+	&.large {
+		background-position: (@ex * 1.265) (@why * 1.265)
+	}
+}
+.card-img {
+	width: 140px;
+	height: 185px;
+	background-image: url(../img/all-cards.png);
+	&.small {
+		width: 70px;
+		height: 92.5px;
+		background-image: url(../img/all-cards-sm.png);
+	}
+	&.large {
+		width: 173px; // 1.23
+		height: 237px; // 1.28
+		background-image: url(../img/all-cards-md.png);
+	}
+	&.SP11{
+		.bgpos(-18px, -212px);
+	}
+	&.SP12{
+		.bgpos(-159px, -212px);
+	}
+	&.SP13{
+		.bgpos(-301px, -211px);
+	}
+	&.SP14{
+		.bgpos(-440px, -211px);
+	}
+	&.SP15{
+		.bgpos(-588px, -210px);
+	}
+	&.SP16{
+		.bgpos(-728px, -210px);
+	}
+	&.SP21{
+		.bgpos(-21px, -407px);
+	}
+	&.SP22{
+		.bgpos(-161px, -406px);
+	}
+	&.SP23{
+		.bgpos(-296px, -406px);
+	}
+	&.SP24{
+		.bgpos(-437px, -404px);
+	}
+	&.SP25{
+		.bgpos(-589px, -403px);
+	}
+	&.SP26{
+		.bgpos(-724px, -401px);
+	}
+	&.SP31{
+		.bgpos(-18px, -604px);
+	}
+	&.SP32{
+		.bgpos(-158px, -604px);
+	}
+	&.SP33{
+		.bgpos(-299px, -604px);
+	}
+	&.SP34{
+		.bgpos(-439px, -604px);
+	}
+	&.SP35{
+		.bgpos(-599px, -606px);
+	}
+	&.SP36{
+		.bgpos(-739px, -607px);
+	}
+	&.SP41{
+		.bgpos(-19px, -802px);
+	}
+	&.SP42{
+		.bgpos(-160px, -803px);
+	}
+	&.SP43{
+		.bgpos(-300px, -803px);
+	}
+	&.SP44{
+		.bgpos(-439px, -803px);
+	}
+	&.SP45{
+		.bgpos(-600px, -803px);
+	}
+	&.SP46{
+		.bgpos(-741px, -802px);
+	}
+	&.SP51{
+		.bgpos(-22px, -1006px);
+	}
+	&.SP52{
+		.bgpos(-163px, -1005px);
+	}
+	&.SP53{
+		.bgpos(-306px, -1005px);
+	}
+	&.SP54{
+		.bgpos(-446px, -1005px);
+	}
+	&.SP55{
+		.bgpos(-598px, -1003px);
+	}
+	&.SP56{
+		.bgpos(-740px, -1004px);
+	}
+	&.JC01 {
+		.bgpos(-23px, -1204px);
+	}
+	&.JC02 {
+		.bgpos(-164px, -1206px);
+	}
+	&.JC03 {
+		.bgpos(-300px, -1208px);
+	}
+	&.JC04 {
+		.bgpos(-444px, -1208px);
+	}
+	&.JC05 {
+		.bgpos(-593px, -1207px);
+	}
+	&.JC06 {
+		.bgpos(-734px, -1206px);
+	}
+	&.JC07 {
+		.bgpos(-875px, -1206px);
+	}
+	&.JC08 {
+		.bgpos(-1011px, -1204px);
+	}
+	&.JC09 {
+		.bgpos(-25px, -1404px);
+	}
+	&.JC10 {
+		.bgpos(-164px, -1403px);
+	}
+	&.JC11 {
+		.bgpos(-301px, -1403px);
+	}
+	&.JC12 {
+		.bgpos(-443px, -1403px);
+	}
+	&.JC13 {
+		.bgpos(-594px, -1406px);
+	}
+	&.JC14 {
+		.bgpos(-737px, -1405px);
+	}
+	&.JC15 {
+		.bgpos(-878px, -1406px);
+	}
+	&.JC16 {
+		.bgpos(-1017px, -1405px);
+	}
+	&.JC17 {
+		.bgpos(-18px, -1604px);
+	}
+	&.JC18 {
+		.bgpos(-158px, -1604px);
+	}
+	&.JC19 {
+		.bgpos(-302px, -1603px);
+	}
+	&.JC20 {
+		.bgpos(-444px, -1603px);
+	}
+	&.JC21 {
+		.bgpos(-591px, -1607px);
+	}
+	&.JC22 {
+		.bgpos(-734px, -1607px);
+	}
+	&.JC23 {
+		.bgpos(-875px, -1608px);
+	}
+	&.JC24 {
+		.bgpos(-1014px, -1607px);
+	}
+	&.JC25 {
+		.bgpos(-18px, -1806px);
+	}
+	&.JC26 {
+		.bgpos(-159px, -1806px);
+	}
+	&.JC27 {
+		.bgpos(-304px, -1807px);
+	}
+	&.JC28 {
+		.bgpos(-444px, -1807px);
+	}
+	&.JC29 {
+		.bgpos(-593px, -1807px);
+	}
+	&.JC30 {
+		.bgpos(-736px, -1806px);
+	}
+	&.JC31 {
+		.bgpos(-875px, -1808px);
+	}
+	&.JC32 {
+		.bgpos(-1009px, -1806px);
+	}
+	&.JC33 {
+		.bgpos(-595px, -2003px);
+	}
+	&.JC34 {
+		.bgpos(-738px, -2003px);
+	}
+	&.JC35 {
+		.bgpos(-879px, -2003px);
+	}
+	&.JC36 {
+		.bgpos(-1017px, -2002px);
+	}
+	&.JC37 {
+		.bgpos(-21px, -2003px);
+	}
+	&.JC38 {
+		.bgpos(-164px, -2004px);
+	}
+	&.JC39 {
+		.bgpos(-305px, -2006px);
+	}
+	&.JC40 {
+		.bgpos(-444px, -2005px);
+	}
+	&.JC41 {
+		.bgpos(-593px, -2197px);
+	}
+	&.JC42 {
+		.bgpos(-737px, -2198px);
+	}
+	&.JC43 {
+		.bgpos(-1020px, -2198px);
+	}
+	&.JC44 {
+		.bgpos(-879px, -2198px);
+	}
+	&.JC45 {
+		.bgpos(-22px, -2201px);
+	}
+	&.JC46 {
+		.bgpos(-163px, -2201px);
+	}
+	&.JC47 {
+		.bgpos(-300px, -2203px);
+	}
+	&.JC48 {
+		.bgpos(-444px, -2204px);
+	}
+	&.JC49 {
+		.bgpos(-18px, -2397px);
+	}
+	&.JC50 {
+		.bgpos(-163px, -2397px);
+	}
+	&.JC51 {
+		.bgpos(-304px, -2397px);
+	}
+	&.JC52 {
+		.bgpos(-443px, -2397px);
+	}
+	&.JC53 {
+		.bgpos(-592px, -2396px);
+	}
+	&.JC54 {
+		.bgpos(-737px, -2396px);
+	}
+	&.JC55 {
+		.bgpos(-21px, -2598px);
+	}
+	&.JC56 {
+		.bgpos(-165px, -2596px);
+	}
+	&.JC57 {
+		.bgpos(-306px, -2594px);
+	}
+	&.JC58 {
+		.bgpos(-443px, -2594px);
+	}
+	&.JC59 {
+		.bgpos(-596px, -2599px);
+	}
+	&.JC60 {
+		.bgpos(-740px, -2596px);
+	}
+	&.JC61 {
+		.bgpos(-879px, -2597px);
+	}
+	&.JC62 {
+		.bgpos(-878px, -2397px);
+	}
+	&.JC63 {
+		.bgpos(-1016px, -2398px);
+	}
+	&.JC64 {
+		.bgpos(-883px, -1006px);
+	}
+	&.support {
+		&.strength-1 {
+			&.wood {
+				.bgpos(-1007px, -403px);
+			}
+			&.meat {
+				.bgpos(-868px, -210px);
+			}
+			&.equipment {
+				.bgpos(-864px, -404px);
+			}
+			&.fur {
+				.bgpos(-1009px, -211px);
+			}
+		}
+		&.strength-2 {
+			&.wood {
+				.bgpos(-880px, -802px);
+			}
+			&.meat {
+				.bgpos(-1018px, -606px);
+			}
+			&.equipment {
+				.bgpos(-875px, -607px);
+			}
+			&.fur {
+				.bgpos(-1020px, -803px);
+			}
+		}
+		&.strength-3 {
+			&.wood {
+				.bgpos(-733px, -5px);
+			}
+			&.meat {
+				.bgpos(-869px, -8px);
+			}
+			&.equipment {
+				.bgpos(-1010px, -11px);
+			}
+			&.fur {
+				.bgpos(-589px, -9px);
+			}
+		}
+	}
+}

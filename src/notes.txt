@@ -1,0 +1,29 @@
+Notes:
+
+How to store information between sockets.
+
+We could store decisions made (sort of like a stream)
+
+Stream.
+
+FBArray contains each event.
+
+Beginner Learning Pre-game:
+* When you play a "collection" action, you may take as many of that resource as you want
+* No journal
+* No indians
+* No extra boats
+* Each card action must be supplimented by another card
+* You camp at the end of the turn you've played your last card
+* Selling goods for canoes or horses can happen anytime
+* After 4 camps (12 turns) whoever is in the lead wins
+* Wood is for canoes, Meat is for river travel, Equip and Fur is for horses (along with one of the other)
+
+Beginner game:
+* When you play a "collection" action, you may take as many of that resource as you want
+* Journal is only made of cards that have powers similar to the starting cards (about half)
+* May only buy one extra equipment boat (no indian boats)
+* Every time you recruit from the journal, you must use a player card
+* Each card action must be supplimented by another card (may add indians)
+* You may not camp until you've played all six of your cards
+* Normal win condition
