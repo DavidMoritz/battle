@@ -2,10 +2,10 @@ var mainApp = angular.module('mainApp', ['firebase', 'angular.filter', 'ngAnimat
 
 mainApp.config(() => {
 	var config = {
-		apiKey: 'AIzaSyAfaDdizApxfxhhcEOUQ6vfq3jQpKBUEfg',
-		authDomain: 'explorers-game.firebaseapp.com',
-		databaseURL: 'https://explorers-game.firebaseio.com',
-		storageBucket: 'explorers-game.appspot.com'
+		apiKey: 'AIzaSyD6S7XI77nZX1yabhWapmLggdykUnJxwH8',
+		authDomain: 'battle-74684.firebaseapp.com',
+		databaseURL: 'https://battle-74684.firebaseio.com',
+		storageBucket: 'battle-74684.appspot.com'
 	};
 	firebase.initializeApp(config);
 });

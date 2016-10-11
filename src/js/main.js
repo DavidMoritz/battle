@@ -76,10 +76,10 @@ mainApp.controller('MainCtrl', [
 		}
 
 		function listenToChat() {
-			window.latestChat = FF.getFBObject('message');
-			window.stopChat = latestChat.$watch(() => {
-				$s.chatList.push(_.clone(latestChat));
-			});
+			// window.latestChat = FF.getFBObject('message');
+			// window.stopChat = latestChat.$watch(() => {
+			// 	$s.chatList.push(_.clone(latestChat));
+			// });
 		}
 
 		/**
@@ -151,7 +151,7 @@ mainApp.controller('MainCtrl', [
 			}
 
 			var players = $s.allPlayers.filter(player => searchThesePlayers.indexOf(player.idx) !== -1);
-			
+
 			return players.reduce((count, player) => {
 				return count + player.deck.playedCards.filter(card => card.symbol == type).length;
 			}, 0);
@@ -197,7 +197,7 @@ mainApp.controller('MainCtrl', [
 			},
 			get: () => $s._state
 		});
-			
+
 		$s.state = 'welcome';
 
 		$s.getFaceUpPlayedCards = () => {
@@ -528,13 +528,13 @@ mainApp.controller('MainCtrl', [
 					meat: countSymbols('meat')
 				});
 			}
-		}; 
+		};
 
 		$s.addIndian = () => {
 			if ($s.userTurn()) {
 				$s.addEvent('addIndianToStrength');
 			}
-		};	
+		};
 
 		$s.recruitThisCard = card => {
 			if ($s.userTurn()) {
@@ -559,7 +559,7 @@ mainApp.controller('MainCtrl', [
 						});
 					} else {
 						$s.notify('That space is full');
-					}			
+					}
 				} else {
 					$s.notify('You need an indian to use that space');
 				}
@@ -674,9 +674,9 @@ mainApp.controller('MainCtrl', [
 		};
 
 		// grab all the games and make sure Firebase is working!
-		window.allGames = FF.getFBObject('allGames');
-		window.activeGame = {};
-		allGames.$bindTo($s, 'allGames');
+		window.allGames = FF.getFBObject('game');
+		window.activeGame = FF;
+		allGames.$bindTo($s, 'game');
 		allGames.$loaded(() => {
 			$('body').addClass('facebook-available');
 			listenToChat();
