@@ -1,3 +1,10 @@
+mixin welcome()
+	.welcome(ng-if='state == "welcome"')
+		div(ng-hide='currentUser')
+			button.btn.btn-danger.btn-lg.facebook-login(ng-click='googleLogin()') Login with Google
+			br
+			button.btn.btn-primary.btn-lg.facebook-login(ng-click='fbLogin()') Login with Facebook
+
 mixin joinGame()
 	.pre-game.row(ng-if='state == "joinGame"')
 		+col(6)

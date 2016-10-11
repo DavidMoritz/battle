@@ -21,17 +21,36 @@ mainApp.controller('MainCtrl', [
 			});
 		}
 
+		function restartTurn() {
+			// this is not working.
+			var id = $s.activeGame.id;
+			$s.currentPlayer = null;
+			$s.allPlayers = [];
+			$s.activeGame = {};
+			$s.restartTurn = false;
+			$s.joinActiveGame({id: id});
+		}
+
+		function updateGame() {
+			if ($s.restartTurn) {
+				restartTurn();
+			} else if ($s.eventTracker < $s.activeGame.events.length) {
+				$s.activeGame.events.reduce(prevEvent => {
+					return prevEvent.then(() => {
+						return runEvent(++$s.eventTracker);
+					}, () => $s);
+				}, runEvent($s.eventTracker));
+			}
+		}
+
 		_.assign($s, {
-			state: 'joinGame',
+			state: 'welcome',
 			allPlayers: [],
 			chatList: [],
 			activeGame: {},
+			eventTracker: 0,
 			ff: {
 				gameName: 'newGame'
-			},
-			currentUser: {
-				firstName: 'David',
-				uid: '1234'
 			}
 		});
 
