@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html ng-app="mainApp">
+  <head>
+    <link rel="apple-touch-icon" sizes="57x57" href="./icon/apple-icon-57x57.png"/>
+    <link rel="apple-touch-icon" sizes="60x60" href="./icon/apple-icon-60x60.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="./icon/apple-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="76x76" href="./icon/apple-icon-76x76.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="./icon/apple-icon-114x114.png"/>
+    <link rel="apple-touch-icon" sizes="120x120" href="./icon/apple-icon-120x120.png"/>
+    <link rel="apple-touch-icon" sizes="144x144" href="./icon/apple-icon-144x144.png"/>
+    <link rel="apple-touch-icon" sizes="152x152" href="./icon/apple-icon-152x152.png"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="./icon/apple-icon-180x180.png"/>
+    <link rel="icon" type="image/png" sizes="192x192" href="./icon/android-icon-192x192.png"/>
+    <link rel="icon" type="image/png" sizes="32x32" href="./icon/favicon-32x32.png"/>
+    <link rel="icon" type="image/png" sizes="96x96" href="./icon/favicon-96x96.png"/>
+    <link rel="icon" type="image/png" sizes="16x16" href="./icon/favicon-16x16.png"/>
+    <link rel="manifest" href="./icon/manifest.json"/>
+    <meta name="msapplication-TileColor" content="#ffffff"/>
+    <meta name="msapplication-TileImage" content="./icon/ms-icon-144x144.png"/>
+    <meta name="theme-color" content="#ffffff"/>
+    <meta charset="UTF-8"/>
+    <meta name="description" content="Some have suggested that this game is similar to the card game &quot;Splendor&quot; by Space Cowboys."/>
+    <meta name="author" content="Moritz Company"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-touch-fullscreen" content="yes"/>
+    <title>Lewis &amp; Clark</title>
+    <link rel="stylesheet" href="inc/main.css">
+    <script src="inc/angular.js"></script>
+  </head>
+  <body ng-cloak ng-controller="MainCtrl" ng-class="state">
+    <div id="cursor" ng-style="cursor" class="img img-responsive {{userTurn() ? &quot;hidden&quot; : currentPlayer.color}}"></div>
+    <div ng-mousemove="moveCursor($event)" class="container">
+      <header class="hide">
+        <h1>Lewis &amp; Clark</h1>
+      </header>
+      <div class="map">
+        <div ng-repeat="space in map track by $index" class="space {{space.terrain}} {{space.special}}"><span ng-repeat="player in allPlayers" style="border-color: {{player.color}}" class="space-arrow {{$parent.$index == player.scout ? &quot;scout&quot; : &quot;&quot;}} {{$parent.$index == player.baseCamp ? &quot;camp&quot; : &quot;&quot;}} {{player.color}}"></span></div>
+      </div>
+      <div class="main-stage">
+        <div class="stage-left">
+          <button ng-click="addEvent(&quot;changeCurrentPlayer&quot;)" ng-disabled="!userTurn() || !currentPlayer.takenMainAction" class="btn btn-danger {{currentPlayer.takenMainAction ? &quot;blink-me&quot; : &quot;&quot;}}">End Turn</button>
+          <button ng-click="addEvent(&quot;restartTurn&quot;)" ng-disabled="!userTurn() || true" class="btn btn-warning">Redo Turn</button>
+          <h3>All Players</h3>
+          <div class="left-side">
+            <div ng-repeat="player in allPlayers" style="background-color:{{player.color}}" ng-click="viewPlayer(player)" class="player-holder {{currentPlayer == player ? &quot;active&quot; : &quot;&quot;}}">
+              <div class="player"><span class="badge">{{player.idx}}</span> {{player.name}}</div><i ng-repeat="card in player.deck.playedCards track by card.id" class="sprite symbol {{card.symbol}}"></i>
+            </div>
+            <div ng-show="currentPlayer.collectables.length" class="collectables">
+              <h4>Unassigned Items</h4>
+              <div class="corp-boats">
+                <div class="collect-boat">
+                  <div class="content">
+                    <div ng-repeat="item in currentPlayer.collectables track by $index" ng-drag="userTurn()" ng-drag-data="item" ng-drag-success="dragCollectSuccess($resolve, $index)" title="{{item.display}}" class="item text-{{item.btnClass}}"><i class="sprite {{item.name}} {{item.name == &quot;indian&quot; ? &quot;symbol&quot; : &quot;&quot;}}"></i></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="center-stage">
+          <div ng-show="activeGame.message" class="alert notify-box alert-{{activeGame.message.type}}">{{activeGame.message.text}}</div>
+          <div class="main-content">
+            <div ng-if="state == &quot;welcome&quot;" class="welcome"><img src="img/logo-alpha.png"/>
+              <div ng-hide="currentUser">
+                <button ng-click="googleLogin()" class="btn btn-danger btn-lg facebook-login">Login with Google</button><br/>
+                <button ng-click="fbLogin()" class="btn btn-primary btn-lg facebook-login">Login with Facebook</button>
+              </div>
+            </div>
+            <div ng-if="state == &quot;joinGame&quot;" class="pre-game">
+              <div ng-show="currentUser" class="half">
+                <h3>Choose a game:</h3>
+                <div ng-repeat="game in allGames track by $index" ng-click="joinActiveGame(game)" class="btn btn-info">{{game.name}}</div>
+                <h3>Or create a new one:</h3>
+                <div ng-click="createNewGame()" class="btn btn-success">Create new game</div>
+              </div>
+              <div class="half">
+                <h3>Message List:</h3>
+                <ul class="well">
+                  <li ng-repeat="message in chatList track by $index">{{message.user}}: {{message.text}}</li>
+                </ul>
+                <form name="chatWindow" ng-submit="submitChat()">
+                  <input ng-model="ff.chat" placeholder="respond to chat" class="form-control"/>
+                  <button ng-hide="true" type="submit"></button>
+                </form>
+              </div>
+            </div>
+            <div ng-if="state == &quot;startGame&quot;" class="pre-game">
+              <div class="half">
+                <h3>Waiting for Host to start game</h3>
+                <h5>Current Players:</h5>
+                <ul>
+                  <li ng-repeat="player in activeGame.playerNames track by $index">{{player}}</li>
+                </ul>
+                <button ng-disabled="activeGame.hostId != currentUser.uid" ng-click="addEvent(&quot;startGame&quot;)" class="btn btn-success">Start the game</button>
+              </div>
+            </div>
+            <div ng-if="state == &quot;playCard&quot;">
+              <h4 ng-hide="currentPlayer.takenMainAction">{{currentPlayer.name}} may play a card from {{userTurn() ? "your" : "their"}} hand:</h4>
+              <h4 ng-show="currentPlayer.takenMainAction">Main action taken</h4>
+              <div class="cards">
+                <div ng-repeat="card in currentPlayer.deck.heldCards track by card.id" ng-click="callPlayCard(card)" title="{{userTurn() ? card.name + &quot;: &quot; + card.description : &quot;&quot;}}" class="card-img {{card.symbol}} {{card.id}} strength-{{card.strength}} {{userTurn() ? &quot;&quot; : &quot;support&quot;}} held-card"></div>
+              </div>
+            </div>
+            <div ng-if="state == &quot;strength&quot;">
+              <h3 class="pull-left">Total Strength: {{currentPlayer.playStrength}}; Used: {{currentPlayer.deck.activeCard.plays}}</h3>
+              <div ng-click="addIndian()" class="btn btn-danger btn-indian">Add Indian&nbsp;<span class="badge">{{currentPlayer.indianCount}}</span></div>
+              <div class="play-card-display-holder">
+                <div class="play-card-display">
+                  <div class="cards">
+                    <div ng-repeat="card in currentPlayer.deck.heldCards track by card.id" ng-click="addStrength(card)" title="{{userTurn() ? card.name + &quot;: &quot; + card.description : &quot;&quot;}}" class="card-img {{card.symbol}} {{card.id}} strength-{{card.strength}} {{userTurn() ? &quot;&quot; : &quot;support&quot;}} held-card"></div>
+                  </div>
+                </div>
+                <div ng-drop="validIndianDrop(true) &amp;&amp; userTurn()" ng-drop-success="addEvent(&quot;addIndianToStrength&quot;)" ng-drag-cancel="true" class="active-card">
+                  <div class="support-section held-card card-img support {{currentPlayer.deck.activeStrengthCard.symbol}} {{currentPlayer.deck.activeStrengthCard.id}} strength-{{currentPlayer.deck.activeStrengthCard.strength}}">
+                    <div ng-repeat="t in [].constructor(currentPlayer.playStrength - currentPlayer.deck.activeStrengthCard.strength) track by $index" title="indian" class="item"><i class="sprite indian"></i></div>
+                  </div>
+                  <div title="{{currentPlayer.deck.activeCard.name}}: {{currentPlayer.deck.activeCard.description}}" ng-click="viewCard(currentPlayer.deck.activeCard)" class="held-card card-img relative {{currentPlayer.deck.activeCard.symbol}} {{currentPlayer.deck.activeCard.id}}"></div>
+                  <h3>Card-Abilities</h3>
+                  <div class="abilities">
+                    <div ng-repeat="ability in currentPlayer.deck.activeCard.abilities track by $index" ng-click="useAbility($index, ability)" class="ability">
+                      <p>{{ability.short}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div ng-if="state == &quot;recruit&quot;" class="journal">
+              <h3>Recruit for the team:</h3>
+              <div class="cards">
+                <div ng-repeat="card in journal | limitTo: 5" ng-click="recruitThisCard(card)" title="{{userTurn() ? card.name + &quot;: &quot; + card.description : &quot;&quot;}}" class="card-img {{card.symbol}} {{card.id}} strength-{{card.strength}}  recruit-card"></div>
+              </div>
+            </div>
+            <div ng-if="state == &quot;recruitPayment&quot;">
+              <h3>Payment for new Recruit?</h3>
+              <div class="flex-holder">
+                <div class="double">
+                  <div class="cards">
+                    <div ng-repeat="card in currentPlayer.deck.heldCards track by card.id" ng-click="recruitPayment(card)" title="{{userTurn() ? card.name + &quot;: &quot; + card.description : &quot;&quot;}}" class="card-img {{card.symbol}} {{card.id}} strength-{{card.strength}} {{userTurn() ? &quot;&quot; : &quot;support&quot;}} held-card"></div>
+                  </div>
+                  <div ng-show="currentPlayer.corp.count(&quot;equipment&quot;) &gt;= recruitCard.strength" ng-click="recruitPayment()" class="btn btn-info">Use {{recruitCard.strength}} equipment</div>
+                </div>
+                <div class="half active-card">
+                  <h3>New Recruit:</h3>
+                  <div title="{{recruitCard.name}}: {{recruitCard.description}}" class="held-card card-img {{recruitCard.symbol}} {{recruitCard.id}}"></div>
+                  <div class="div">&nbsp;</div>
+                </div>
+              </div>
+            </div>
+            <div ng-if="state == &quot;board&quot;">
+              <h3>Board Spaces:</h3>
+              <div class="board-spaces-container">
+                <div ng-repeat="space in boardSpaces track by $index" ng-click="clickBoardSpace(space)" title="{{space.description}}" ng-drop="space.content.length &lt; space.max &amp;&amp; validIndianDrop(true) &amp;&amp; userTurn() &amp;&amp; !currentPlayer.takenMainAction" ng-drop-success="addEvent(space.event)" class="board-space {{space.class}}">
+                  <div ng-show="space.content.length &lt;= 2" class="content">
+                    <div ng-repeat="item in space.content track by $index" title="{{item.display}}" class="item text-{{item.btnClass}}"><i class="sprite symbol indian"></i></div>
+                  </div>
+                  <div ng-show="space.content.length &gt; 2" class="content">
+                    <div class="item"><i class="sprite symbol indian"></i>&times; {{space.content.length}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div ng-if="state == &quot;boardAbility&quot;">
+              <h3>Choose which ability to use:</h3>
+              <div class="choose-ability-container">
+                <div class="cards">
+                  <div ng-repeat="card in getFaceUpPlayedCards()" ng-click="useFaceUpAbility(card)" title="{{userTurn() ? card.name + &quot;: &quot; + card.description : &quot;&quot;}}" class="card-img {{card.symbol}} {{card.id}} strength-{{card.strength}} {{userTurn() ? &quot;&quot; : &quot;support&quot;}} held-card"></div>
+                </div>
+              </div>
+            </div>
+            <div ng-if="state == &quot;collectHorse&quot;">
+              <h3>Pay for Horse(s)</h3>
+              <div ng-disabled="horseCollectionCount() &lt; 0" ng-click="addEvent(&quot;collectHorses&quot;)" class="btn btn-info">{{horseCollectionText()}}</div>
+              <div class="horse-payment-space"></div>
+              <div class="corp-boats">
+                <div ng-drop="userTurn() &amp;&amp; (validIndianDrop(true) || validSupplyDrop())" ng-drop-success="dropHorsePayment($data)" class="horse-collect-boat">
+                  <div class="content">
+                    <div title="indian" class="item"><i class="sprite indian"></i></div>
+                    <div ng-repeat="item in horsePayment.content track by $index" title="{{item.display}}" ng-drag="userTurn()" ng-drag-data="item" ng-drag-success="dragHorseSuccess($resolve, $index)" class="item text-{{item.btnClass}}"><i class="sprite {{item.name}}"></i></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div ng-if="state == &quot;collectCanoe&quot;">
+              <h3>Pay for Canoe(s)</h3>
+              <div ng-disabled="canoeCollectionCount() &lt; 0" ng-click="addEvent(&quot;collectCanoes&quot;)" class="btn btn-info">{{canoeCollectionText()}}</div>
+              <div class="canoe-payment-space"></div>
+              <div class="corp-boats">
+                <div ng-drop="userTurn() &amp;&amp; (validIndianDrop(true) || validSupplyDrop())" ng-drop-success="dropCanoePayment($data)" class="canoe-collect-boat">
+                  <div class="content">
+                    <div title="indian" class="item"><i class="sprite indian"></i></div>
+                    <div ng-repeat="item in canoePayment.content track by $index" title="{{item.display}}" ng-drag="userTurn()" ng-drag-data="item" ng-drag-success="dragCanoeSuccess($resolve, $index)" class="item text-{{item.btnClass}}"><i class="sprite {{item.name}}"></i></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div ng-if="state == &quot;faceUpAbility&quot;">
+              <h3>Choose an action from the card</h3>
+              <div title="{{special.abilityCard.name}}: {{special.abilityCard.description}}" ng-click="viewCard(special.abilityCard)" class="held-card card-img {{special.abilityCard.symbol}} {{special.abilityCard.id}}"></div>
+              <h3>Card-Abilities</h3>
+              <div class="abilities">
+                <div ng-repeat="ability in special.abilityCard.abilities track by $index" ng-click="useFaceUpCardAbility($index, ability)" class="ability">
+                  <p>{{ability.short}}</p>
+                </div>
+              </div>
+            </div>
+            <div ng-if="state == &quot;boats&quot;">
+              <h3>Choose a boat:</h3>
+              <div class="choose-boats-container">
+                <div ng-repeat="boat in chooseBoats track by $index" class="holder">
+                  <div ng-click="chooseBoat(boat.type, boat.size)" class="boat {{boat.type}} {{boat.size}}"></div>
+                  <div class="description"> 
+                    <p>{{boat.description}}</p>
+                    <h4>Bonus:</h4>
+                    <p>{{boat.bonus}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div ng-if="state == &quot;trash&quot;">
+              <h3>Trash up to 3 cards:</h3>
+              <div class="cards">
+                <div ng-repeat="card in currentPlayer.deck.heldCards track by card.id" ng-click="trash(card)" title="{{userTurn() ? card.name + &quot;: &quot; + card.description : &quot;&quot;}}" class="card-img {{card.symbol}} {{card.id}} strength-{{card.strength}} {{userTurn() ? &quot;&quot; : &quot;support&quot;}} held-card"></div>
+              </div>
+            </div>
+            <div ng-if="state == &quot;win&quot;">
+              <h3>{{currentPlayer.name}} is the winner!</h3>
+            </div>
+          </div>
+        </div>
+        <div class="stage-right">
+          <div class="btn-list">
+            <button ng-click="addEvent(&quot;camp&quot;)" ng-disabled="!userTurn() || !currentPlayer.notCamped" class="btn btn-sm btn-success">Camp</button>
+            <button ng-click="viewRecruit()" class="btn btn-sm btn-info">{{state == 'recruit' && userTurn() ? 'Go Back' : 'Recruit'}}</button>
+            <button ng-click="viewBoard()" class="btn btn-sm btn-primary">{{state == 'board' && userTurn() ? 'Go Back' : 'Board'}}</button>
+          </div>
+          <h3>Your Hand</h3>
+          <div class="cards">
+            <div ng-repeat="card in user.deck.heldCards track by card.id" ng-click="viewCard(card)" title="{{card.name}}: {{card.description}}" class="card-img small {{card.symbol}} {{card.id}} strength-{{card.strength}} played held-card"></div>
+          </div>
+          <h3>Cards in Play</h3>
+          <div class="cards">
+            <div ng-repeat="card in user.deck.playedCards track by card.id" ng-click="viewCard(card)" title="{{card.name}}: {{card.description}}" class="card-img small {{card.symbol}} {{card.id}} strength-{{card.strength}} played played-card"></div>
+          </div>
+        </div>
+      </div>
+      <div ng-show="currentPlayer" style="left: {{user.corp.corpSize}}" class="current-user-corp">
+        <div class="corp-boats">
+          <div ng-repeat="boat in user.corp.supplyBoats" title="Max: {{boat.capacity}} Days: {{boat.cost()}}" class="boat {{boat.style}}">
+            <div ng-drop="boat.content.length &lt; boat.capacity &amp;&amp; validSupplyDrop()" ng-drop-success="dropBoatSuccess(boat, $data)" class="content {{boat.capacity &gt; 4 ? &quot;big&quot; : &quot;small&quot;}}">
+              <div ng-repeat="item in boat.content track by $index" ng-drag="true" ng-drag-data="item" ng-drag-success="dragBoatSuccess($resolve, boat, $index)" title="{{item.display}}" class="item text-{{item.btnClass}}"><i class="sprite {{item.name}}"></i></div>
+            </div>
+          </div>
+          <div ng-repeat="boat in user.corp.indianBoats" title="Cost: {{boat.cost()}} Size: {{boat.content.length}}" class="boat {{boat.style}}">
+            <div ng-drop="boat.content.length &lt; boat.capacity &amp;&amp; validIndianDrop()" ng-drop-success="dropBoatSuccess(boat, $data)" class="content {{boat.capacity &gt; 4 ? &quot;big&quot; : &quot;small&quot;}} {{boat.content.length &gt; 12 ? &quot;tight&quot; : &quot;&quot;}}">
+              <div ng-repeat="item in boat.content track by $index" ng-drag="true" ng-drag-data="item" ng-drag-success="dragBoatSuccess($resolve, boat, $index)" title="{{item.display}}{{item.inUse ? &quot;: currently in use&quot; : &quot;&quot;}}" class="item text-{{item.btnClass}}"><i class="sprite symbol indian {{item.inUse ? &quot;used&quot; : &quot;&quot;}}"></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="inc/lib.js"></script>
+    <script src="inc/main.js"></script>
+    <script id="viewcardModal" type="text/ng-template">
+      <div class="modal-header">
+        <div ng-click="cancel()" class="close">&times;</div>
+        <h3>{{card.name}}</h3>
+      </div>
+      <div class="modal-body card-modal-body">
+        <div title="{{card.name}}: {{card.description}}" class="card-img large {{card.symbol}} {{card.id}} held-card"></div>
+        <div class="card-information">
+          <h4>Name: {{card.name}}</h4>
+          <h4>Symbol: {{card.symbol}}</h4>
+          <h4>Strength: {{card.strength}}</h4>
+          <h4>Description:</h4>
+          <p>{{card.description}}</p>
+          <h4 ng-show="card.story">Story:</h4>
+          <p>{{card.story}}</p>
+        </div>
+      </div>
+    </script>
+    <script id="viewplayerModal" type="text/ng-template">
+      <div class="modal-header">
+        <div ng-click="cancel()" class="close">&times;</div>
+        <h3 class="marker {{player.color}}">{{player.name}}</h3>
+      </div>
+      <div class="modal-body">
+        <div class="flex-holder">
+          <div class="double">
+            <div style="background-color:{{player.color}}" class="player-heading"><span class="badge">{{player.idx}}</span>{{player.name}}<i ng-repeat="card in player.deck.playedCards track by card.id" class="sprite symbol {{card.symbol}}"></i></div>
+            <div class="flex-holder">
+              <div class="half">
+                <h6>Supplies:</h6>
+                <div class="corp-boats">
+                  <div ng-repeat="boat in player.corp.supplyBoats" class="collect-boat">Days: {{boat.cost()}} Max: {{boat.capacity}}
+                    <div class="content">
+                      <div ng-repeat="item in boat.content track by $index" title="{{item.display}}" class="item text-{{item.btnClass}}"><i class="sprite {{item.name}}"></i></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="half">
+                <h6>Indians:</h6>
+                <div class="corp-boats">
+                  <div ng-repeat="boat in player.corp.indianBoats" class="collect-boat">Days: {{boat.cost()}} Max: {{boat.capacity < 5 ? boat.capacity : "&infin;"}}
+                    <div class="content">
+                      <div ng-repeat="item in boat.content track by $index" title="{{item.display}}{{item.inUse ? &quot;: currently in use&quot; : &quot;&quot;}}" class="item text-{{item.btnClass}}"><i class="sprite symbol indian {{item.inUse ? &quot;used&quot; : &quot;&quot;}}"></i></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="half">
+            <h3>Cards in Play</h3>
+            <div class="cards">
+              <div ng-repeat="card in player.deck.playedCards track by card.id" ng-click="card.support ? &quot;&quot; : viewCard(card)" title="{{card.support ? &quot;&quot; : card.name + &quot;: &quot; + card.description}}" class="card-img small {{card.symbol}} {{card.id}} strength-{{card.strength}} {{card.support ? &quot;support&quot; : &quot;&quot;}} played-card"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </script>
+    <script id="viewrecruitModal" type="text/ng-template">
+      <div class="journal">
+        <div class="modal-header">
+          <div ng-click="cancel()" class="close">&times;</div>
+          <h3>Recruits from Journal:</h3>
+        </div>
+        <div class="modal-body">
+          <div class="cards">
+            <div ng-repeat="card in journal | limitTo: 5" ng-click="viewCard(card)" title="{{userTurn() ? card.name + &quot;: &quot; + card.description : &quot;&quot;}}" class="card-img {{card.symbol}} {{card.id}} strength-{{card.strength}}  recruit-card"></div>
+          </div>
+        </div>
+      </div>
+    </script>
+    <script id="viewboardModal" type="text/ng-template">
+      <div class="modal-header">
+        <div ng-click="cancel()" class="close">&times;</div>
+        <h3>Current state of the Board:</h3>
+      </div>
+      <div class="modal-body">
+        <div ng-if="true">
+          <h3>Board Spaces:</h3>
+          <div class="board-spaces-container">
+            <div ng-repeat="space in boardSpaces track by $index" ng-click="clickBoardSpace(space)" title="{{space.description}}" ng-drop="false" ng-drop-success="addEvent(space.event)" class="board-space {{space.class}}">
+              <div ng-show="space.content.length &lt;= 2" class="content">
+                <div ng-repeat="item in space.content track by $index" title="{{item.display}}" class="item text-{{item.btnClass}}"><i class="sprite symbol indian"></i></div>
+              </div>
+              <div ng-show="space.content.length &gt; 2" class="content">
+                <div class="item"><i class="sprite symbol indian"></i>&times; {{space.content.length}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </script>
+    <div class="picture-box hidden"><img src="./img/all-cards.png"><img src="./img/all-cards-sm.png"><img src="./img/all-cards-md.png"><img src="./img/corp-medium.jpg"><img src="./img/corp-medium-full.jpg"><img src="./img/journal-medium.jpg"><img src="./img/board-spaces.jpg"></div>
+  </body>
+</html>
+<!--		| <script src="inc/lib.js"></script><script src="inc/main.js"></script>-->
