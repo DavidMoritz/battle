@@ -1,1 +1,3 @@
-/* delete */
+lib
+node_modules
+dist
