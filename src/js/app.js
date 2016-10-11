@@ -5,7 +5,7 @@ mainApp.config(() => {
 		apiKey: 'AIzaSyD6S7XI77nZX1yabhWapmLggdykUnJxwH8',
 		authDomain: 'battle-74684.firebaseapp.com',
 		databaseURL: 'https://battle-74684.firebaseio.com',
-		storageBucket: 'battle-74684.appspot.com'
+		storageBucket: 'gs://battle-74684.appspot.com'
 	};
 	firebase.initializeApp(config);
 });
