@@ -1,4 +1,5 @@
 include utils/mixins
+include utils/main-content
 
 doctype html
 html(ng-app='mainApp')
@@ -16,12 +17,7 @@ html(ng-app='mainApp')
 				.center-stage
 					+notify()
 					.main-content
-						h3 Message List:
-						ul.well
-							li(ng-repeat='message in chatList track by $index') {{message.user}}: {{message.text}}
-						form(name='chatWindow' ng-submit='submitChat()')
-							input.form-control(ng-model='ff.chat' placeholder='respond to chat')
-							button(ng-hide='true' type='submit')
+						+joinGame()
 				.stage-right
 			.current-user-cards
 		script(src='inc/lib.js')
