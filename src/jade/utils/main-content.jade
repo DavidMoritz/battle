@@ -1,0 +1,14 @@
+mixin joinGame()
+	.pre-game.row(ng-if='state == "joinGame"')
+		+col(6)
+			h3 Choose a game:
+			.btn.btn-info(ng-show='currentUser' ng-repeat='game in joinableGames track by $index' ng-click='joinActiveGame(game)') {{game.name}}
+			h3 Or create a new one:
+			.btn.btn-success(ng-click='createNewGame()') Create new game
+		+col(6)
+			h3 Message List:
+			ul.well
+				li(ng-repeat='message in chatList track by $index') {{message.user}}: {{message.text}}
+			form(name='chatWindow' ng-submit='submitChat()')
+				input.form-control(ng-model='ff.chat' placeholder='respond to chat')
+				button(ng-hide='true' type='submit')
