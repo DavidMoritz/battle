@@ -69,9 +69,6 @@ mainApp.factory('ClassFactory', [
 						});
 					});
 				}
-				optimize() {
-					// do something here to move all the supplies & indians to their ideal positions
-				}
 				count(countItem) {
 					var count = 0;
 
@@ -309,9 +306,7 @@ mainApp.factory('ClassFactory', [
 				}
 			},
 
-			User: class User {
-				constructor() {}
-			}
+			User: class User {}
 		};
 
 		return ClassFactory;

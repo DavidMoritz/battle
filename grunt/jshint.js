@@ -7,7 +7,7 @@ module.exports = function exportJshint(grunt) {
 		all: [
 			'src/**/*.js',
 			'grunt/**/*.js',
-			'!src/external/**/*'
+			'!src/html/**/*'
 		]
 	});
 

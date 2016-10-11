@@ -384,7 +384,6 @@ mainApp.controller('MainCtrl', [
 			// when push event is confirmed in database
 			activeGame.events.push(event);
 			activeGame.$save().then(resolve);
-
 		};
 
 		$s.createNewGame = () => {
