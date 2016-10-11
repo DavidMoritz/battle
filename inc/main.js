@@ -45,14 +45,36 @@ mainApp.controller('MainCtrl', [
 			});
 		}
 
+		function restartTurn() {
+			// this is not working.
+			var id = $s.activeGame.id;
+			$s.currentPlayer = null;
+			$s.allPlayers = [];
+			$s.activeGame = {};
+			$s.restartTurn = false;
+			$s.joinActiveGame({id: id});
+		}
+
+		function updateGame() {
+			if ($s.restartTurn) {
+				restartTurn();
+			} else if ($s.eventTracker < $s.activeGame.events.length) {
+				$s.activeGame.events.reduce(prevEvent => {
+					return prevEvent.then(() => {
+						return runEvent(++$s.eventTracker);
+					}, () => $s);
+				}, runEvent($s.eventTracker));
+			}
+		}
+
 		_.assign($s, {
+			state: 'welcome',
 			allPlayers: [],
 			chatList: [],
+			activeGame: {},
+			eventTracker: 0,
 			ff: {
 				gameName: 'newGame'
-			},
-			currentUser: {
-				firstName: 'David'
 			}
 		});
 
@@ -78,6 +100,49 @@ mainApp.controller('MainCtrl', [
 			latestChat.text = $s.ff.chat;
 			latestChat.$save();
 			$s.ff.chat = '';
+		};
+
+		$s.createNewGame = () => {
+			var rand = Math.random().toString(36).substring(2, 10);
+			allGames.$ref().update({[rand]: {
+				id: rand,
+				//name: $s.ff.gameName,
+				name: `${$s.currentUser.firstName}'s Game`,
+				timestamp: new Date().getTime(),
+				events: [{
+					name: 'gameCreated'
+				}],
+				hostId: $s.currentUser.uid,
+				active: false,
+				public: true
+			}}, () => {
+				$s.joinActiveGame({id: rand});
+			});
+		};
+
+		$s.joinActiveGame = game => {
+			if ($s.activeGame.id || !$s.currentUser) {
+				return;
+			}
+
+			var activeGame = FF.getFBObject(`allGames/${game.id}`);
+			activeGame.$bindTo($s, 'activeGame');
+
+			activeGame.$loaded(() => {
+				if (!$s.activeGame.playerIds) {
+					$s.activeGame.playerIds = [];
+					$s.activeGame.playerNames = [];
+				}
+
+				if ($s.activeGame.playerIds.indexOf($s.currentUser.uid) === -1) {
+					$s.activeGame.playerIds.push($s.currentUser.uid);
+					$s.activeGame.playerNames.push($s.currentUser.name);
+				}
+				$s.eventTracker = 0;
+				$s.$watch('activeGame.events', updateGame);
+				$s.$watch('activeGame.cursor', updateCursor);
+			});
+			stopChat();
 		};
 
 		$s.fbLogin = () => {
@@ -128,7 +193,12 @@ mainApp.controller('MainCtrl', [
 		};
 
 		// grab all the games and make sure Firebase is working!
-		listenToChat();
+		window.allGames = FF.getFBObject('allGames');
+		allGames.$bindTo($s, 'allGames');
+		allGames.$loaded(() => {
+			$('body').addClass('facebook-available');
+			listenToChat();
+		});
 	}
 ]);
 mainApp.factory('FirebaseFactory', [

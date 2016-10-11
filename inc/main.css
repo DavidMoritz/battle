@@ -6564,653 +6564,329 @@ input {
   padding: 2px 5px;
   font-size: 10px;
 }.card-img {
-  width: 140px;
-  height: 185px;
-  background-image: url(../img/all-cards.png);
+  width: 89px;
+  height: 125px;
+  background-image: url(../img/z-cards.png);
 }.card-img.small {
-  width: 70px;
-  height: 92.5px;
-  background-image: url(../img/all-cards-sm.png);
+  width: 44px;
+  height: 62px;
+  background-image: url(../img/z-cards-sm.png);
 }.card-img.large {
-  width: 173px;
-  height: 237px;
-  background-image: url(../img/all-cards-md.png);
-}.card-img.SP11 {
-  background-position: -16px -209px;
-}.card-img.SP11.small {
-  background-position: -9px -106px;
-}.card-img.SP11.large {
-  background-position: -22.77px -268.18px;
-}.card-img.SP12 {
-  background-position: -157px -209px;
-}.card-img.SP12.small {
-  background-position: -79.5px -106px;
-}.card-img.SP12.large {
-  background-position: -201.135px -268.18px;
-}.card-img.SP13 {
-  background-position: -299px -208px;
-}.card-img.SP13.small {
-  background-position: -150.5px -105.5px;
-}.card-img.SP13.large {
-  background-position: -380.765px -266.915px;
-}.card-img.SP14 {
-  background-position: -438px -208px;
-}.card-img.SP14.small {
-  background-position: -220px -105.5px;
-}.card-img.SP14.large {
-  background-position: -556.6px -266.915px;
-}.card-img.SP15 {
-  background-position: -586px -207px;
-}.card-img.SP15.small {
-  background-position: -294px -105px;
-}.card-img.SP15.large {
-  background-position: -743.82px -265.65px;
-}.card-img.SP16 {
-  background-position: -726px -207px;
-}.card-img.SP16.small {
-  background-position: -364px -105px;
-}.card-img.SP16.large {
-  background-position: -920.92px -265.65px;
-}.card-img.SP21 {
-  background-position: -19px -404px;
-}.card-img.SP21.small {
-  background-position: -10.5px -203.5px;
-}.card-img.SP21.large {
-  background-position: -26.565px -514.855px;
-}.card-img.SP22 {
-  background-position: -159px -403px;
-}.card-img.SP22.small {
-  background-position: -80.5px -203px;
-}.card-img.SP22.large {
-  background-position: -203.665px -513.59px;
-}.card-img.SP23 {
-  background-position: -294px -403px;
-}.card-img.SP23.small {
-  background-position: -148px -203px;
-}.card-img.SP23.large {
-  background-position: -374.44px -513.59px;
-}.card-img.SP24 {
-  background-position: -435px -401px;
-}.card-img.SP24.small {
-  background-position: -218.5px -202px;
-}.card-img.SP24.large {
-  background-position: -552.805px -511.06px;
-}.card-img.SP25 {
-  background-position: -587px -400px;
-}.card-img.SP25.small {
-  background-position: -294.5px -201.5px;
-}.card-img.SP25.large {
-  background-position: -745.085px -509.795px;
-}.card-img.SP26 {
-  background-position: -722px -398px;
-}.card-img.SP26.small {
-  background-position: -362px -200.5px;
-}.card-img.SP26.large {
-  background-position: -915.86px -507.265px;
-}.card-img.SP31 {
-  background-position: -16px -601px;
-}.card-img.SP31.small {
-  background-position: -9px -302px;
-}.card-img.SP31.large {
-  background-position: -22.77px -764.06px;
-}.card-img.SP32 {
-  background-position: -156px -601px;
-}.card-img.SP32.small {
-  background-position: -79px -302px;
-}.card-img.SP32.large {
-  background-position: -199.87px -764.06px;
-}.card-img.SP33 {
-  background-position: -297px -601px;
-}.card-img.SP33.small {
-  background-position: -149.5px -302px;
-}.card-img.SP33.large {
-  background-position: -378.235px -764.06px;
-}.card-img.SP34 {
-  background-position: -437px -601px;
-}.card-img.SP34.small {
-  background-position: -219.5px -302px;
-}.card-img.SP34.large {
-  background-position: -555.335px -764.06px;
-}.card-img.SP35 {
-  background-position: -597px -603px;
-}.card-img.SP35.small {
-  background-position: -299.5px -303px;
-}.card-img.SP35.large {
-  background-position: -757.735px -766.59px;
-}.card-img.SP36 {
-  background-position: -737px -604px;
-}.card-img.SP36.small {
-  background-position: -369.5px -303.5px;
-}.card-img.SP36.large {
-  background-position: -934.835px -767.855px;
-}.card-img.SP41 {
-  background-position: -17px -799px;
-}.card-img.SP41.small {
-  background-position: -9.5px -401px;
-}.card-img.SP41.large {
-  background-position: -24.035px -1014.53px;
-}.card-img.SP42 {
-  background-position: -158px -800px;
-}.card-img.SP42.small {
-  background-position: -80px -401.5px;
-}.card-img.SP42.large {
-  background-position: -202.4px -1015.795px;
-}.card-img.SP43 {
-  background-position: -298px -800px;
-}.card-img.SP43.small {
-  background-position: -150px -401.5px;
-}.card-img.SP43.large {
-  background-position: -379.5px -1015.795px;
-}.card-img.SP44 {
-  background-position: -437px -800px;
-}.card-img.SP44.small {
-  background-position: -219.5px -401.5px;
-}.card-img.SP44.large {
-  background-position: -555.335px -1015.795px;
-}.card-img.SP45 {
-  background-position: -598px -800px;
-}.card-img.SP45.small {
-  background-position: -300px -401.5px;
-}.card-img.SP45.large {
-  background-position: -759px -1015.795px;
-}.card-img.SP46 {
-  background-position: -739px -799px;
-}.card-img.SP46.small {
-  background-position: -370.5px -401px;
-}.card-img.SP46.large {
-  background-position: -937.365px -1014.53px;
-}.card-img.SP51 {
-  background-position: -20px -1003px;
-}.card-img.SP51.small {
-  background-position: -11px -503px;
-}.card-img.SP51.large {
-  background-position: -27.83px -1272.59px;
-}.card-img.SP52 {
-  background-position: -161px -1002px;
-}.card-img.SP52.small {
-  background-position: -81.5px -502.5px;
-}.card-img.SP52.large {
-  background-position: -206.195px -1271.325px;
-}.card-img.SP53 {
-  background-position: -304px -1002px;
-}.card-img.SP53.small {
-  background-position: -153px -502.5px;
-}.card-img.SP53.large {
-  background-position: -387.09px -1271.325px;
-}.card-img.SP54 {
-  background-position: -444px -1002px;
-}.card-img.SP54.small {
-  background-position: -223px -502.5px;
-}.card-img.SP54.large {
-  background-position: -564.19px -1271.325px;
-}.card-img.SP55 {
-  background-position: -596px -1000px;
-}.card-img.SP55.small {
-  background-position: -299px -501.5px;
-}.card-img.SP55.large {
-  background-position: -756.47px -1268.795px;
-}.card-img.SP56 {
-  background-position: -738px -1001px;
-}.card-img.SP56.small {
-  background-position: -370px -502px;
-}.card-img.SP56.large {
-  background-position: -936.1px -1270.06px;
-}.card-img.JC01 {
-  background-position: -21px -1201px;
-}.card-img.JC01.small {
-  background-position: -11.5px -602px;
-}.card-img.JC01.large {
-  background-position: -29.095px -1523.06px;
-}.card-img.JC02 {
-  background-position: -162px -1203px;
-}.card-img.JC02.small {
-  background-position: -82px -603px;
-}.card-img.JC02.large {
-  background-position: -207.46px -1525.59px;
-}.card-img.JC03 {
-  background-position: -298px -1205px;
-}.card-img.JC03.small {
-  background-position: -150px -604px;
-}.card-img.JC03.large {
-  background-position: -379.5px -1528.12px;
-}.card-img.JC04 {
-  background-position: -442px -1205px;
-}.card-img.JC04.small {
-  background-position: -222px -604px;
-}.card-img.JC04.large {
-  background-position: -561.66px -1528.12px;
-}.card-img.JC05 {
-  background-position: -591px -1204px;
-}.card-img.JC05.small {
-  background-position: -296.5px -603.5px;
-}.card-img.JC05.large {
-  background-position: -750.145px -1526.855px;
-}.card-img.JC06 {
-  background-position: -732px -1203px;
-}.card-img.JC06.small {
-  background-position: -367px -603px;
-}.card-img.JC06.large {
-  background-position: -928.51px -1525.59px;
-}.card-img.JC07 {
-  background-position: -873px -1203px;
-}.card-img.JC07.small {
-  background-position: -437.5px -603px;
-}.card-img.JC07.large {
-  background-position: -1106.875px -1525.59px;
-}.card-img.JC08 {
-  background-position: -1009px -1201px;
-}.card-img.JC08.small {
-  background-position: -505.5px -602px;
-}.card-img.JC08.large {
-  background-position: -1278.915px -1523.06px;
-}.card-img.JC09 {
-  background-position: -23px -1401px;
-}.card-img.JC09.small {
-  background-position: -12.5px -702px;
-}.card-img.JC09.large {
-  background-position: -31.625px -1776.06px;
-}.card-img.JC10 {
-  background-position: -162px -1400px;
-}.card-img.JC10.small {
-  background-position: -82px -701.5px;
-}.card-img.JC10.large {
-  background-position: -207.46px -1774.795px;
-}.card-img.JC11 {
-  background-position: -299px -1400px;
-}.card-img.JC11.small {
-  background-position: -150.5px -701.5px;
-}.card-img.JC11.large {
-  background-position: -380.765px -1774.795px;
-}.card-img.JC12 {
-  background-position: -441px -1400px;
-}.card-img.JC12.small {
-  background-position: -221.5px -701.5px;
-}.card-img.JC12.large {
-  background-position: -560.395px -1774.795px;
-}.card-img.JC13 {
-  background-position: -592px -1403px;
-}.card-img.JC13.small {
-  background-position: -297px -703px;
-}.card-img.JC13.large {
-  background-position: -751.41px -1778.59px;
-}.card-img.JC14 {
-  background-position: -735px -1402px;
-}.card-img.JC14.small {
-  background-position: -368.5px -702.5px;
-}.card-img.JC14.large {
-  background-position: -932.305px -1777.325px;
-}.card-img.JC15 {
-  background-position: -876px -1403px;
-}.card-img.JC15.small {
-  background-position: -439px -703px;
-}.card-img.JC15.large {
-  background-position: -1110.67px -1778.59px;
-}.card-img.JC16 {
-  background-position: -1015px -1402px;
-}.card-img.JC16.small {
-  background-position: -508.5px -702.5px;
-}.card-img.JC16.large {
-  background-position: -1286.505px -1777.325px;
-}.card-img.JC17 {
-  background-position: -16px -1601px;
-}.card-img.JC17.small {
-  background-position: -9px -802px;
-}.card-img.JC17.large {
-  background-position: -22.77px -2029.06px;
-}.card-img.JC18 {
-  background-position: -156px -1601px;
-}.card-img.JC18.small {
-  background-position: -79px -802px;
-}.card-img.JC18.large {
-  background-position: -199.87px -2029.06px;
-}.card-img.JC19 {
-  background-position: -300px -1600px;
-}.card-img.JC19.small {
-  background-position: -151px -801.5px;
-}.card-img.JC19.large {
-  background-position: -382.03px -2027.795px;
-}.card-img.JC20 {
-  background-position: -442px -1600px;
-}.card-img.JC20.small {
-  background-position: -222px -801.5px;
-}.card-img.JC20.large {
-  background-position: -561.66px -2027.795px;
-}.card-img.JC21 {
-  background-position: -589px -1604px;
-}.card-img.JC21.small {
-  background-position: -295.5px -803.5px;
-}.card-img.JC21.large {
-  background-position: -747.615px -2032.855px;
-}.card-img.JC22 {
-  background-position: -732px -1604px;
-}.card-img.JC22.small {
-  background-position: -367px -803.5px;
-}.card-img.JC22.large {
-  background-position: -928.51px -2032.855px;
-}.card-img.JC23 {
-  background-position: -873px -1605px;
-}.card-img.JC23.small {
-  background-position: -437.5px -804px;
-}.card-img.JC23.large {
-  background-position: -1106.875px -2034.12px;
-}.card-img.JC24 {
-  background-position: -1012px -1604px;
-}.card-img.JC24.small {
-  background-position: -507px -803.5px;
-}.card-img.JC24.large {
-  background-position: -1282.71px -2032.855px;
-}.card-img.JC25 {
-  background-position: -16px -1803px;
-}.card-img.JC25.small {
-  background-position: -9px -903px;
-}.card-img.JC25.large {
-  background-position: -22.77px -2284.59px;
-}.card-img.JC26 {
-  background-position: -157px -1803px;
-}.card-img.JC26.small {
-  background-position: -79.5px -903px;
-}.card-img.JC26.large {
-  background-position: -201.135px -2284.59px;
-}.card-img.JC27 {
-  background-position: -302px -1804px;
-}.card-img.JC27.small {
-  background-position: -152px -903.5px;
-}.card-img.JC27.large {
-  background-position: -384.56px -2285.855px;
-}.card-img.JC28 {
-  background-position: -442px -1804px;
-}.card-img.JC28.small {
-  background-position: -222px -903.5px;
-}.card-img.JC28.large {
-  background-position: -561.66px -2285.855px;
-}.card-img.JC29 {
-  background-position: -591px -1804px;
-}.card-img.JC29.small {
-  background-position: -296.5px -903.5px;
-}.card-img.JC29.large {
-  background-position: -750.145px -2285.855px;
-}.card-img.JC30 {
-  background-position: -734px -1803px;
-}.card-img.JC30.small {
-  background-position: -368px -903px;
-}.card-img.JC30.large {
-  background-position: -931.04px -2284.59px;
-}.card-img.JC31 {
-  background-position: -873px -1805px;
-}.card-img.JC31.small {
-  background-position: -437.5px -904px;
-}.card-img.JC31.large {
-  background-position: -1106.875px -2287.12px;
-}.card-img.JC32 {
-  background-position: -1007px -1803px;
-}.card-img.JC32.small {
-  background-position: -504.5px -903px;
-}.card-img.JC32.large {
-  background-position: -1276.385px -2284.59px;
-}.card-img.JC33 {
-  background-position: -593px -2000px;
-}.card-img.JC33.small {
-  background-position: -297.5px -1001.5px;
-}.card-img.JC33.large {
-  background-position: -752.675px -2533.795px;
-}.card-img.JC34 {
-  background-position: -736px -2000px;
-}.card-img.JC34.small {
-  background-position: -369px -1001.5px;
-}.card-img.JC34.large {
-  background-position: -933.57px -2533.795px;
-}.card-img.JC35 {
-  background-position: -877px -2000px;
-}.card-img.JC35.small {
-  background-position: -439.5px -1001.5px;
-}.card-img.JC35.large {
-  background-position: -1111.935px -2533.795px;
-}.card-img.JC36 {
-  background-position: -1015px -1999px;
-}.card-img.JC36.small {
-  background-position: -508.5px -1001px;
-}.card-img.JC36.large {
-  background-position: -1286.505px -2532.53px;
-}.card-img.JC37 {
-  background-position: -19px -2000px;
-}.card-img.JC37.small {
-  background-position: -10.5px -1001.5px;
-}.card-img.JC37.large {
-  background-position: -26.565px -2533.795px;
-}.card-img.JC38 {
-  background-position: -162px -2001px;
-}.card-img.JC38.small {
-  background-position: -82px -1002px;
-}.card-img.JC38.large {
-  background-position: -207.46px -2535.06px;
-}.card-img.JC39 {
-  background-position: -303px -2003px;
-}.card-img.JC39.small {
-  background-position: -152.5px -1003px;
-}.card-img.JC39.large {
-  background-position: -385.825px -2537.59px;
-}.card-img.JC40 {
-  background-position: -442px -2002px;
-}.card-img.JC40.small {
-  background-position: -222px -1002.5px;
-}.card-img.JC40.large {
-  background-position: -561.66px -2536.325px;
-}.card-img.JC41 {
-  background-position: -591px -2194px;
-}.card-img.JC41.small {
-  background-position: -296.5px -1098.5px;
-}.card-img.JC41.large {
-  background-position: -750.145px -2779.205px;
-}.card-img.JC42 {
-  background-position: -735px -2195px;
-}.card-img.JC42.small {
-  background-position: -368.5px -1099px;
-}.card-img.JC42.large {
-  background-position: -932.305px -2780.47px;
-}.card-img.JC43 {
-  background-position: -1018px -2195px;
-}.card-img.JC43.small {
-  background-position: -510px -1099px;
-}.card-img.JC43.large {
-  background-position: -1290.3px -2780.47px;
-}.card-img.JC44 {
-  background-position: -877px -2195px;
-}.card-img.JC44.small {
-  background-position: -439.5px -1099px;
-}.card-img.JC44.large {
-  background-position: -1111.935px -2780.47px;
-}.card-img.JC45 {
-  background-position: -20px -2198px;
-}.card-img.JC45.small {
-  background-position: -11px -1100.5px;
-}.card-img.JC45.large {
-  background-position: -27.83px -2784.265px;
-}.card-img.JC46 {
-  background-position: -161px -2198px;
-}.card-img.JC46.small {
-  background-position: -81.5px -1100.5px;
-}.card-img.JC46.large {
-  background-position: -206.195px -2784.265px;
-}.card-img.JC47 {
-  background-position: -298px -2200px;
-}.card-img.JC47.small {
-  background-position: -150px -1101.5px;
-}.card-img.JC47.large {
-  background-position: -379.5px -2786.795px;
-}.card-img.JC48 {
-  background-position: -442px -2201px;
-}.card-img.JC48.small {
-  background-position: -222px -1102px;
-}.card-img.JC48.large {
-  background-position: -561.66px -2788.06px;
-}.card-img.JC49 {
-  background-position: -16px -2394px;
-}.card-img.JC49.small {
-  background-position: -9px -1198.5px;
-}.card-img.JC49.large {
-  background-position: -22.77px -3032.205px;
-}.card-img.JC50 {
-  background-position: -161px -2394px;
-}.card-img.JC50.small {
-  background-position: -81.5px -1198.5px;
-}.card-img.JC50.large {
-  background-position: -206.195px -3032.205px;
-}.card-img.JC51 {
-  background-position: -302px -2394px;
-}.card-img.JC51.small {
-  background-position: -152px -1198.5px;
-}.card-img.JC51.large {
-  background-position: -384.56px -3032.205px;
-}.card-img.JC52 {
-  background-position: -441px -2394px;
-}.card-img.JC52.small {
-  background-position: -221.5px -1198.5px;
-}.card-img.JC52.large {
-  background-position: -560.395px -3032.205px;
-}.card-img.JC53 {
-  background-position: -590px -2393px;
-}.card-img.JC53.small {
-  background-position: -296px -1198px;
-}.card-img.JC53.large {
-  background-position: -748.88px -3030.94px;
-}.card-img.JC54 {
-  background-position: -735px -2393px;
-}.card-img.JC54.small {
-  background-position: -368.5px -1198px;
-}.card-img.JC54.large {
-  background-position: -932.305px -3030.94px;
-}.card-img.JC55 {
-  background-position: -19px -2595px;
-}.card-img.JC55.small {
-  background-position: -10.5px -1299px;
-}.card-img.JC55.large {
-  background-position: -26.565px -3286.47px;
-}.card-img.JC56 {
-  background-position: -163px -2593px;
-}.card-img.JC56.small {
-  background-position: -82.5px -1298px;
-}.card-img.JC56.large {
-  background-position: -208.725px -3283.94px;
-}.card-img.JC57 {
-  background-position: -304px -2591px;
-}.card-img.JC57.small {
-  background-position: -153px -1297px;
-}.card-img.JC57.large {
-  background-position: -387.09px -3281.41px;
-}.card-img.JC58 {
-  background-position: -441px -2591px;
-}.card-img.JC58.small {
-  background-position: -221.5px -1297px;
-}.card-img.JC58.large {
-  background-position: -560.395px -3281.41px;
-}.card-img.JC59 {
-  background-position: -594px -2596px;
-}.card-img.JC59.small {
-  background-position: -298px -1299.5px;
-}.card-img.JC59.large {
-  background-position: -753.94px -3287.735px;
-}.card-img.JC60 {
-  background-position: -738px -2593px;
-}.card-img.JC60.small {
-  background-position: -370px -1298px;
-}.card-img.JC60.large {
-  background-position: -936.1px -3283.94px;
-}.card-img.JC61 {
-  background-position: -877px -2594px;
-}.card-img.JC61.small {
-  background-position: -439.5px -1298.5px;
-}.card-img.JC61.large {
-  background-position: -1111.935px -3285.205px;
-}.card-img.JC62 {
-  background-position: -876px -2394px;
-}.card-img.JC62.small {
-  background-position: -439px -1198.5px;
-}.card-img.JC62.large {
-  background-position: -1110.67px -3032.205px;
-}.card-img.JC63 {
-  background-position: -1014px -2395px;
-}.card-img.JC63.small {
-  background-position: -508px -1199px;
-}.card-img.JC63.large {
-  background-position: -1285.24px -3033.47px;
-}.card-img.JC64 {
-  background-position: -881px -1003px;
-}.card-img.JC64.small {
-  background-position: -441.5px -503px;
-}.card-img.JC64.large {
-  background-position: -1116.995px -1272.59px;
-}.card-img.support.strength-1.wood {
-  background-position: -1005px -400px;
-}.card-img.support.strength-1.wood.small {
-  background-position: -503.5px -201.5px;
-}.card-img.support.strength-1.wood.large {
-  background-position: -1273.855px -509.795px;
-}.card-img.support.strength-1.meat {
-  background-position: -866px -207px;
-}.card-img.support.strength-1.meat.small {
-  background-position: -434px -105px;
-}.card-img.support.strength-1.meat.large {
-  background-position: -1098.02px -265.65px;
-}.card-img.support.strength-1.equipment {
-  background-position: -862px -401px;
-}.card-img.support.strength-1.equipment.small {
-  background-position: -432px -202px;
-}.card-img.support.strength-1.equipment.large {
-  background-position: -1092.96px -511.06px;
-}.card-img.support.strength-1.fur {
-  background-position: -1007px -208px;
-}.card-img.support.strength-1.fur.small {
-  background-position: -504.5px -105.5px;
-}.card-img.support.strength-1.fur.large {
-  background-position: -1276.385px -266.915px;
-}.card-img.support.strength-2.wood {
-  background-position: -878px -799px;
-}.card-img.support.strength-2.wood.small {
-  background-position: -440px -401px;
-}.card-img.support.strength-2.wood.large {
-  background-position: -1113.2px -1014.53px;
-}.card-img.support.strength-2.meat {
-  background-position: -1016px -603px;
-}.card-img.support.strength-2.meat.small {
-  background-position: -509px -303px;
-}.card-img.support.strength-2.meat.large {
-  background-position: -1287.77px -766.59px;
-}.card-img.support.strength-2.equipment {
-  background-position: -873px -604px;
-}.card-img.support.strength-2.equipment.small {
-  background-position: -437.5px -303.5px;
-}.card-img.support.strength-2.equipment.large {
-  background-position: -1106.875px -767.855px;
-}.card-img.support.strength-2.fur {
-  background-position: -1018px -800px;
-}.card-img.support.strength-2.fur.small {
-  background-position: -510px -401.5px;
-}.card-img.support.strength-2.fur.large {
-  background-position: -1290.3px -1015.795px;
-}.card-img.support.strength-3.wood {
-  background-position: -731px -2px;
-}.card-img.support.strength-3.wood.small {
-  background-position: -366.5px -2.5px;
-}.card-img.support.strength-3.wood.large {
-  background-position: -927.245px -6.325px;
-}.card-img.support.strength-3.meat {
-  background-position: -867px -5px;
-}.card-img.support.strength-3.meat.small {
-  background-position: -434.5px -4px;
-}.card-img.support.strength-3.meat.large {
-  background-position: -1099.285px -10.12px;
-}.card-img.support.strength-3.equipment {
-  background-position: -1008px -8px;
-}.card-img.support.strength-3.equipment.small {
-  background-position: -505px -5.5px;
-}.card-img.support.strength-3.equipment.large {
-  background-position: -1277.65px -13.915px;
-}.card-img.support.strength-3.fur {
-  background-position: -587px -6px;
-}.card-img.support.strength-3.fur.small {
-  background-position: -294.5px -4.5px;
-}.card-img.support.strength-3.fur.large {
-  background-position: -745.085px -11.385px;
+  width: 178px;
+  height: 251px;
+  background-image: url(../img/z-cards-lg.png);
+}.card-img.two.spades {
+  background-position: 99px -11px;
+}.card-img.two.spades.small {
+  background-position: 49px -5px;
+}.card-img.two.spades.large {
+  background-position: 198px -21px;
+}.card-img.two.clubs {
+  background-position: 99px -148px;
+}.card-img.two.clubs.small {
+  background-position: 49px -74px;
+}.card-img.two.clubs.large {
+  background-position: 198px -295px;
+}.card-img.two.diamonds {
+  background-position: 99px -287px;
+}.card-img.two.diamonds.small {
+  background-position: 49px -143px;
+}.card-img.two.diamonds.large {
+  background-position: 198px -573px;
+}.card-img.two.hearts {
+  background-position: 99px -426px;
+}.card-img.two.hearts.small {
+  background-position: 49px -213px;
+}.card-img.two.hearts.large {
+  background-position: 198px -851px;
+}.card-img.three.spades {
+  background-position: 189px -11px;
+}.card-img.three.spades.small {
+  background-position: 94px -5px;
+}.card-img.three.spades.large {
+  background-position: 378px -21px;
+}.card-img.three.clubs {
+  background-position: 189px -148px;
+}.card-img.three.clubs.small {
+  background-position: 94px -74px;
+}.card-img.three.clubs.large {
+  background-position: 378px -295px;
+}.card-img.three.diamonds {
+  background-position: 189px -287px;
+}.card-img.three.diamonds.small {
+  background-position: 94px -143px;
+}.card-img.three.diamonds.large {
+  background-position: 378px -573px;
+}.card-img.three.hearts {
+  background-position: 189px -426px;
+}.card-img.three.hearts.small {
+  background-position: 94px -213px;
+}.card-img.three.hearts.large {
+  background-position: 378px -851px;
+}.card-img.four.spades {
+  background-position: 279px -11px;
+}.card-img.four.spades.small {
+  background-position: 139px -5px;
+}.card-img.four.spades.large {
+  background-position: 558px -21px;
+}.card-img.four.clubs {
+  background-position: 279px -148px;
+}.card-img.four.clubs.small {
+  background-position: 139px -74px;
+}.card-img.four.clubs.large {
+  background-position: 558px -295px;
+}.card-img.four.diamonds {
+  background-position: 279px -287px;
+}.card-img.four.diamonds.small {
+  background-position: 139px -143px;
+}.card-img.four.diamonds.large {
+  background-position: 558px -573px;
+}.card-img.four.hearts {
+  background-position: 279px -426px;
+}.card-img.four.hearts.small {
+  background-position: 139px -213px;
+}.card-img.four.hearts.large {
+  background-position: 558px -851px;
+}.card-img.five.spades {
+  background-position: 369px -11px;
+}.card-img.five.spades.small {
+  background-position: 184px -5px;
+}.card-img.five.spades.large {
+  background-position: 738px -21px;
+}.card-img.five.clubs {
+  background-position: 369px -148px;
+}.card-img.five.clubs.small {
+  background-position: 184px -74px;
+}.card-img.five.clubs.large {
+  background-position: 738px -295px;
+}.card-img.five.diamonds {
+  background-position: 369px -287px;
+}.card-img.five.diamonds.small {
+  background-position: 184px -143px;
+}.card-img.five.diamonds.large {
+  background-position: 738px -573px;
+}.card-img.five.hearts {
+  background-position: 369px -426px;
+}.card-img.five.hearts.small {
+  background-position: 184px -213px;
+}.card-img.five.hearts.large {
+  background-position: 738px -851px;
+}.card-img.six.spades {
+  background-position: 459px -11px;
+}.card-img.six.spades.small {
+  background-position: 229px -5px;
+}.card-img.six.spades.large {
+  background-position: 918px -21px;
+}.card-img.six.clubs {
+  background-position: 459px -148px;
+}.card-img.six.clubs.small {
+  background-position: 229px -74px;
+}.card-img.six.clubs.large {
+  background-position: 918px -295px;
+}.card-img.six.diamonds {
+  background-position: 459px -287px;
+}.card-img.six.diamonds.small {
+  background-position: 229px -143px;
+}.card-img.six.diamonds.large {
+  background-position: 918px -573px;
+}.card-img.six.hearts {
+  background-position: 459px -426px;
+}.card-img.six.hearts.small {
+  background-position: 229px -213px;
+}.card-img.six.hearts.large {
+  background-position: 918px -851px;
+}.card-img.seven.spades {
+  background-position: 549px -11px;
+}.card-img.seven.spades.small {
+  background-position: 274px -5px;
+}.card-img.seven.spades.large {
+  background-position: 1098px -21px;
+}.card-img.seven.clubs {
+  background-position: 549px -148px;
+}.card-img.seven.clubs.small {
+  background-position: 274px -74px;
+}.card-img.seven.clubs.large {
+  background-position: 1098px -295px;
+}.card-img.seven.diamonds {
+  background-position: 549px -287px;
+}.card-img.seven.diamonds.small {
+  background-position: 274px -143px;
+}.card-img.seven.diamonds.large {
+  background-position: 1098px -573px;
+}.card-img.seven.hearts {
+  background-position: 549px -426px;
+}.card-img.seven.hearts.small {
+  background-position: 274px -213px;
+}.card-img.seven.hearts.large {
+  background-position: 1098px -851px;
+}.card-img.eight.spades {
+  background-position: 639px -11px;
+}.card-img.eight.spades.small {
+  background-position: 319px -5px;
+}.card-img.eight.spades.large {
+  background-position: 1278px -21px;
+}.card-img.eight.clubs {
+  background-position: 639px -148px;
+}.card-img.eight.clubs.small {
+  background-position: 319px -74px;
+}.card-img.eight.clubs.large {
+  background-position: 1278px -295px;
+}.card-img.eight.diamonds {
+  background-position: 639px -287px;
+}.card-img.eight.diamonds.small {
+  background-position: 319px -143px;
+}.card-img.eight.diamonds.large {
+  background-position: 1278px -573px;
+}.card-img.eight.hearts {
+  background-position: 639px -426px;
+}.card-img.eight.hearts.small {
+  background-position: 319px -213px;
+}.card-img.eight.hearts.large {
+  background-position: 1278px -851px;
+}.card-img.nine.spades {
+  background-position: 729px -11px;
+}.card-img.nine.spades.small {
+  background-position: 364px -5px;
+}.card-img.nine.spades.large {
+  background-position: 1458px -21px;
+}.card-img.nine.clubs {
+  background-position: 729px -148px;
+}.card-img.nine.clubs.small {
+  background-position: 364px -74px;
+}.card-img.nine.clubs.large {
+  background-position: 1458px -295px;
+}.card-img.nine.diamonds {
+  background-position: 729px -287px;
+}.card-img.nine.diamonds.small {
+  background-position: 364px -143px;
+}.card-img.nine.diamonds.large {
+  background-position: 1458px -573px;
+}.card-img.nine.hearts {
+  background-position: 729px -426px;
+}.card-img.nine.hearts.small {
+  background-position: 364px -213px;
+}.card-img.nine.hearts.large {
+  background-position: 1458px -851px;
+}.card-img.ten.spades {
+  background-position: 819px -11px;
+}.card-img.ten.spades.small {
+  background-position: 409px -5px;
+}.card-img.ten.spades.large {
+  background-position: 1638px -21px;
+}.card-img.ten.clubs {
+  background-position: 819px -148px;
+}.card-img.ten.clubs.small {
+  background-position: 409px -74px;
+}.card-img.ten.clubs.large {
+  background-position: 1638px -295px;
+}.card-img.ten.diamonds {
+  background-position: 819px -287px;
+}.card-img.ten.diamonds.small {
+  background-position: 409px -143px;
+}.card-img.ten.diamonds.large {
+  background-position: 1638px -573px;
+}.card-img.ten.hearts {
+  background-position: 819px -426px;
+}.card-img.ten.hearts.small {
+  background-position: 409px -213px;
+}.card-img.ten.hearts.large {
+  background-position: 1638px -851px;
+}.card-img.jack.spades {
+  background-position: 909px -11px;
+}.card-img.jack.spades.small {
+  background-position: 454px -5px;
+}.card-img.jack.spades.large {
+  background-position: 1818px -21px;
+}.card-img.jack.clubs {
+  background-position: 909px -148px;
+}.card-img.jack.clubs.small {
+  background-position: 454px -74px;
+}.card-img.jack.clubs.large {
+  background-position: 1818px -295px;
+}.card-img.jack.diamonds {
+  background-position: 909px -287px;
+}.card-img.jack.diamonds.small {
+  background-position: 454px -143px;
+}.card-img.jack.diamonds.large {
+  background-position: 1818px -573px;
+}.card-img.jack.hearts {
+  background-position: 909px -426px;
+}.card-img.jack.hearts.small {
+  background-position: 454px -213px;
+}.card-img.jack.hearts.large {
+  background-position: 1818px -851px;
+}.card-img.queen.spades {
+  background-position: 999px -11px;
+}.card-img.queen.spades.small {
+  background-position: 499px -5px;
+}.card-img.queen.spades.large {
+  background-position: 1998px -21px;
+}.card-img.queen.clubs {
+  background-position: 999px -148px;
+}.card-img.queen.clubs.small {
+  background-position: 499px -74px;
+}.card-img.queen.clubs.large {
+  background-position: 1998px -295px;
+}.card-img.queen.diamonds {
+  background-position: 999px -287px;
+}.card-img.queen.diamonds.small {
+  background-position: 499px -143px;
+}.card-img.queen.diamonds.large {
+  background-position: 1998px -573px;
+}.card-img.queen.hearts {
+  background-position: 999px -426px;
+}.card-img.queen.hearts.small {
+  background-position: 499px -213px;
+}.card-img.queen.hearts.large {
+  background-position: 1998px -851px;
+}.card-img.king.spades {
+  background-position: 1089px -11px;
+}.card-img.king.spades.small {
+  background-position: 544px -5px;
+}.card-img.king.spades.large {
+  background-position: 2178px -21px;
+}.card-img.king.clubs {
+  background-position: 1089px -148px;
+}.card-img.king.clubs.small {
+  background-position: 544px -74px;
+}.card-img.king.clubs.large {
+  background-position: 2178px -295px;
+}.card-img.king.diamonds {
+  background-position: 1089px -287px;
+}.card-img.king.diamonds.small {
+  background-position: 544px -143px;
+}.card-img.king.diamonds.large {
+  background-position: 2178px -573px;
+}.card-img.king.hearts {
+  background-position: 1089px -426px;
+}.card-img.king.hearts.small {
+  background-position: 544px -213px;
+}.card-img.king.hearts.large {
+  background-position: 2178px -851px;
+}.card-img.ace.spades {
+  background-position: 1179px -11px;
+}.card-img.ace.spades.small {
+  background-position: 589px -5px;
+}.card-img.ace.spades.large {
+  background-position: 2358px -21px;
+}.card-img.ace.clubs {
+  background-position: 1179px -148px;
+}.card-img.ace.clubs.small {
+  background-position: 589px -74px;
+}.card-img.ace.clubs.large {
+  background-position: 2358px -295px;
+}.card-img.ace.diamonds {
+  background-position: 1179px -287px;
+}.card-img.ace.diamonds.small {
+  background-position: 589px -143px;
+}.card-img.ace.diamonds.large {
+  background-position: 2358px -573px;
+}.card-img.ace.hearts {
+  background-position: 1179px -426px;
+}.card-img.ace.hearts.small {
+  background-position: 589px -213px;
+}.card-img.ace.hearts.large {
+  background-position: 2358px -851px;
 }.current-user-corp {
   box-shadow: 0 0 40px 5px black;
   border-radius: 5px;

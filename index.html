@@ -38,14 +38,30 @@
         <div class="center-stage">
           <div ng-show="activeGame.message" class="alert notify-box alert-{{activeGame.message.type}}">{{activeGame.message.text}}</div>
           <div class="main-content">
-            <h3>Message List:</h3>
-            <ul class="well">
-              <li ng-repeat="message in chatList track by $index">{{message.user}}: {{message.text}}</li>
-            </ul>
-            <form name="chatWindow" ng-submit="submitChat()">
-              <input ng-model="ff.chat" placeholder="respond to chat" class="form-control">
-              <button ng-hide="true" type="submit"></button>
-            </form>
+            <div ng-if="state == &quot;welcome&quot;" class="welcome">
+              <div ng-hide="currentUser">
+                <button ng-click="googleLogin()" class="btn btn-danger btn-lg facebook-login">Login with Google</button><br/>
+                <button ng-click="fbLogin()" class="btn btn-primary btn-lg facebook-login">Login with Facebook</button>
+              </div>
+            </div>
+            <div ng-if="state == &quot;joinGame&quot;" class="pre-game row">
+              <section class=" col-xs-6">
+                <h3>Choose a game:</h3>
+                <div ng-show="currentUser" ng-repeat="game in joinableGames track by $index" ng-click="joinActiveGame(game)" class="btn btn-info">{{game.name}}</div>
+                <h3>Or create a new one:</h3>
+                <div ng-click="createNewGame()" class="btn btn-success">Create new game</div>
+              </section>
+              <section class=" col-xs-6">
+                <h3>Message List:</h3>
+                <ul class="well">
+                  <li ng-repeat="message in chatList track by $index">{{message.user}}: {{message.text}}</li>
+                </ul>
+                <form name="chatWindow" ng-submit="submitChat()">
+                  <input ng-model="ff.chat" placeholder="respond to chat" class="form-control"/>
+                  <button ng-hide="true" type="submit"></button>
+                </form>
+              </section>
+            </div>
           </div>
         </div>
         <div class="stage-right"></div>
@@ -55,7 +71,6 @@
     <script src="inc/lib.js"></script>
     <script src="inc/main.js"></script>
     <script id="viewcardModal" type="text/ng-template"></script>
-    <div class="picture-box hidden"><img src="./img/all-cards.png"><img src="./img/all-cards-sm.png"><img src="./img/all-cards-md.png"><img src="./img/corp-medium.jpg"><img src="./img/corp-medium-full.jpg"><img src="./img/journal-medium.jpg"><img src="./img/board-spaces.jpg"></div>
   </body>
 </html>
 <!--		| <script src="inc/lib.js"></script><script src="inc/main.js"></script>-->
