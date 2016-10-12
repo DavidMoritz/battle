@@ -4,14 +4,28 @@ mainApp.controller('MainCtrl', [
 	'$interval',
 	'$uibModal',
 	'ClassFactory',
+	'EventFactory',
 	'FirebaseFactory',
-	function MainCtrl($s, $timeout, $interval, $uibM, CF, FF) {
+	function MainCtrl($s, $timeout, $interval, $uibM, CF, EF, FF) {
 		'use strict';
 
 		function init() {
 			//	init stuff
 			window.$s = $s;
 
+			$s.joinableGames = _.mapKeys($s.allGames, (game, key) => {
+				if (typeof game === 'object' && game && game.name) {
+					switch (true) {
+						case (game.playerIds.indexOf($s.currentUser.uid) !== -1):
+						case (game.public && !game.active):
+							return key;
+					}
+				}
+
+				return 'skip';
+			});
+			delete $s.joinableGames.skip;
+			$s.state = 'joinGame';
 			$s.chatList = [];
 		}
 
@@ -42,6 +56,46 @@ mainApp.controller('MainCtrl', [
 					}, () => $s);
 				}, runEvent($s.eventTracker));
 			}
+		}
+
+		function runEvent(idx) {
+			if (idx >= $s.activeGame.events.length) {
+				$s.eventTracker = $s.activeGame.events.length;
+				// return meaningless function to avoid error
+				return {then: () => 0};
+			}
+			var event = $s.activeGame.events[idx];
+			var eventFunction = EF[event.name];
+
+			return new Promise(eventFunction.bind(event));
+		}
+
+		/**
+		 * Shuffle Deck
+		 * The game needs to shuffle the cards in a predictable way
+		 * so that every user gets the same outcome. This is done by
+		 * 'seeding' the algorithm with the randomly generated gameId.
+		 * This algorthim has been tested over larger iterations here:
+		 * https://jsfiddle.net/sr7djh8x/6/
+		 */
+		function shuffleDeck(deck) {
+			return deck.sort((a, b) => {
+				var gameNumber = parseInt($s.activeGame.id, 36);
+				var firstCardNum = parseInt(a.id, 36);
+				var secondCardNum = parseInt(b.id, 36);
+
+				return (gameNumber % firstCardNum) - (gameNumber % secondCardNum);
+			});
+		}
+
+		function openModal(name, resolve) {
+			$s.modalInstance = $uibM.open({
+				animation: true,
+				templateUrl: name.toLowerCase() + 'Modal',
+				controller: name + 'ModalInstanceCtrl',
+				size: 'lg',
+				resolve: resolve
+			});
 		}
 
 		_.assign($s, {
@@ -77,6 +131,14 @@ mainApp.controller('MainCtrl', [
 			latestChat.text = $s.ff.chat;
 			latestChat.$save();
 			$s.ff.chat = '';
+		};
+
+		$s.addEvent = event => {
+			if (typeof event == 'string') {
+				event = {name: event};
+			}
+			event.timestamp = new Date().getTime();
+			$s.activeGame.events.push(event);
 		};
 
 		$s.createNewGame = () => {
@@ -117,9 +179,14 @@ mainApp.controller('MainCtrl', [
 				}
 				$s.eventTracker = 0;
 				$s.$watch('activeGame.events', updateGame);
-				$s.$watch('activeGame.cursor', updateCursor);
 			});
 			stopChat();
+		};
+
+		$s.viewCard = card => {
+			openModal('ViewCard', {
+				card: card
+			});
 		};
 
 		$s.fbLogin = () => {
@@ -150,6 +217,10 @@ mainApp.controller('MainCtrl', [
 			FF.googleLogin(err => {
 				console.log('There was a Google Login error', err);
 				$s.notify('Google Login Error', 'danger');
+				/* TEMP LOGIN */
+				$s.currentUser = FF.getFBObject('users/dpnncrYpfoNkC4qcg5aNzNtBezS2');
+				$s.currentUser.$loaded(init);
+				/* END TEMP LOGIN */
 			}, authData => {
 				console.log('Authenticated successfully with payload:', authData);
 				$s.currentUser = FF.getFBObject('users/' + authData.uid);

@@ -3,7 +3,7 @@ mainApp.factory('ClassFactory', [
 	function ClassFactory(CF) {
 		'use strict';
 
-		const allColors = ['hearts', 'spades', 'diamonds', 'clubs'];
+		const allColors = ['clubs', 'diamonds', 'spades', 'hearts'];
 		const ClassFactory = {
 			Corp: class Corp {
 				constructor() {

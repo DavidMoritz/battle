@@ -19,10 +19,25 @@ html(ng-app='mainApp')
 					.main-content
 						+welcome()
 						+joinGame()
+						+startGame()
+						+chooseBattle()
 				.stage-right
 			.current-user-cards
 		script(src='inc/lib.js')
 		script(src='inc/main.js')
 		//- Modals should be used for reference only!
 		script#viewcardModal(type='text/ng-template')
+			.modal-header
+				+close()
+				h3 {{card.name}}
+			.modal-body.row.card-modal-body
+				.card-img.large(class='{{card.color}} {{card.class}} held-card' title='{{card.name}}: {{card.description}}')
+				.card-information
+					h4 Name: {{card.name}}
+					h4 Symbol: {{card.symbol}}
+					h4 Strength: {{card.strength}}
+					h4 Description:
+					p {{card.description}}
+					h4(ng-show='card.story') Story:
+					p {{card.story}}
 //		| @@javascriptReplaceFiles
