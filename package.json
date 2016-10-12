@@ -1,15 +1,15 @@
 {
-  "name": "explorers",
+  "name": "Battle",
   "version": "0.0.1",
-  "description": "Some have suggested that this game is similar to the board game 'Lewis and Clark' by Space Cowboys.",
+  "description": "A new battle game by David Wintterle",
   "homepage": "http://moritzcompany.com",
   "author": "Moritz Company",
   "repository": {
     "type": "git",
-    "url": "https://github.com/davidmoritz/explorers.git"
+    "url": "https://github.com/davidmoritz/battle.git"
   },
   "bugs": {
-    "url": "https://github.com/davidmoritz/explorers/issues"
+    "url": "https://github.com/davidmoritz/battle/issues"
   },
   "scripts": {
     "install": "bower install"

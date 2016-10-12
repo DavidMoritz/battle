@@ -3,8 +3,9 @@ mainApp.controller('MainCtrl', [
 	'$timeout',
 	'$interval',
 	'$uibModal',
+	'ClassFactory',
 	'FirebaseFactory',
-	function MainCtrl($s, $timeout, $interval, $uibM, FF) {
+	function MainCtrl($s, $timeout, $interval, $uibM, CF, FF) {
 		'use strict';
 
 		function init() {
