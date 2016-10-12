@@ -11,6 +11,20 @@ mainApp.controller('MainCtrl', [
 			//	init stuff
 			window.$s = $s;
 
+			$s.joinableGames = _.mapKeys($s.allGames, (game, key) => {
+				if (typeof game === 'object' && game && game.name) {
+					switch (true) {
+						case (game.playerIds.indexOf($s.currentUser.uid) !== -1):
+						case (game.public && !game.active):
+							return key;
+					}
+				}
+
+				return 'skip';
+			});
+			delete $s.joinableGames.skip;
+
+			$s.state = 'joinGame';
 			$s.chatList = [];
 		}
 
@@ -18,6 +32,17 @@ mainApp.controller('MainCtrl', [
 			window.latestChat = FF.getFBObject('message');
 			window.stopChat = latestChat.$watch(() => {
 				$s.chatList.push(_.clone(latestChat));
+			});
+		}
+
+		function createNewUser(id, data) {
+			var allUsers = FF.getFBObject('users');
+
+			allUsers.$loaded(() => {
+				allUsers[id] = data;
+				allUsers.$save();
+				$s.currentUser = allUsers[id];
+				init();
 			});
 		}
 
@@ -149,6 +174,22 @@ mainApp.controller('MainCtrl', [
 			FF.googleLogin(err => {
 				console.log('There was a Google Login error', err);
 				$s.notify('Google Login Error', 'danger');
+				/* temporary override */
+				$s.currentUser = FF.getFBObject('users/dpnncrYpfoNkC4qcg5aNzNtBezS2');
+				$s.currentUser.$loaded(user => {
+					if (!user.uid) {
+						var name = authData.providerData[0].displayName;
+						createNewUser(authData.uid, {
+							name: name,
+							rating: 1200,
+							uid: authData.uid,
+							firstName: authData.providerData[0].first_name || name.substring(0, name.indexOf(' ')) || name
+						});
+					} else {
+						init();
+					}
+				});
+				/* END Temp override */
 			}, authData => {
 				console.log('Authenticated successfully with payload:', authData);
 				$s.currentUser = FF.getFBObject('users/' + authData.uid);
