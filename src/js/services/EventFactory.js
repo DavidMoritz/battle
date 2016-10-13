@@ -12,11 +12,9 @@ mainApp.factory('EventFactory', [
 		var EF = {
 			gameCreated: resolve => {
 				$s.state = 'startGame';
-				console.log('gameCreated');
 				resolve();
 			},
 			startGame: resolve => {
-				console.log('gameStart');
 				var users = FF.getFBObject('users');
 				users.$loaded(() => {
 					$s.activeGame.playerIds.map(id => {
@@ -49,19 +47,32 @@ mainApp.factory('EventFactory', [
 				resolve();
 			},
 			chooseBattle: resolve => {
-				console.log('chooseBattle');
 				$s.state = 'chooseBattle';
 				$s.activeGame.message = {};
 				resolve();
 			},
 			submitBattle: function(resolve) {
-				$s.activeGame.currentBattle.push(_.clone(this));
+				$s.activeGame.currentBattleArray.push(_.clone(this));
 
-				if ($s.activeGame.currentBattle.length == $s.allPlayer.length) {
+				if ($s.activeGame.currentBattleArray.length == $s.allPlayer.length) {
 					EF.battle(resolve);
 				} else {
 					resolve();
 				}
+			},
+			battle: resolve => {
+				$s.activeGame.currentBattleArray.forEach(battleSet => {
+					var player = _.findWhere($s.allPlayers, {uid: battleSet.uid});
+
+					player.battlePower = player.deck.battleValue;
+					player.playCardSet(battleSet.cards);
+				});
+
+				resolve();
+			},
+			takeResource: function(resolve) => {
+				// take a resource
+				resolve();
 			}
 		};
 

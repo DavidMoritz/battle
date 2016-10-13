@@ -115,7 +115,7 @@ mainApp.controller('MainCtrl', [
 			allPlayers: [],
 			chatList: [],
 			activeGame: {
-				currentBattle: []
+				currentBattleArray: []
 			},
 			eventTracker: 0,
 			ff: {

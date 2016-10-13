@@ -88,6 +88,12 @@ mainApp.factory('ClassFactory', [
 					this.collectables = [];
 					this.payment = [];
 					this.deck.activeCardId = '';
+					this.deck.reset();
+				}
+				playCardSet(cardSet) {
+					cardSet.forEach(card => {
+						this.deck.play(card);
+					});
 				}
 				playCard(card) {
 					this.deck.play(card);
