@@ -114,9 +114,7 @@ mainApp.controller('MainCtrl', [
 			state: 'welcome',
 			allPlayers: [],
 			chatList: [],
-			activeGame: {
-				currentBattleArray: []
-			},
+			activeGame: {},
 			eventTracker: 0,
 			ff: {
 				gameName: 'newGame'
@@ -148,6 +146,7 @@ mainApp.controller('MainCtrl', [
 		};
 
 		$s.submitCards = () => {
+			// disable submit button
 			$s.addEvent({
 				name: 'submitBattle',
 				cards: $s.user.deck.selectedCards,
@@ -193,6 +192,10 @@ mainApp.controller('MainCtrl', [
 				if (!$s.activeGame.playerIds) {
 					$s.activeGame.playerIds = [];
 					$s.activeGame.playerNames = [];
+				}
+
+				if (!$s.activeGame.currentBattleArray) {
+					$s.activeGame.currentBattleArray = [];
 				}
 
 				if ($s.activeGame.playerIds.indexOf($s.currentUser.uid) === -1) {

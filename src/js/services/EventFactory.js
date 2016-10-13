@@ -70,7 +70,7 @@ mainApp.factory('EventFactory', [
 
 				resolve();
 			},
-			takeResource: function(resolve) => {
+			takeResource: function(resolve) {
 				// take a resource
 				resolve();
 			}
