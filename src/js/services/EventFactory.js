@@ -54,8 +54,8 @@ mainApp.factory('EventFactory', [
 				$s.activeGame.message = {};
 				resolve();
 			},
-			submitBattle: resolve => {
-				$s.activeGame.currentBattle.push($s.currentUser.battleCards);
+			submitBattle: function(resolve) {
+				$s.activeGame.currentBattle.push(_.clone(this));
 
 				if ($s.activeGame.currentBattle.length == $s.allPlayer.length) {
 					EF.battle(resolve);

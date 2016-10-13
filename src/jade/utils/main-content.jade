@@ -33,5 +33,7 @@ mixin chooseBattle()
 		+col(6)
 			h3 Cards:
 			ul.cards
-				li.held-card(ng-repeat='card in user.deck.cards' ng-click='viewCard(card)')
-					.card-img.small(class='{{card.color}} {{card.class}}')
+				li.held-card(ng-repeat='card in user.deck.cards' ng-click='selectCard(card)')
+					.card-img.small(class='{{card.color}} {{card.class}} {{card.selected ? "selected" : ""}}')
+			.btn.btn-success(ng-disabled='!user.deck.submittable' ng-click='submitCards()') Submit
+			h3 Battle Value: {{user.deck.battleValue}}

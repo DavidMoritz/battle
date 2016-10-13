@@ -114,7 +114,9 @@ mainApp.controller('MainCtrl', [
 			state: 'welcome',
 			allPlayers: [],
 			chatList: [],
-			activeGame: {},
+			activeGame: {
+				currentBattle: []
+			},
 			eventTracker: 0,
 			ff: {
 				gameName: 'newGame'
@@ -143,6 +145,14 @@ mainApp.controller('MainCtrl', [
 			latestChat.text = $s.ff.chat;
 			latestChat.$save();
 			$s.ff.chat = '';
+		};
+
+		$s.submitCards = () => {
+			$s.addEvent({
+				name: 'submitBattle',
+				cards: $s.user.deck.selectedCards,
+				player: $s.user.uid
+			});
 		};
 
 		$s.addEvent = event => {
@@ -193,6 +203,10 @@ mainApp.controller('MainCtrl', [
 				$s.$watch('activeGame.events', updateGame);
 			});
 			stopChat();
+		};
+
+		$s.selectCard = card => {
+			card.selected = !card.selected;
 		};
 
 		$s.viewCard = card => {

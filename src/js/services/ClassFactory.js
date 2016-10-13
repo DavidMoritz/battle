@@ -19,6 +19,15 @@ mainApp.factory('ClassFactory', [
 					this.cards = CF[color];
 					this.activeCardId = '';
 				}
+				get battleValue() {
+					return this.selectedCards.reduce((total, card) => total + card.value, 0);
+				}
+				get selectedCards() {
+					return this.heldCards.filter(card => card.selected);	
+				}
+				get submittable() {
+					return this.selectedCards.length === 3;
+				}
 				get activeCard() {
 					return _.find(this.cards, {id: this.activeCardId});
 				}

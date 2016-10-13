@@ -31,13 +31,12 @@ html(ng-app='mainApp')
 				+close()
 				h3 {{card.name}}
 			.modal-body.row.card-modal-body
-				.card-img.large(class='{{card.color}} {{card.class}} held-card' title='{{card.name}}: {{card.description}}')
+				.card-img.large(class='{{card.color}} {{card.class}} held-card {{card.selected ? "selected" : ""}}' title='{{card.name}}: {{card.description}}')
 				.card-information
-					h4 Name: {{card.name}}
-					h4 Symbol: {{card.symbol}}
-					h4 Strength: {{card.strength}}
-					h4 Description:
-					p {{card.description}}
+					h4 Class: {{card.class}}
+					h4 Value: {{card.value}}
+					h4 Color: {{card.color}}
+					h4 Id: {{card.id}}
 					h4(ng-show='card.story') Story:
 					p {{card.story}}
 //		| @@javascriptReplaceFiles
