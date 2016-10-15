@@ -121,6 +121,12 @@ mainApp.controller('MainCtrl', [
 			}
 		});
 
+		$s.getBattleCount = () => {
+			var submitEvents = _.partition($s.activeGame.events, {name: 'submitBattle'})[0].length;
+
+			return Math.ceil(submitEvents / $s.allPlayers.length);
+		};
+
 		$s.notify = (message, type) => {
 			clearTimeout($s.cancelMessage);
 			type = type || 'info';
@@ -150,7 +156,7 @@ mainApp.controller('MainCtrl', [
 			$s.addEvent({
 				name: 'submitBattle',
 				cards: $s.user.deck.selectedCards,
-				player: $s.user.uid
+				uid: $s.user.uid
 			});
 		};
 
@@ -194,8 +200,8 @@ mainApp.controller('MainCtrl', [
 					$s.activeGame.playerNames = [];
 				}
 
-				if (!$s.activeGame.currentBattleArray) {
-					$s.activeGame.currentBattleArray = [];
+				if (!$s.activeGame.battleHistory) {
+					$s.activeGame.battleHistory = [];
 				}
 
 				if ($s.activeGame.playerIds.indexOf($s.currentUser.uid) === -1) {
