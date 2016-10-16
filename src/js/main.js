@@ -122,9 +122,10 @@ mainApp.controller('MainCtrl', [
 		});
 
 		$s.getBattleCount = () => {
-			var submitEvents = _.partition($s.activeGame.events, {name: 'submitBattle'})[0].length;
+			var subEvents = $s.activeGame.events.slice(0, $s.eventTracker);
+			var submitEvents = _.partition(subEvents, {name: 'submitBattle'})[0].length - 1;
 
-			return Math.ceil(submitEvents / $s.allPlayers.length);
+			return submiteEvents ? Math.floor(submitEvents / $s.allPlayers.length) : 0;
 		};
 
 		$s.notify = (message, type) => {

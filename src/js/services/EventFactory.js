@@ -52,20 +52,22 @@ mainApp.factory('EventFactory', [
 				resolve();
 			},
 			submitBattle: function(resolve) {
-				if (!$s.activeGame.battleHistory[$s.getBattleCount()]) {
-					$s.activeGame.battleHistory[$s.getBattleCount()] = {};
+				var thisBattle = $s.activeGame.battleHistory[$s.getBattleCount()];
+
+				if (!thisBattle) {
+					thisBattle = {};
 				}
 
-				$s.activeGame.battleHistory[$s.getBattleCount()][this.uid] = this;
+				thisBattle[this.uid] = this;
 
-				if ($s.activeGame.battleHistory.length == $s.allPlayers.length) {
+				if (_.keys(thisBattle).length == $s.allPlayers.length) {
 					EF.battle(resolve);
 				} else {
 					resolve();
 				}
 			},
 			battle: resolve => {
-				$s.activeGame.battleHistory.forEach(battleSet => {
+				_.keys(thisBattle).forEach(battleSet => {
 					var player = _.findWhere($s.allPlayers, {uid: battleSet.uid});
 
 					player.battlePower = player.deck.battleValue;
