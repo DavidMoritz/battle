@@ -114,6 +114,7 @@ mainApp.controller('MainCtrl', [
 			state: 'welcome',
 			allPlayers: [],
 			chatList: [],
+			battleHistory: [],
 			activeGame: {},
 			eventTracker: 0,
 			ff: {
@@ -124,7 +125,11 @@ mainApp.controller('MainCtrl', [
 		$s.getBattleCount = () => {
 			var submitEvents = _.partition($s.activeGame.events, {name: 'submitBattle'})[0].length;
 
-			return Math.ceil(submitEvents / $s.allPlayers.length);
+			if ($s.allPlayers.length == 1) {
+				return submitEvents;
+			}
+
+			return Math.floor(submitEvents / $s.allPlayers.length);
 		};
 
 		$s.notify = (message, type) => {
@@ -156,7 +161,8 @@ mainApp.controller('MainCtrl', [
 			$s.addEvent({
 				name: 'submitBattle',
 				cards: $s.user.deck.selectedCards,
-				uid: $s.user.uid
+				uid: $s.user.uid,
+				battleCount: $s.getBattleCount()
 			});
 		};
 

@@ -52,27 +52,45 @@ mainApp.factory('EventFactory', [
 				resolve();
 			},
 			submitBattle: function(resolve) {
-				if (!$s.activeGame.battleHistory[$s.getBattleCount()]) {
-					$s.activeGame.battleHistory[$s.getBattleCount()] = {};
+				if (!$s.battleHistory[this.BattleCount]) {
+					$s.battleHistory[this.BattleCount] = {};
 				}
 
-				$s.activeGame.battleHistory[$s.getBattleCount()][this.uid] = this;
+				$s.battleHistory[this.BattleCount][this.uid] = this.cards;
 
-				if ($s.activeGame.battleHistory.length == $s.allPlayers.length) {
+				if ($s.battleHistory[this.BattleCount].length == $s.allPlayers.length) {
 					EF.battle(resolve);
 				} else {
 					resolve();
 				}
 			},
 			battle: resolve => {
-				$s.activeGame.battleHistory.forEach(battleSet => {
+				$s.battleHistory.forEach(battleSet => {
 					var player = _.findWhere($s.allPlayers, {uid: battleSet.uid});
 
-					player.battlePower = player.deck.battleValue;
+					player.battlePower = battleSet.cards.reduce((total, card) => total + card.value, 0);
 					player.playCardSet(battleSet.cards);
 				});
 
-				$s.activeGame.battleHistory = [];
+				determineWinner(resolve);
+			},
+			determineWinner: resolve => {
+				$s.allPlayers.sort((a, b) => b.battlePower - a.battlePower);
+
+				$s.allPlayers.forEach((player, i) => {
+					var nextPlayer = $s.allPlayers[i + 1];
+
+					if (i === 0) {
+						player.winner = true;
+					}
+
+					if (player.battlePower == nextPlayer.battlePower) {
+						player.duplicateBattlePower = true;
+						nextPlayer.duplicateBattlePower = true;
+						nextPlayer.winner = player.winner;
+					}
+				});
+
 				resolve();
 			},
 			takeResource: function(resolve) {
