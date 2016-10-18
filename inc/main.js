@@ -1,4 +1,4 @@
-'use strict';
+;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -33,7 +33,7 @@ mainApp.run(function runWithDependencies($rootScope) {
 	$rootScope.mc = mc;
 });
 mainApp.controller('MainCtrl', ['$scope', '$timeout', '$interval', '$uibModal', 'ClassFactory', 'EventFactory', 'FirebaseFactory', function MainCtrl($s, $timeout, $interval, $uibM, CF, EF, FF) {
-	'use strict';
+	;
 
 	function init() {
 		//	init stuff
@@ -337,7 +337,7 @@ mainApp.controller('ViewCardModalInstanceCtrl', function ModalCtrl($scope, $uibM
 	};
 });
 mainApp.factory('CardFactory', [function CardFactory() {
-	'use strict';
+	;
 
 	return {
 		yellow: [{
@@ -1088,7 +1088,7 @@ mainApp.factory('CardFactory', [function CardFactory() {
 	};
 }]);
 mainApp.factory('ClassFactory', ['CardFactory', function classFactory(CF) {
-	'use strict';
+	;
 
 	var allColors = ['yellow', 'cyan', 'orange', 'purple'];
 	var ClassFactory = {
@@ -1254,7 +1254,7 @@ mainApp.factory('ClassFactory', ['CardFactory', function classFactory(CF) {
 	return ClassFactory;
 }]);
 mainApp.factory('EventFactory', ['CardFactory', 'FirebaseFactory', 'ClassFactory', function EventFactory(CF, FF, Class) {
-	'use strict';
+	;
 
 	/**
   * Note: $s needs to be defined. This can be done by setting this entire
@@ -1360,7 +1360,7 @@ mainApp.factory('EventFactory', ['CardFactory', 'FirebaseFactory', 'ClassFactory
 	return EF;
 }]);
 mainApp.factory('FirebaseFactory', ['$firebaseArray', '$firebaseObject', function FirebaseFactory($fbArray, $fbObject) {
-	'use strict';
+	;
 
 	var FB = null;
 	var FF = {
