@@ -62,6 +62,56 @@
                 </form>
               </section>
             </div>
+            <div ng-if="state == &quot;startGame&quot;" class="pre-game row">
+              <section class=" col-xs-6">
+                <h3>Players:</h3>
+                <ul>
+                  <li ng-repeat="player in activeGame.playerNames track by $index">{{player}}</li>
+                </ul>
+                <button ng-click="addEvent(&quot;startGame&quot;)" class="btn btn-success">Start the game</button>
+              </section>
+            </div>
+            <div ng-if="state == &quot;chooseBattle&quot;" class="row">
+              <section class=" col-xs-6">
+                <h3>Cards:</h3>
+                <ul class="cards">
+                  <li ng-repeat="card in user.deck.heldCards" ng-click="selectCard(card)" class="held-card">
+                    <div class="card-img small {{card.color}} {{card.selected ? &quot;selected&quot; : &quot;&quot;}}">
+                      <div class="card-value">{{card.value}}</div>
+                    </div>
+                  </li>
+                </ul>
+                <div ng-disabled="!user.deck.submittable" ng-click="submitCards()" class="btn btn-success">Submit</div>
+                <h3>Battle Value: {{user.deck.battleValue}}</h3>
+              </section>
+              <section class=" col-xs-6">
+                <h3>Other Players:</h3>
+                <ul class="players">
+                  <li ng-repeat="player in allPlayers" ng-hide="player.uid == currentUser.uid">{{player.name}}
+                    <button ng-hide="battleHistory[getBattleCount()][player.uid]" class="btn btn-danger">Not Ready</button>
+                    <button ng-show="battleHistory[getBattleCount()][player.uid]" class="btn btn-success">Ready</button>
+                  </li>
+                </ul>
+              </section>
+            </div>
+            <div ng-if="state == &quot;determineWinner&quot;" class="row">
+              <section class=" col-xs-6">
+                <h3>Players</h3>
+                <ul class="players">
+                  <li ng-repeat="player in allPlayers">{{player.name}}: {{player.battlePower}}<span ng-show="player.winner" class="winner">WINNER</span>
+                    <ul class="cards">
+                      <li ng-repeat="card in battleHistory[getBattleCount() - 1][player.uid]" class="held-card">
+                        <div class="card-img small {{card.color}}">
+                          <div class="card-value">{{card.value}}</div>
+                        </div>
+                      </li>
+                    </ul>
+                    <hr/>
+                  </li>
+                </ul>
+                <button ng-click="changeState(&quot;chooseBattle&quot;)" class="btn btn-success">Next Battle</button>
+              </section>
+            </div>
           </div>
         </div>
         <div class="stage-right"></div>
@@ -70,7 +120,23 @@
     </div>
     <script src="inc/lib.js"></script>
     <script src="inc/main.js"></script>
-    <script id="viewcardModal" type="text/ng-template"></script>
+    <script id="viewcardModal" type="text/ng-template">
+      <div class="modal-header">
+        <div ng-click="cancel()" class="close">&times;</div>
+        <h3>{{card.name}}</h3>
+      </div>
+      <div class="modal-body row card-modal-body">
+        <div title="{{card.name}}: {{card.description}}" class="card-img large {{card.color}} {{card.class}} held-card {{card.selected ? &quot;selected&quot; : &quot;&quot;}}"></div>
+        <div class="card-information">
+          <h4>Class: {{card.class}}</h4>
+          <h4>Value: {{card.value}}</h4>
+          <h4>Color: {{card.color}}</h4>
+          <h4>Id: {{card.id}}</h4>
+          <h4 ng-show="card.story">Story:</h4>
+          <p>{{card.story}}</p>
+        </div>
+      </div>
+    </script>
   </body>
 </html>
 <!--		| <script src="inc/lib.js"></script><script src="inc/main.js"></script>-->

@@ -6042,6 +6042,10 @@ table.dataTable thead .sorting_desc_disabled {
   50% {
     color: black;
   }
+}.winner {
+  font-weight: bold;
+  margin-left: 8px;
+  font-size: 120%;
 }.main-stage {
   display: -ms-flexbox;
   display: flex;
@@ -6564,17 +6568,45 @@ input {
   padding: 2px 5px;
   font-size: 10px;
 }.card-img {
-  width: 89px;
-  height: 125px;
-  background-image: url(../img/z-cards.png);
+  box-shadow: white 0 0 10px 0;
+  width: 109px;
+  height: 150px;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: center;
+      justify-content: center;
+  -ms-flex-align: center;
+      align-items: center;
+  background-image: url(../img/yellow_blank_md.png);
+}.card-img .card-value {
+  font-size: 40px;
+  font-family: serif;
+}.card-img.selected {
+  box-shadow: blue 0 0 10px 0;
 }.card-img.small {
-  width: 44px;
-  height: 62px;
-  background-image: url(../img/z-cards-sm.png);
+  width: 55px;
+  height: 75px;
+  background-image: url(../img/yellow_blank_sm.png);
+}.card-img.small .card-value {
+  font-size: 20px;
 }.card-img.large {
-  width: 178px;
-  height: 251px;
-  background-image: url(../img/z-cards-lg.png);
+  width: 218px;
+  height: 300px;
+  background-image: url(../img/yellow_blank_lg.png);
+}.card-img.large .card-value {
+  font-size: 80px;
+}.card-img.purple {
+  filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feColorMatrix type="hueRotate" color-interpolation-filters="sRGB" values="203" /><feColorMatrix type="matrix" color-interpolation-filters="sRGB" values="1.2361000000000002 -0.21450000000000002 -0.021600000000000008 0 0 -0.06389999999999998 1.0985 -0.021600000000000008 0 0 -0.06389999999999998 -0.21450000000000002 1.2784000000000002 0 0 0 0 0 1 0" /><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="linear" slope="0.9" /><feFuncG type="linear" slope="0.9" /><feFuncB type="linear" slope="0.9" /></feComponentTransfer></filter></svg>#filter');
+  -webkit-filter: hue-rotate(203deg) saturate(130%) brightness(90%);
+          filter: hue-rotate(203deg) saturate(130%) brightness(90%);
+}.card-img.orange {
+  filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feColorMatrix type="hueRotate" color-interpolation-filters="sRGB" values="325" /></filter></svg>#filter');
+  -webkit-filter: hue-rotate(325deg);
+          filter: hue-rotate(325deg);
+}.card-img.cyan {
+  filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feColorMatrix type="hueRotate" color-interpolation-filters="sRGB" values="125" /></filter></svg>#filter');
+  -webkit-filter: hue-rotate(125deg);
+          filter: hue-rotate(125deg);
 }.card-img.two.spades {
   background-position: 99px -11px;
 }.card-img.two.spades.small {
