@@ -33,8 +33,28 @@ mixin chooseBattle()
 		+col(6)
 			h3 Cards:
 			ul.cards
-				li.held-card(ng-repeat='card in user.deck.cards' ng-click='selectCard(card)')
-					.card-img.small(class='{{card.team}} {{card.selected ? "selected" : ""}}')
+				li.held-card(ng-repeat='card in user.deck.heldCards' ng-click='selectCard(card)')
+					.card-img.small(class='{{card.color}} {{card.selected ? "selected" : ""}}')
 						.card-value {{card.value}}
 			.btn.btn-success(ng-disabled='!user.deck.submittable' ng-click='submitCards()') Submit
 			h3 Battle Value: {{user.deck.battleValue}}
+		+col(6)
+			h3 Other Players:
+			ul.players
+				li(ng-repeat='player in allPlayers' ng-hide='player.uid == currentUser.uid') {{player.name}}
+					button.btn.btn-danger(ng-hide='battleHistory[getBattleCount()][player.uid]') Not Ready
+					button.btn.btn-success(ng-show='battleHistory[getBattleCount()][player.uid]') Ready
+
+mixin determineWinner()
+	.row(ng-if='state == "determineWinner"')
+		+col(6)
+			h3 Players
+			ul.players
+				li(ng-repeat='player in allPlayers') {{player.name}}: {{player.battlePower}}
+					span.winner(ng-show='player.winner') WINNER
+					ul.cards
+						li.held-card(ng-repeat='card in battleHistory[getBattleCount() - 1][player.uid]')
+							.card-img.small(class='{{card.color}}')
+								.card-value {{card.value}}
+					hr
+			button.btn.btn-success(ng-click='changeState("chooseBattle")') Next Battle

@@ -124,7 +124,7 @@ mainApp.controller('MainCtrl', [
 
 		$s.getBattleCount = () => {
 			var subEvents = $s.activeGame.events.slice(0, $s.eventTracker);
-			var submitEvents = _.partition(subEvents, {name: 'submitBattle'})[0].length - 1;
+			var submitEvents = _.partition(subEvents, {name: 'submitBattle'})[0].length;
 
 			if ($s.allPlayers.length == 1) {
 				return submitEvents;
@@ -175,7 +175,15 @@ mainApp.controller('MainCtrl', [
 			$s.activeGame.events.push(event);
 		};
 
+		$s.changeState = state => {
+			$s.state = state;
+		};
+
 		$s.createNewGame = () => {
+			// This should be separated based on something so that the
+			// "allGames" doesn't just continue to grow.
+			// maybe after a game is completed, it gets moved into an
+			// archive of some sort rather than continue to be in here.
 			var rand = Math.random().toString(36).substring(2, 10);
 			allGames.$ref().update({[rand]: {
 				id: rand,
@@ -207,14 +215,12 @@ mainApp.controller('MainCtrl', [
 					$s.activeGame.playerNames = [];
 				}
 
-				if (!$s.activeGame.battleHistory) {
-					$s.activeGame.battleHistory = [];
-				}
-
 				if ($s.activeGame.playerIds.indexOf($s.currentUser.uid) === -1) {
 					$s.activeGame.playerIds.push($s.currentUser.uid);
 					$s.activeGame.playerNames.push($s.currentUser.name);
 				}
+
+				$s.battleHistory = [];
 				$s.eventTracker = 0;
 				$s.$watch('activeGame.events', updateGame);
 			});
@@ -234,8 +240,11 @@ mainApp.controller('MainCtrl', [
 		$s.fbLogin = () => {
 			FF.facebookLogin(err => {
 				console.log('There was a Facebook Login error', err);
-				// ** TEMPORARY FOR DEV ***
 				$s.notify('Facebook Login Error', 'danger');
+				// ** TEMPORARY FOR DEV ***
+				$s.currentUser = FF.getFBObject('users/DrocniTEYXeclP6n52ugMXEzAgF3');
+				$s.currentUser.$loaded(init);
+				// ** END TEMPORARY FOR DEV ***
 			}, authData => {
 				console.log('Authenticated successfully with payload:', authData);
 				$s.currentUser = FF.getFBObject('users/' + authData.uid);

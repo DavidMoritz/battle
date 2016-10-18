@@ -3,7 +3,7 @@ mainApp.factory('ClassFactory', [
 	function ClassFactory(CF) {
 		'use strict';
 
-		const allColors = ['clubs', 'diamonds', 'spades', 'hearts'];
+		const allColors = ['yellow', 'cyan', 'orange', 'purple'];
 		const ClassFactory = {
 			Corp: class Corp {
 				constructor() {
@@ -23,7 +23,7 @@ mainApp.factory('ClassFactory', [
 					return this.selectedCards.reduce((total, card) => total + card.value, 0);
 				}
 				get selectedCards() {
-					return this.heldCards.filter(card => card.selected);	
+					return this.heldCards.filter(card => card.selected);
 				}
 				get submittable() {
 					return this.selectedCards.length === 3;
@@ -52,16 +52,18 @@ mainApp.factory('ClassFactory', [
 				reset() {
 					this.cards.map(card => {
 						card.played = false;
+						card.selected = false;
 						card.plays = 0;
 					});
 				}
-				play(card) {
-					var idx = _.findIndex(this.cards, card);
+				play(cardInfo) {
+					var card = _.find(this.cards, {id: cardInfo.id});
 
-					this.cards[idx].played = true;
+					card.played = true;
 				}
-				remove(card) {
-					var idx = _.findIndex(this.cards, card);
+				remove(cardInfo) {
+					var card = _.find(this.cards, {id: cardInfo.id}),
+						idx = _.findIndex(this.cards, card);
 
 					this.cards.splice(idx, 1);
 				}
@@ -87,19 +89,15 @@ mainApp.factory('ClassFactory', [
 				reset() {
 					this.collectables = [];
 					this.payment = [];
-					this.deck.activeCardId = '';
 					this.deck.reset();
 				}
 				playCardSet(cardSet) {
 					cardSet.forEach(card => {
-						this.deck.play(card);
+						this.playCard(card);
 					});
 				}
 				playCard(card) {
 					this.deck.play(card);
-					this.deck.activeCardId = card.id;
-
-					return true;
 				}
 				collect(item) {
 					this.collectables.push(_.clone(item));

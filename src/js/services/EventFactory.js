@@ -52,33 +52,34 @@ mainApp.factory('EventFactory', [
 				resolve();
 			},
 			submitBattle: function(resolve) {
-				if (!$s.battleHistory[this.BattleCount]) {
-					$s.battleHistory[this.BattleCount] = {};
+				if (!$s.battleHistory[this.battleCount]) {
+					$s.battleHistory[this.battleCount] = {};
 				}
 
-				$s.battleHistory[this.BattleCount][this.uid] = this.cards;
+				$s.battleHistory[this.battleCount][this.uid] = this.cards;
 
-				if ($s.battleHistory[this.BattleCount].length == $s.allPlayers.length) {
-					EF.battle(resolve);
+				if (_.keys($s.battleHistory[this.battleCount]).length == $s.allPlayers.length) {
+					EF.battle(this.battleCount, resolve);
 				} else {
 					resolve();
 				}
 			},
-			battle: resolve => {
-				$s.battleHistory.forEach(battleSet => {
-					var player = _.findWhere($s.allPlayers, {uid: battleSet.uid});
+			battle: (count, resolve) => {
+				_.mapKeys($s.battleHistory[count], (cards, uid) => {
+					var player = _.find($s.allPlayers, {uid});
 
-					player.battlePower = battleSet.cards.reduce((total, card) => total + card.value, 0);
-					player.playCardSet(battleSet.cards);
+					player.battlePower = cards.reduce((total, card) => total + card.value, 0);
+					player.winner = false;
+					player.playCardSet(cards);
 				});
 
-				determineWinner(resolve);
+				EF.determineWinner(resolve);
 			},
 			determineWinner: resolve => {
 				$s.allPlayers.sort((a, b) => b.battlePower - a.battlePower);
 
 				$s.allPlayers.forEach((player, i) => {
-					var nextPlayer = $s.allPlayers[i + 1];
+					var nextPlayer = $s.allPlayers[i + 1] || {};
 
 					if (i === 0) {
 						player.winner = true;
@@ -91,6 +92,7 @@ mainApp.factory('EventFactory', [
 					}
 				});
 
+				$s.state = 'determineWinner';
 				resolve();
 			},
 			takeResource: function(resolve) {

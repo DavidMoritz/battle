@@ -3,320 +3,276 @@ mainApp.factory('CardFactory', [
 		'use strict';
 
 		return {
-			hearts: [
+			yellow: [
 				{
-					id: 'HB0',
+					id: 'YB0',
 					value: 0,
-					class: 'king',
-					color: 'hearts',
-					played: false
+					class: 'zero',
+					color: 'yellow'
 				},
 				{
-					id: 'HB1',
+					id: 'YB1',
 					value: 1,
-					class: 'ace',
-					color: 'hearts',
-					played: false
+					class: 'one',
+					color: 'yellow'
 				},
 				{
-					id: 'HB2',
+					id: 'YB2',
 					value: 2,
 					class: 'two',
-					color: 'hearts',
-					played: false
+					color: 'yellow'
 				},
 				{
-					id: 'HB3',
+					id: 'YB3',
 					value: 3,
 					class: 'three',
-					color: 'hearts',
-					played: false
+					color: 'yellow'
 				},
 				{
-					id: 'HB4',
+					id: 'YB4',
 					value: 4,
 					class: 'four',
-					color: 'hearts',
-					played: false
+					color: 'yellow'
 				},
 				{
-					id: 'HB5',
+					id: 'YB5',
 					value: 5,
 					class: 'five',
-					color: 'hearts',
-					played: false
+					color: 'yellow'
 				},
 				{
-					id: 'HB6',
+					id: 'YB6',
 					value: 6,
 					class: 'six',
-					color: 'hearts',
-					played: false
+					color: 'yellow'
 				},
 				{
-					id: 'HB7',
+					id: 'YB7',
 					value: 7,
 					class: 'seven',
-					color: 'hearts',
-					played: false
+					color: 'yellow'
 				},
 				{
-					id: 'HB8',
+					id: 'YB8',
 					value: 8,
 					class: 'eight',
-					color: 'hearts',
-					played: false
+					color: 'yellow'
 				},
 				{
-					id: 'HB9',
+					id: 'YB9',
 					value: 9,
 					class: 'nine',
-					color: 'hearts',
-					played: false
+					color: 'yellow'
 				},
 				{
-					id: 'HB10',
+					id: 'YB10',
 					value: 10,
 					class: 'ten',
-					color: 'hearts',
-					played: false
+					color: 'yellow'
 				}
 			],
-			spades: [
+			purple: [
 				{
-					id: 'SB0',
+					id: 'PB0',
 					value: 0,
-					class: 'king',
-					color: 'spades',
-					played: false
+					class: 'zero',
+					color: 'purple'
 				},
 				{
-					id: 'SB1',
+					id: 'PB1',
 					value: 1,
-					class: 'ace',
-					color: 'spades',
-					played: false
+					class: 'one',
+					color: 'purple'
 				},
 				{
-					id: 'SB2',
+					id: 'PB2',
 					value: 2,
 					class: 'two',
-					color: 'spades',
-					played: false
+					color: 'purple'
 				},
 				{
-					id: 'SB3',
+					id: 'PB3',
 					value: 3,
 					class: 'three',
-					color: 'spades',
-					played: false
+					color: 'purple'
 				},
 				{
-					id: 'SB4',
+					id: 'PB4',
 					value: 4,
 					class: 'four',
-					color: 'spades',
-					played: false
+					color: 'purple'
 				},
 				{
-					id: 'SB5',
+					id: 'PB5',
 					value: 5,
 					class: 'five',
-					color: 'spades',
-					played: false
+					color: 'purple'
 				},
 				{
-					id: 'SB6',
+					id: 'PB6',
 					value: 6,
 					class: 'six',
-					color: 'spades',
-					played: false
+					color: 'purple'
 				},
 				{
-					id: 'SB7',
+					id: 'PB7',
 					value: 7,
 					class: 'seven',
-					color: 'spades',
-					played: false
+					color: 'purple'
 				},
 				{
-					id: 'SB8',
+					id: 'PB8',
 					value: 8,
 					class: 'eight',
-					color: 'spades',
-					played: false
+					color: 'purple'
 				},
 				{
-					id: 'SB9',
+					id: 'PB9',
 					value: 9,
 					class: 'nine',
-					color: 'spades',
-					played: false
+					color: 'purple'
 				},
 				{
-					id: 'SB10',
+					id: 'PB10',
 					value: 10,
 					class: 'ten',
-					color: 'spades',
-					played: false
+					color: 'purple'
 				}
 			],
-			diamonds: [
-				{
-					id: 'DB0',
-					value: 0,
-					class: 'king',
-					color: 'diamonds',
-					played: false
-				},
-				{
-					id: 'DB1',
-					value: 1,
-					class: 'ace',
-					color: 'diamonds',
-					played: false
-				},
-				{
-					id: 'DB2',
-					value: 2,
-					class: 'two',
-					color: 'diamonds',
-					played: false
-				},
-				{
-					id: 'DB3',
-					value: 3,
-					class: 'three',
-					color: 'diamonds',
-					played: false
-				},
-				{
-					id: 'DB4',
-					value: 4,
-					class: 'four',
-					color: 'diamonds',
-					played: false
-				},
-				{
-					id: 'DB5',
-					value: 5,
-					class: 'five',
-					color: 'diamonds',
-					played: false
-				},
-				{
-					id: 'DB6',
-					value: 6,
-					class: 'six',
-					color: 'diamonds',
-					played: false
-				},
-				{
-					id: 'DB7',
-					value: 7,
-					class: 'seven',
-					color: 'diamonds',
-					played: false
-				},
-				{
-					id: 'DB8',
-					value: 8,
-					class: 'eight',
-					color: 'diamonds',
-					played: false
-				},
-				{
-					id: 'DB9',
-					value: 9,
-					class: 'nine',
-					color: 'diamonds',
-					played: false
-				},
-				{
-					id: 'DB10',
-					value: 10,
-					class: 'ten',
-					color: 'diamonds',
-					played: false
-				}
-			],
-			clubs: [
+			cyan: [
 				{
 					id: 'CB0',
 					value: 0,
-					class: 'king',
-					color: 'clubs',
-					played: false
+					class: 'zero',
+					color: 'cyan'
 				},
 				{
 					id: 'CB1',
 					value: 1,
-					class: 'ace',
-					color: 'clubs',
-					played: false
+					class: 'one',
+					color: 'cyan'
 				},
 				{
 					id: 'CB2',
 					value: 2,
 					class: 'two',
-					color: 'clubs',
-					played: false
+					color: 'cyan'
 				},
 				{
 					id: 'CB3',
 					value: 3,
 					class: 'three',
-					color: 'clubs',
-					played: false
+					color: 'cyan'
 				},
 				{
 					id: 'CB4',
 					value: 4,
 					class: 'four',
-					color: 'clubs',
-					played: false
+					color: 'cyan'
 				},
 				{
 					id: 'CB5',
 					value: 5,
 					class: 'five',
-					color: 'clubs',
-					played: false
+					color: 'cyan'
 				},
 				{
 					id: 'CB6',
 					value: 6,
 					class: 'six',
-					color: 'clubs',
-					played: false
+					color: 'cyan'
 				},
 				{
 					id: 'CB7',
 					value: 7,
 					class: 'seven',
-					color: 'clubs',
-					played: false
+					color: 'cyan'
 				},
 				{
 					id: 'CB8',
 					value: 8,
 					class: 'eight',
-					color: 'clubs',
-					played: false
+					color: 'cyan'
 				},
 				{
 					id: 'CB9',
 					value: 9,
 					class: 'nine',
-					color: 'clubs',
-					played: false
+					color: 'cyan'
 				},
 				{
 					id: 'CB10',
 					value: 10,
 					class: 'ten',
-					color: 'clubs',
-					played: false
+					color: 'cyan'
+				}
+			],
+			orange: [
+				{
+					id: 'OB0',
+					value: 0,
+					class: 'zero',
+					color: 'orange'
+				},
+				{
+					id: 'OB1',
+					value: 1,
+					class: 'one',
+					color: 'orange'
+				},
+				{
+					id: 'OB2',
+					value: 2,
+					class: 'two',
+					color: 'orange'
+				},
+				{
+					id: 'OB3',
+					value: 3,
+					class: 'three',
+					color: 'orange'
+				},
+				{
+					id: 'OB4',
+					value: 4,
+					class: 'four',
+					color: 'orange'
+				},
+				{
+					id: 'OB5',
+					value: 5,
+					class: 'five',
+					color: 'orange'
+				},
+				{
+					id: 'OB6',
+					value: 6,
+					class: 'six',
+					color: 'orange'
+				},
+				{
+					id: 'OB7',
+					value: 7,
+					class: 'seven',
+					color: 'orange'
+				},
+				{
+					id: 'OB8',
+					value: 8,
+					class: 'eight',
+					color: 'orange'
+				},
+				{
+					id: 'OB9',
+					value: 9,
+					class: 'nine',
+					color: 'orange'
+				},
+				{
+					id: 'OB10',
+					value: 10,
+					class: 'ten',
+					color: 'orange'
 				}
 			],
 			resources: [
@@ -840,7 +796,7 @@ mainApp.factory('CardFactory', [
 			],
 			winner: [],
 			get allCards() {
-				return [].concat(this.spades, this.hearts, this.diamonds, this.clubs, this.resources, this.winner);
+				return [].concat(this.purple, this.yellow, this.cyan, this.orange, this.resources, this.winner);
 			}
 		};
 	}
