@@ -16,13 +16,12 @@ module.exports = function exportConcat(grunt) {
 					'lib/lodash/dist/lodash.min.js',
 					'lib/firebase/firebase.js',
 					'lib/angularfire/dist/angularfire.min.js',
-					'lib/angular-filter/dist/angular-filter.min.js',
+			//		'lib/angular-filter/dist/angular-filter.min.js',
 					'lib/angular-bootstrap/ui-bootstrap.min.js',
 					'lib/angular-bootstrap/ui-bootstrap-tpls.min.js',
-					'lib/angular-animate/angular-animate.min.js',
-					'src/html/ngDraggable.js',
-					'lib/moment/min/moment.min.js',
-					'lib/touch-punch/jquery.ui.touch-punch.min.js',
+			//		'lib/angular-animate/angular-animate.min.js',
+			//		'src/html/ngDraggable.js',
+			//		'lib/touch-punch/jquery.ui.touch-punch.min.js',
 					'src/external/**/*.js'
 				],
 				'<%= distPath %>main.js': [
