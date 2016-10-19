@@ -1,6 +1,6 @@
 mainApp.factory('ClassFactory', [
 	'CardFactory',
-	function ClassFactory(CF) {
+	function CFactory(CF) {
 		'use strict';
 
 		const allColors = ['yellow', 'cyan', 'orange', 'purple'];

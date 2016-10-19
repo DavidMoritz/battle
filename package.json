@@ -15,19 +15,20 @@
     "install": "bower install"
   },
   "devDependencies": {
+    "babel-preset-es2015": "^6.16.0",
     "bower": "latest",
     "grunt": "latest",
+    "grunt-babel": "^6.0.0",
     "grunt-cli": "latest",
     "grunt-contrib-concat": "latest",
     "grunt-contrib-copy": "latest",
     "grunt-contrib-jade": "latest",
     "grunt-contrib-jshint": "latest",
     "grunt-contrib-less": "latest",
-    "grunt-contrib-uglify": "latest",
     "grunt-contrib-watch": "latest",
+    "grunt-jscs": "latest",
     "grunt-pleeease": "~0.0.5",
     "grunt-replace": "latest",
-    "grunt-jscs": "latest",
     "jshint-stylish": "latest"
   },
   "dependencies": {

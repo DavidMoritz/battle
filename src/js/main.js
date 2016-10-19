@@ -13,6 +13,10 @@ mainApp.controller('MainCtrl', [
 			//	init stuff
 			window.$s = $s;
 
+			if (typeof Promise !== 'function') {
+				alert('You\'re browser is not capable of supporting this game. Please trash your crappy backward browser and switch to modern browser like Chrome, Safair, or Firefox');
+			}
+
 			$s.joinableGames = _.mapKeys($s.allGames, (game, key) => {
 				if (typeof game === 'object' && game && game.name) {
 					switch (true) {
