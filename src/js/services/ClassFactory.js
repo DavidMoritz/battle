@@ -17,6 +17,7 @@ mainApp.factory('ClassFactory', [
 			Deck: class Deck {
 				constructor(color) {
 					this.cards = CF[color];
+					this.upgradeCards = CF.upgradeCards;
 					this.activeCardId = '';
 				}
 				get battleValue() {

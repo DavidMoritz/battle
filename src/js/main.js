@@ -162,7 +162,8 @@ mainApp.controller('MainCtrl', [
 		};
 
 		$s.submitCards = () => {
-			// disable submit button
+			$s.state = 'waiting';
+
 			$s.addEvent({
 				name: 'submitBattle',
 				cards: $s.user.deck.selectedCards,
