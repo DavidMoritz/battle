@@ -268,7 +268,7 @@ mainApp.factory('CardFactory', [
 			],
 			resources: [
 				{
-					id: 'RW01',
+					id: 'RL01',
 					class: 'wood',
 					title: 'Lumber',
 					symbol: 'l',
@@ -280,13 +280,13 @@ mainApp.factory('CardFactory', [
 					symbol: 'm',
 					tradeValue: 3
 				}, {
-					id: 'RE02',
+					id: 'RE03',
 					class: 'energy',
 					title: 'Energy Crystals',
 					symbol: 'e',
 					tradeValue: 3
 				}, {
-					id: 'RE02',
+					id: 'RF04',
 					class: 'food',
 					title: 'Food',
 					symbol: 'f',

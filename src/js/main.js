@@ -118,7 +118,7 @@ mainApp.controller('MainCtrl', [
 			state: 'welcome',
 			allPlayers: [],
 			chatList: [],
-			battleHistory: [],
+			submitBattleHistory: [],
 			upgradeHistory: [],
 			activeGame: {},
 			eventTracker: 0,
@@ -163,7 +163,7 @@ mainApp.controller('MainCtrl', [
 		};
 
 		$s.waitEvent = (name, cards) => {
-			$s.state = 'waiting';
+			$s.waiting = true;
 
 			$s.addEvent({
 				name,
@@ -234,7 +234,7 @@ mainApp.controller('MainCtrl', [
 					$s.activeGame.playerNames.push($s.currentUser.name);
 				}
 
-				$s.battleHistory = [];
+				$s.submitBattleHistory = [];
 				$s.upgradeHistory = [];
 				$s.eventTracker = 0;
 				$s.$watch('activeGame.events', updateGame);

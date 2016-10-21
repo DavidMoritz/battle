@@ -7,12 +7,40 @@ mainApp.factory('ClassFactory', [
 		const ClassFactory = {
 			Corp: class Corp {
 				constructor() {
-					this.wood = 0;
-					this.energy = 0;
-					this.mineral = 0;
-					this.food = 0;
+					this.military = {
+						level: 0,
+						points: 0
+					};
+					this.defense = {
+						level: 0,
+						points: 0
+					};
+					this.resourceConverter = {
+						level: 0,
+						points: 0
+					};
+					this.utopia = {
+						level: 0,
+						points: 0
+					};
 				}
 			},
+
+			Resources: class Resources {
+				constructor(n) {
+					this.basic = [];
+					this.winner = EF.winner;
+
+					while(n) {
+						EF.resources.forEach(item => {
+							item.id = item.id + n;
+
+							this.deck.push(item);
+						});
+						n--;
+					}
+				}
+			}
 
 			Deck: class Deck {
 				constructor(color) {
@@ -93,11 +121,10 @@ mainApp.factory('ClassFactory', [
 					this.deck = new ClassFactory.Deck(this.color);
 					this.idx = options.idx;
 					this.collectables = [];
-					this.payment = [];
 				}
 				reset() {
-					this.collectables = [];
-					this.payment = [];
+					this.collectables = this.collectables.filter(item => !item.expiring);
+					this.collectables.forEach(item => item.expiring = true);
 					this.deck.reset();
 				}
 				playCardSet(cardSet) {
@@ -111,10 +138,6 @@ mainApp.factory('ClassFactory', [
 				collect(item) {
 					this.collectables.push(_.clone(item));
 				}
-				// },
-
-				// User: class User {
-				// 	constructor() {}
 			}
 		};
 

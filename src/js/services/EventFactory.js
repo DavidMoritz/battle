@@ -26,6 +26,9 @@ mainApp.factory('EventFactory', [
 						}));
 					});
 					$s.activeGame.active = true;
+					$s.resources = new CF.Resources($s.allPlayers.length);
+					$s.resources.basic = $s.shuffleDeck($s.resources.basic);
+					$s.resources.winner = $s.shuffleDeck($s.resources.winner);
 					$s.user = _.find($s.allPlayers, {uid: $s.currentUser.uid});
 					EF.chooseBattle(resolve);
 				});
@@ -51,21 +54,30 @@ mainApp.factory('EventFactory', [
 				$s.activeGame.message = {};
 				resolve();
 			},
+			update: function(resolve) {
+				EF.submit.bind(this)(resolve);
+			},
 			submitBattle: function(resolve) {
-				if (!$s.battleHistory[this.eventCount]) {
-					$s.battleHistory[this.eventCount] = {};
+				EF.submit.bind(this)(resolve);
+			},
+			submit: function(resolve) {
+				var history = this.name + 'History';
+
+				if (!$s[history][this.eventCount]) {
+					$s[history][this.eventCount] = {};
 				}
 
-				$s.battleHistory[this.eventCount][this.uid] = this.cards;
+				$s[history][this.eventCount][this.uid] = this.cards;
 
-				if (_.keys($s.battleHistory[this.eventCount]).length == $s.allPlayers.length) {
-					EF.battle(this.eventCount, resolve);
+				if (_.keys($s[history][this.eventCount]).length == $s.allPlayers.length) {
+					EF[this.name + 'Ready'](this.eventCount, resolve);
+					$s.waiting = false;
 				} else {
 					resolve();
 				}
 			},
-			battle: (count, resolve) => {
-				_.mapKeys($s.battleHistory[count], (cards, uid) => {
+			submitBattleReady: (count, resolve) => {
+				_.mapKeys($s.submitBattleHistory[count], (cards, uid) => {
 					var player = _.find($s.allPlayers, {uid});
 
 					player.battlePower = cards.reduce((total, card) => total + card.value, 0);
@@ -98,19 +110,6 @@ mainApp.factory('EventFactory', [
 			takeResource: function(resolve) {
 				// take a resource
 				resolve();
-			},
-			upgrade: function(resolve) {
-				if (!$s.upgradeHistory[this.eventCount]) {
-					$s.upgradeHistory[this.eventCount] = {};
-				}
-
-				$s.upgradeHistory[this.eventCount][this.uid] = this.cards;
-
-				if (_.keys($s.upgradeHistory[this.eventCount]).length == $s.allPlayers.length) {
-					EF.upgradeReady(this.eventCount, resolve);
-				} else {
-					resolve();
-				}
 			},
 			upgradeReady: (count, resolve) => {
 				resolve();
