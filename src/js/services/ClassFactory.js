@@ -31,16 +31,18 @@ mainApp.factory('ClassFactory', [
 					this.basic = [];
 					this.winner = EF.winner;
 
-					while(n) {
-						EF.resources.forEach(item => {
-							item.id = item.id + n;
+					var push = item => {
+						item.id = item.id + n;
 
-							this.deck.push(item);
-						});
+						this.deck.push(item);
+					};
+
+					while (n) {
+						EF.resources.forEach(push);
 						n--;
 					}
 				}
-			}
+			},
 
 			Deck: class Deck {
 				constructor(color) {
