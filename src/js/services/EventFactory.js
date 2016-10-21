@@ -52,14 +52,14 @@ mainApp.factory('EventFactory', [
 				resolve();
 			},
 			submitBattle: function(resolve) {
-				if (!$s.battleHistory[this.battleCount]) {
-					$s.battleHistory[this.battleCount] = {};
+				if (!$s.battleHistory[this.eventCount]) {
+					$s.battleHistory[this.eventCount] = {};
 				}
 
-				$s.battleHistory[this.battleCount][this.uid] = this.cards;
+				$s.battleHistory[this.eventCount][this.uid] = this.cards;
 
-				if (_.keys($s.battleHistory[this.battleCount]).length == $s.allPlayers.length) {
-					EF.battle(this.battleCount, resolve);
+				if (_.keys($s.battleHistory[this.eventCount]).length == $s.allPlayers.length) {
+					EF.battle(this.eventCount, resolve);
 				} else {
 					resolve();
 				}
@@ -97,6 +97,22 @@ mainApp.factory('EventFactory', [
 			},
 			takeResource: function(resolve) {
 				// take a resource
+				resolve();
+			},
+			upgrade: function(resolve) {
+				if (!$s.upgradeHistory[this.eventCount]) {
+					$s.upgradeHistory[this.eventCount] = {};
+				}
+
+				$s.upgradeHistory[this.eventCount][this.uid] = this.cards;
+
+				if (_.keys($s.upgradeHistory[this.eventCount]).length == $s.allPlayers.length) {
+					EF.upgradeReady(this.eventCount, resolve);
+				} else {
+					resolve();
+				}
+			},
+			upgradeReady: (count, resolve) => {
 				resolve();
 			}
 		};

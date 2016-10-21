@@ -27,7 +27,15 @@ mainApp.factory('ClassFactory', [
 					return this.heldCards.filter(card => card.selected);
 				}
 				get submittable() {
-					return this.selectedCards.length === 3;
+					var limit = Math.min(this.heldCards.length, 3);
+
+					return this.selectedCards.length === limit;
+				}
+				get chosenUpgrades() {
+					return this.upgradeCards.filter(card => card.selected);
+				}
+				get upgradable() {
+					return this.chosenUpgrades.length === 2;
 				}
 				get activeCard() {
 					return _.find(this.cards, {id: this.activeCardId});

@@ -119,6 +119,7 @@ mainApp.controller('MainCtrl', [
 			allPlayers: [],
 			chatList: [],
 			battleHistory: [],
+			upgradeHistory: [],
 			activeGame: {},
 			eventTracker: 0,
 			ff: {
@@ -126,9 +127,9 @@ mainApp.controller('MainCtrl', [
 			}
 		});
 
-		$s.getBattleCount = () => {
+		$s.getEventCount = (name) => {
 			var subEvents = $s.activeGame.events.slice(0, $s.eventTracker);
-			var submitEvents = _.partition(subEvents, {name: 'submitBattle'})[0].length;
+			var submitEvents = _.partition(subEvents, {name})[0].length;
 
 			if ($s.allPlayers.length == 1) {
 				return submitEvents;
@@ -161,15 +162,23 @@ mainApp.controller('MainCtrl', [
 			$s.ff.chat = '';
 		};
 
-		$s.submitCards = () => {
+		$s.waitEvent = (name, cards) => {
 			$s.state = 'waiting';
 
 			$s.addEvent({
-				name: 'submitBattle',
-				cards: $s.user.deck.selectedCards,
+				name,
+				cards,
 				uid: $s.user.uid,
-				battleCount: $s.getBattleCount()
+				eventCount: $s.getEventCount(name)
 			});
+		};
+
+		$s.submitCards = () => {
+			$s.waitEvent('submitBattle', $s.user.deck.selectedCards);
+		};
+
+		$s.upgradeCards = () => {
+			$s.waitEvent('upgrade', $s.user.deck.chosenUpgrades);
 		};
 
 		$s.addEvent = event => {
@@ -226,6 +235,7 @@ mainApp.controller('MainCtrl', [
 				}
 
 				$s.battleHistory = [];
+				$s.upgradeHistory = [];
 				$s.eventTracker = 0;
 				$s.$watch('activeGame.events', updateGame);
 			});

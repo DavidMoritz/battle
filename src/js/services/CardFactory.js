@@ -258,14 +258,10 @@ mainApp.factory('CardFactory', [
 					name: 'Resource Converter'
 				}, {
 					id: 'UP06',
-					class: 'converter',
-					name: 'Resource Converter'
-				}, {
-					id: 'UP07',
-					class: 'progress',
+					class: 'progress-cards',
 					name: 'Progress Cards'
 				}, {
-					id: 'UP08',
+					id: 'UP07',
 					class: 'double',
 					name: 'Double Upgrade'
 				}
@@ -280,19 +276,19 @@ mainApp.factory('CardFactory', [
 				}, {
 					id: 'RM02',
 					class: 'mineral',
-					title: 'Mineral Deposits'
+					title: 'Mineral Deposits',
 					symbol: 'm',
 					tradeValue: 3
 				}, {
 					id: 'RE02',
 					class: 'energy',
-					title: 'Energy Crystals'
+					title: 'Energy Crystals',
 					symbol: 'e',
 					tradeValue: 3
 				}, {
 					id: 'RE02',
 					class: 'food',
-					title: 'Food'
+					title: 'Food',
 					symbol: 'f',
 					tradeValue: 3
 				}
