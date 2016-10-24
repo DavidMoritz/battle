@@ -48,9 +48,11 @@ mainApp.factory('ClassFactory', [
 				constructor(n, seed) {
 					this.basic = [];
 					this.winner = CF.winner;
+					this.playCount = n;
 
-					var push = item => {
-						item.id = item.id + n;
+					var push = resource => {
+						var item = _.clone(resource);
+						item.id = item.initial + n;
 
 						this.basic.push(item);
 					};
@@ -62,6 +64,32 @@ mainApp.factory('ClassFactory', [
 
 					this.basic = shuffleDeck(this.basic, seed);
 					this.winner = shuffleDeck(this.winner, seed);
+				}
+				get heldBasic() {
+					return this.basic.filter(card => !card.played && !card.available);
+				}
+				get heldWinner() {
+					return this.winner.filter(card => !card.played);
+				}
+				get available() {
+					return Array.prototype.concat(
+						this.winner.filter(card => card.available),
+						this.basic.filter(card => card.available)
+					);
+				}
+				newResouces() {
+					var count = this.playCount;
+
+					while (count) {
+						this.heldBasic[0].available = true;
+						count--;
+					}
+
+					this.heldWinner[0].available = true;
+				}
+				takeResource(card) {
+					card.played = true;
+					card.available = false;
 				}
 			},
 

@@ -268,32 +268,64 @@ mainApp.factory('CardFactory', [
 			],
 			resources: [
 				{
-					id: 'RL01',
+					initial: 'RL01',
 					class: 'wood',
 					title: 'Lumber',
 					symbol: 'l',
 					tradeValue: 3
 				}, {
-					id: 'RM02',
+					initial: 'RM02',
 					class: 'mineral',
 					title: 'Mineral Deposits',
 					symbol: 'm',
 					tradeValue: 3
 				}, {
-					id: 'RE03',
+					initial: 'RE03',
 					class: 'energy',
 					title: 'Energy Crystals',
 					symbol: 'e',
 					tradeValue: 3
 				}, {
-					id: 'RF04',
+					initial: 'RF04',
 					class: 'food',
 					title: 'Food',
 					symbol: 'f',
 					tradeValue: 3
 				}
 			],
-			winner: [],
+			winner: [
+				{
+					id: 'RWL01',
+					class: 'winner wood',
+					title: 'Double Lumber',
+					symbol: 'l l',
+					tradeValue: 5
+				}, {
+					id: 'RWM02',
+					class: 'winner mineral',
+					title: 'Double Mineral Deposits',
+					symbol: 'm m',
+					tradeValue: 5
+				}, {
+					id: 'RWE03',
+					class: 'winner energy',
+					title: 'Double Energy Crystals',
+					symbol: 'e e',
+					tradeValue: 5
+				}, {
+					id: 'RWF04',
+					class: 'winner food',
+					title: 'Double Food',
+					symbol: 'f f',
+					tradeValue: 5
+				}, {
+					id: 'RWW05',
+					class: 'winner wild',
+					title: 'Wild',
+					symbol: 'w',
+					tradeValue: 5
+				}
+			],
 			get allCards() {
 				return [].concat(this.purple, this.yellow, this.cyan, this.orange, this.resources, this.winner);
 			}

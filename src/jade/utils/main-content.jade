@@ -32,6 +32,11 @@ mixin chooseBattle()
 	.row(ng-if='state == "chooseBattle"')
 		+col(6)
 			div(ng-if='!waiting')
+				h3 Resources:
+				ul.cards
+					li.played-card(ng-repeat='card in resources.available')
+						.card-img
+							.card-value.capitalize {{card.symbol}}
 				h3 Cards:
 				ul.cards
 					li.held-card(ng-repeat='card in user.deck.heldCards' ng-click='selectCard(card)')

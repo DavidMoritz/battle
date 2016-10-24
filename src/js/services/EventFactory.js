@@ -17,7 +17,17 @@ mainApp.factory('EventFactory', [
 			startGame: resolve => {
 				var users = FF.getFBObject('users');
 				users.$loaded(() => {
-					$s.startGame();
+					$s.activeGame.active = true;
+					$s.activeGame.playerIds.map(id => {
+						var user = users[id];
+						$s.allPlayers.push(new Class.Player({
+							name: user.firstName,
+							uid: user.uid,
+							idx: $s.allPlayers.length + 1
+						}));
+					});
+					$s.resources = new Class.Resources($s.allPlayers.length, $s.activeGame.id);
+					$s.user = _.find($s.allPlayers, {uid: $s.currentUser.uid});
 					EF.chooseBattle(resolve);
 				});
 			},
@@ -39,6 +49,7 @@ mainApp.factory('EventFactory', [
 			},
 			chooseBattle: resolve => {
 				$s.state = 'chooseBattle';
+				$s.resources.newResouces();
 				$s.activeGame.message = {};
 				resolve();
 			},

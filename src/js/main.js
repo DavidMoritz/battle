@@ -224,20 +224,6 @@ mainApp.controller('MainCtrl', [
 			stopChat();
 		};
 
-		$s.startGame = () => {
-			$s.activeGame.playerIds.map(id => {
-				var user = users[id];
-				$s.allPlayers.push(new Class.Player({
-					name: user.firstName,
-					uid: user.uid,
-					idx: $s.allPlayers.length + 1
-				}));
-			});
-			$s.activeGame.active = true;
-			$s.resources = new Class.Resources($s.allPlayers.length, $s.activeGame.id);
-			$s.user = _.find($s.allPlayers, {uid: $s.currentUser.uid});
-		};
-
 		$s.selectCard = card => {
 			card.selected = !card.selected;
 		};
