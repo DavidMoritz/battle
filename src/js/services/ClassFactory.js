@@ -3,6 +3,24 @@ mainApp.factory('ClassFactory', [
 	function CFactory(CF) {
 		'use strict';
 
+		/**
+		 * Shuffle Deck
+		 * The game needs to shuffle the cards in a predictable way
+		 * so that every user gets the same outcome. This is done by
+		 * 'seeding' the algorithm with the randomly generated gameId.
+		 * This algorthim has been tested over larger iterations here:
+		 * https://jsfiddle.net/sr7djh8x/6/
+		 */
+		function shuffleDeck(deck, seed) {
+			return deck.sort((a, b) => {
+				var gameNumber = parseInt(seed, 36);
+				var firstCardNum = parseInt(a.id, 36);
+				var secondCardNum = parseInt(b.id, 36);
+
+				return (gameNumber % firstCardNum) - (gameNumber % secondCardNum);
+			});
+		}
+
 		const allColors = ['yellow', 'cyan', 'orange', 'purple'];
 		const ClassFactory = {
 			Corp: class Corp {
@@ -27,20 +45,23 @@ mainApp.factory('ClassFactory', [
 			},
 
 			Resources: class Resources {
-				constructor(n) {
+				constructor(n, seed) {
 					this.basic = [];
-					this.winner = EF.winner;
+					this.winner = CF.winner;
 
 					var push = item => {
 						item.id = item.id + n;
 
-						this.deck.push(item);
+						this.basic.push(item);
 					};
 
 					while (n) {
-						EF.resources.forEach(push);
+						CF.resources.forEach(push);
 						n--;
 					}
+
+					this.basic = shuffleDeck(this.basic, seed);
+					this.winner = shuffleDeck(this.winner, seed);
 				}
 			},
 

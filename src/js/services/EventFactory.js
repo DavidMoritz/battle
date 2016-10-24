@@ -17,19 +17,7 @@ mainApp.factory('EventFactory', [
 			startGame: resolve => {
 				var users = FF.getFBObject('users');
 				users.$loaded(() => {
-					$s.activeGame.playerIds.map(id => {
-						var user = users[id];
-						$s.allPlayers.push(new Class.Player({
-							name: user.firstName,
-							uid: user.uid,
-							idx: $s.allPlayers.length + 1
-						}));
-					});
-					$s.activeGame.active = true;
-					$s.resources = new CF.Resources($s.allPlayers.length);
-					$s.resources.basic = $s.shuffleDeck($s.resources.basic);
-					$s.resources.winner = $s.shuffleDeck($s.resources.winner);
-					$s.user = _.find($s.allPlayers, {uid: $s.currentUser.uid});
+					$s.startGame();
 					EF.chooseBattle(resolve);
 				});
 			},

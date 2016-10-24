@@ -86,24 +86,6 @@ mainApp.controller('MainCtrl', [
 			return new Promise(eventFunction.bind(event));
 		}
 
-		/**
-		 * Shuffle Deck
-		 * The game needs to shuffle the cards in a predictable way
-		 * so that every user gets the same outcome. This is done by
-		 * 'seeding' the algorithm with the randomly generated gameId.
-		 * This algorthim has been tested over larger iterations here:
-		 * https://jsfiddle.net/sr7djh8x/6/
-		 */
-		function shuffleDeck(deck) {
-			return deck.sort((a, b) => {
-				var gameNumber = parseInt($s.activeGame.id, 36);
-				var firstCardNum = parseInt(a.id, 36);
-				var secondCardNum = parseInt(b.id, 36);
-
-				return (gameNumber % firstCardNum) - (gameNumber % secondCardNum);
-			});
-		}
-
 		function openModal(name, resolve) {
 			$s.modalInstance = $uibM.open({
 				animation: true,
@@ -240,6 +222,20 @@ mainApp.controller('MainCtrl', [
 				$s.$watch('activeGame.events', updateGame);
 			});
 			stopChat();
+		};
+
+		$s.startGame = () => {
+			$s.activeGame.playerIds.map(id => {
+				var user = users[id];
+				$s.allPlayers.push(new Class.Player({
+					name: user.firstName,
+					uid: user.uid,
+					idx: $s.allPlayers.length + 1
+				}));
+			});
+			$s.activeGame.active = true;
+			$s.resources = new Class.Resources($s.allPlayers.length, $s.activeGame.id);
+			$s.user = _.find($s.allPlayers, {uid: $s.currentUser.uid});
 		};
 
 		$s.selectCard = card => {
