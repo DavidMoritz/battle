@@ -268,25 +268,25 @@ mainApp.factory('CardFactory', [
 			],
 			resources: [
 				{
-					initial: 'RL01',
+					initial: 'RL1',
 					class: 'wood',
 					title: 'Lumber',
 					symbol: 'l',
 					tradeValue: 3
 				}, {
-					initial: 'RM02',
+					initial: 'RM2',
 					class: 'mineral',
 					title: 'Mineral Deposits',
 					symbol: 'm',
 					tradeValue: 3
 				}, {
-					initial: 'RE03',
+					initial: 'RE3',
 					class: 'energy',
 					title: 'Energy Crystals',
 					symbol: 'e',
 					tradeValue: 3
 				}, {
-					initial: 'RF04',
+					initial: 'RF4',
 					class: 'food',
 					title: 'Food',
 					symbol: 'f',
@@ -295,31 +295,31 @@ mainApp.factory('CardFactory', [
 			],
 			winner: [
 				{
-					id: 'RWL01',
+					id: 'RWL1',
 					class: 'winner wood',
 					title: 'Double Lumber',
 					symbol: 'l l',
 					tradeValue: 5
 				}, {
-					id: 'RWM02',
+					id: 'RWM2',
 					class: 'winner mineral',
 					title: 'Double Mineral Deposits',
 					symbol: 'm m',
 					tradeValue: 5
 				}, {
-					id: 'RWE03',
+					id: 'RWE3',
 					class: 'winner energy',
 					title: 'Double Energy Crystals',
 					symbol: 'e e',
 					tradeValue: 5
 				}, {
-					id: 'RWF04',
+					id: 'RWF4',
 					class: 'winner food',
 					title: 'Double Food',
 					symbol: 'f f',
 					tradeValue: 5
 				}, {
-					id: 'RWW05',
+					id: 'RWW5',
 					class: 'winner wild',
 					title: 'Wild',
 					symbol: 'w',

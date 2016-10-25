@@ -30,7 +30,7 @@ mixin startGame()
 
 mixin chooseBattle()
 	.row(ng-if='state == "chooseBattle"')
-		+col(6)
+		+col(10)
 			div(ng-if='!waiting')
 				h3 Resources:
 				ul.cards
@@ -45,12 +45,12 @@ mixin chooseBattle()
 				.btn.btn-success(ng-disabled='!user.deck.submittable' ng-click='submitCards()') Submit
 				h3 Battle Value: {{user.deck.battleValue}}
 			h3(ng-if='waiting') Waiting for other players
-		+col(6)
-			h3 Other Players:
+		+col(2)
+			h4 Other Players:
 			ul.players
 				li(ng-repeat='player in allPlayers' ng-hide='player.uid == currentUser.uid') {{player.name}}
-					button.btn.btn-danger(ng-hide='submitBattleHistory[getEventCount("submitBattle")][player.uid]') Not Ready
-					button.btn.btn-success(ng-show='submitBattleHistory[getEventCount("submitBattle")][player.uid]') Ready
+					.alert.alert-danger(ng-hide='submitBattleHistory[getEventCount("submitBattle")][player.uid]') Not Ready
+					.alert.alert-success(ng-show='submitBattleHistory[getEventCount("submitBattle")][player.uid]') Ready
 
 mixin determineWinner()
 	.row(ng-if='state == "determineWinner"')
