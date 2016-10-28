@@ -6063,8 +6063,8 @@ body.win .main-stage .stage-left,
 body.win .main-stage .stage-right {
   visibility: hidden;
 }.main-stage .center-stage {
-  -ms-flex: 4;
-      flex: 4;
+  -ms-flex: 5;
+      flex: 5;
 }.container {
   margin-top: 40px;
   border-radius: 5px;
@@ -6571,6 +6571,7 @@ input {
   box-shadow: white 0 0 10px 0;
   width: 109px;
   height: 150px;
+  border-radius: 6px;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-pack: center;
@@ -6586,12 +6587,14 @@ input {
 }.card-img.small {
   width: 55px;
   height: 75px;
+  border-radius: 4px;
   background-image: url(../img/yellow_blank_sm.png);
 }.card-img.small .card-value {
   font-size: 20px;
 }.card-img.large {
   width: 218px;
   height: 300px;
+  border-radius: 10px;
   background-image: url(../img/yellow_blank_lg.png);
 }.card-img.large .card-value {
   font-size: 80px;

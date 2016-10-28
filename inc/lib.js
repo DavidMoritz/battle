@@ -1,6 +1,6 @@
 /*!
  * A new battle game by David Wintterle - v0.0.1 
- * Build Date: 2016.10.18 
+ * Build Date: 2016.10.28 
  * Docs: http://moritzcompany.com 
  * Coded @ Moritz Company 
  */ 

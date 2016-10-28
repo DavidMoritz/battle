@@ -72,24 +72,35 @@
               </section>
             </div>
             <div ng-if="state == &quot;chooseBattle&quot;" class="row">
-              <section class=" col-xs-6">
-                <h3>Cards:</h3>
-                <ul class="cards">
-                  <li ng-repeat="card in user.deck.heldCards" ng-click="selectCard(card)" class="held-card">
-                    <div class="card-img small {{card.color}} {{card.selected ? &quot;selected&quot; : &quot;&quot;}}">
-                      <div class="card-value">{{card.value}}</div>
-                    </div>
-                  </li>
-                </ul>
-                <div ng-disabled="!user.deck.submittable" ng-click="submitCards()" class="btn btn-success">Submit</div>
-                <h3>Battle Value: {{user.deck.battleValue}}</h3>
+              <section class=" col-xs-10">
+                <div ng-if="!waiting">
+                  <h3>Resources:</h3>
+                  <ul class="cards">
+                    <li ng-repeat="card in resources.available" class="played-card">
+                      <div class="card-img">
+                        <div class="card-value capitalize">{{card.symbol}}</div>
+                      </div>
+                    </li>
+                  </ul>
+                  <h3>Cards:</h3>
+                  <ul class="cards">
+                    <li ng-repeat="card in user.deck.heldCards" ng-click="selectCard(card)" class="held-card">
+                      <div class="card-img small {{card.color}} {{card.selected ? &quot;selected&quot; : &quot;&quot;}}">
+                        <div class="card-value">{{card.value}}</div>
+                      </div>
+                    </li>
+                  </ul>
+                  <div ng-disabled="!user.deck.submittable" ng-click="submitCards()" class="btn btn-success">Submit</div>
+                  <h3>Battle Value: {{user.deck.battleValue}}</h3>
+                </div>
+                <h3 ng-if="waiting">Waiting for other players</h3>
               </section>
-              <section class=" col-xs-6">
-                <h3>Other Players:</h3>
+              <section class=" col-xs-2">
+                <h4>Other Players:</h4>
                 <ul class="players">
                   <li ng-repeat="player in allPlayers" ng-hide="player.uid == currentUser.uid">{{player.name}}
-                    <button ng-hide="battleHistory[getBattleCount()][player.uid]" class="btn btn-danger">Not Ready</button>
-                    <button ng-show="battleHistory[getBattleCount()][player.uid]" class="btn btn-success">Ready</button>
+                    <div ng-hide="submitBattleHistory[getEventCount(&quot;submitBattle&quot;)][player.uid]" class="alert alert-danger">Not Ready</div>
+                    <div ng-show="submitBattleHistory[getEventCount(&quot;submitBattle&quot;)][player.uid]" class="alert alert-success">Ready</div>
                   </li>
                 </ul>
               </section>
@@ -100,7 +111,7 @@
                 <ul class="players">
                   <li ng-repeat="player in allPlayers">{{player.name}}: {{player.battlePower}}<span ng-show="player.winner" class="winner">WINNER</span>
                     <ul class="cards">
-                      <li ng-repeat="card in battleHistory[getBattleCount() - 1][player.uid]" class="held-card">
+                      <li ng-repeat="card in submitBattleHistory[getEventCount(&quot;submitBattle&quot;) - 1][player.uid]" class="held-card">
                         <div class="card-img small {{card.color}}">
                           <div class="card-value">{{card.value}}</div>
                         </div>
@@ -109,7 +120,33 @@
                     <hr/>
                   </li>
                 </ul>
-                <button ng-click="changeState(&quot;chooseBattle&quot;)" class="btn btn-success">Next Battle</button>
+                <button ng-if="user.deck.heldCards.length" ng-click="changeState(&quot;chooseBattle&quot;)" class="btn btn-success">Next Battle</button>
+                <button ng-if="!user.deck.heldCards.length" ng-click="changeState(&quot;upgrade&quot;)" class="btn btn-success">Choose Upgrades</button>
+              </section>
+            </div>
+            <div ng-if="state == &quot;upgrade&quot;" class="row">
+              <section class=" col-xs-6">
+                <div ng-if="!waiting">
+                  <h3>Choose your upgrade</h3>
+                  <ul class="upgrades cards">
+                    <li ng-repeat="card in user.deck.upgradeCards" ng-click="selectCard(card)" class="held-card">
+                      <div title="{{card.name}}" class="card-img small {{user.color}} {{card.class}} {{card.selected ? &quot;selected&quot; : &quot;&quot;}}">
+                        <div class="card-value">{{card.id}}</div>
+                      </div>
+                    </li>
+                  </ul>
+                  <div ng-disabled="!user.deck.upgradable" ng-click="upgradeCards()" class="btn btn-success">Upgrade</div>
+                </div>
+                <h3 ng-if="waiting">Waiting for other players</h3>
+              </section>
+              <section class=" col-xs-6">
+                <h3>Other Players:</h3>
+                <ul class="players">
+                  <li ng-repeat="player in allPlayers" ng-hide="player.uid == currentUser.uid">{{player.name}}
+                    <button ng-hide="upgradeHistory[getEventCount(&quot;upgrade&quot;)][player.uid]" class="btn btn-danger">Not Ready</button>
+                    <button ng-show="upgradeHistory[getEventCount(&quot;upgrade&quot;)][player.uid]" class="btn btn-success">Ready</button>
+                  </li>
+                </ul>
               </section>
             </div>
           </div>
