@@ -106,7 +106,19 @@
               </section>
             </div>
             <div ng-if="state == &quot;determineWinner&quot;" class="row">
-              <section class=" col-xs-6">
+              <section class=" col-xs-8">
+                <div ng-if="currentPlayer.uid == user.uid" class="alert alert-success">Choose a resource card!</div>
+                <div ng-if="currentPlayer.uid != user.uid" class="alert alert-warning">{{currentPlayer.name}} must choose a resource card</div>
+                <h3>Resources:</h3>
+                <ul class="cards">
+                  <li ng-repeat="card in resources.available" ng-click="chooseResource(card)" class="played-card">
+                    <div class="card-img">
+                      <div class="card-value capitalize">{{card.symbol}}</div>
+                    </div>
+                  </li>
+                </ul>
+              </section>
+              <section class=" col-xs-4">
                 <h3>Players</h3>
                 <ul class="players">
                   <li ng-repeat="player in allPlayers">{{player.name}}: {{player.battlePower}}<span ng-show="player.winner" class="winner">WINNER</span>
@@ -120,8 +132,8 @@
                     <hr/>
                   </li>
                 </ul>
-                <button ng-if="user.deck.heldCards.length" ng-click="changeState(&quot;chooseBattle&quot;)" class="btn btn-success">Next Battle</button>
-                <button ng-if="!user.deck.heldCards.length" ng-click="changeState(&quot;upgrade&quot;)" class="btn btn-success">Choose Upgrades</button>
+                <!--button.btn.btn-success(ng-if='user.deck.heldCards.length' ng-click='changeState("chooseBattle")') Next Battle-->
+                <!--button.btn.btn-success(ng-if='!user.deck.heldCards.length' ng-click='changeState("upgrade")') Choose Upgrades-->
               </section>
             </div>
             <div ng-if="state == &quot;upgrade&quot;" class="row">

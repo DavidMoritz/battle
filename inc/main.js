@@ -257,6 +257,15 @@ mainApp.controller('MainCtrl', [
 			});
 		};
 
+		$s.chooseResource = card => {
+			if ($s.currentPlayer == $s.user) {
+				$s.addEvent({
+					name: 'chooseResource',
+					card
+				});
+			}
+		};
+
 		$s.fbLogin = () => {
 			FF.facebookLogin(err => {
 				console.log('There was a Facebook Login error', err);
@@ -599,25 +608,37 @@ mainApp.factory('CardFactory', [
 					class: 'wood',
 					title: 'Lumber',
 					symbol: 'l',
-					tradeValue: 3
+					tradeValue: 3,
+					resources: [{
+						name: 'wood'
+					}]
 				}, {
 					initial: 'RM2',
 					class: 'mineral',
 					title: 'Mineral Deposits',
 					symbol: 'm',
-					tradeValue: 3
+					tradeValue: 3,
+					resources: [{
+						name: 'mineral'
+					}]
 				}, {
 					initial: 'RE3',
 					class: 'energy',
 					title: 'Energy Crystals',
 					symbol: 'e',
-					tradeValue: 3
+					tradeValue: 3,
+					resources: [{
+						name: 'energy'
+					}]
 				}, {
 					initial: 'RF4',
 					class: 'food',
 					title: 'Food',
 					symbol: 'f',
-					tradeValue: 3
+					tradeValue: 3,
+					resources: [{
+						name: 'food'
+					}]
 				}
 			],
 			winner: [
@@ -626,31 +647,54 @@ mainApp.factory('CardFactory', [
 					class: 'winner wood',
 					title: 'Double Lumber',
 					symbol: 'l l',
-					tradeValue: 5
+					tradeValue: 5,
+					resources: [{
+						name: 'wood'
+					},{
+						name: 'wood'
+					}]
 				}, {
 					id: 'RWM2',
 					class: 'winner mineral',
 					title: 'Double Mineral Deposits',
 					symbol: 'm m',
-					tradeValue: 5
+					tradeValue: 5,
+					resources: [{
+						name: 'mineral'
+					},{
+						name: 'mineral'
+					}]
 				}, {
 					id: 'RWE3',
 					class: 'winner energy',
 					title: 'Double Energy Crystals',
 					symbol: 'e e',
-					tradeValue: 5
+					tradeValue: 5,
+					resources: [{
+						name: 'energy'
+					},{
+						name: 'energy'
+					}]
 				}, {
 					id: 'RWF4',
 					class: 'winner food',
 					title: 'Double Food',
 					symbol: 'f f',
-					tradeValue: 5
+					tradeValue: 5,
+					resources: [{
+						name: 'food'
+					},{
+						name: 'food'
+					}]
 				}, {
 					id: 'RWW5',
 					class: 'winner wild',
 					title: 'Wild',
 					symbol: 'w',
-					tradeValue: 5
+					tradeValue: 5,
+					resources: [{
+						name: 'wild'
+					}]
 				}
 			],
 			get allCards() {
@@ -738,6 +782,9 @@ mainApp.factory('ClassFactory', [
 						this.basic.filter(card => card.available)
 					);
 				}
+				findResource(resource) {
+					return _.find(this.winner, resource) || _.find(this.basic, resource);
+				}
 				newResouces() {
 					var count = this.playCount;
 
@@ -747,6 +794,15 @@ mainApp.factory('ClassFactory', [
 					}
 
 					this.heldWinner[0].available = true;
+				}
+				play(cardInfo, player) {
+					var card = this.findResource(cardInfo);
+
+					this.takeResource(card);
+
+					if (player) {
+						card.resources.forEach(resource => player.collectResource(resource));
+					}
 				}
 				takeResource(card) {
 					card.played = true;
@@ -847,7 +903,7 @@ mainApp.factory('ClassFactory', [
 				playCard(card) {
 					this.deck.play(card);
 				}
-				collect(item) {
+				collectResource(item) {
 					this.collectables.push(_.clone(item));
 				}
 			}
@@ -889,18 +945,18 @@ mainApp.factory('EventFactory', [
 					EF.chooseBattle(resolve);
 				});
 			},
-			// if a function uses `this` for the event, it cannot be an arrow function
-			playCard: function(resolve) {
-				var card = $s.currentPlayer.deck.findById(this.cardId);
+			// // if a function uses `this` for the event, it cannot be an arrow function
+			// playCard: function(resolve) {
+			// 	var card = $s.currentPlayer.deck.findById(this.cardId);
 
-				if ($s.currentPlayer.playCard(card)) {
-					console.log(`Event ${$s.eventTracker}:`, $s);
-					$s.state = 'strength';
-					resolve();
-				} else {
-					resolve();
-				}
-			},
+			// 	if ($s.currentPlayer.playCard(card)) {
+			// 		console.log(`Event ${$s.eventTracker}:`, $s);
+			// 		$s.state = 'strength';
+			// 		resolve();
+			// 	} else {
+			// 		resolve();
+			// 	}
+			// },
 			closeModal: resolve => {
 				$s.modalInstance.close();
 				resolve();
@@ -961,12 +1017,29 @@ mainApp.factory('EventFactory', [
 					}
 				});
 
+				$s.currentPlayer = $s.allPlayers[0];
+
 				$s.state = 'determineWinner';
 				resolve();
 			},
-			takeResource: function(resolve) {
-				// take a resource
-				resolve();
+			chooseResource: function(resolve) {
+				var idx = _.findIndex($s.allPlayers, $s.currentPlayer);
+
+				$s.resources.play(this.card, $s.currentPlayer);
+
+				if ($s.resources.available.length == 1) {
+					$s.resources.play($s.resources.available[0]);
+
+					if ($s.currentPlayer.deck.heldCards.length) {
+						EF.chooseBattle(resolve);
+					} else {
+						$s.state = 'upgrade';
+						EF.upgradeReady(resolve);
+					}
+				} else {
+					$s.currentPlayer = $s.allPlayers[idx + 1];
+					resolve();
+				}
 			},
 			upgradeReady: (count, resolve) => {
 				resolve();
