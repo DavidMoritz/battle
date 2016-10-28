@@ -77,6 +77,9 @@ mainApp.factory('ClassFactory', [
 						this.basic.filter(card => card.available)
 					);
 				}
+				findResource(resource) {
+					return _.find(this.winner, resource) || _.find(this.basic, resource);
+				}
 				newResouces() {
 					var count = this.playCount;
 
@@ -86,6 +89,15 @@ mainApp.factory('ClassFactory', [
 					}
 
 					this.heldWinner[0].available = true;
+				}
+				play(cardInfo, player) {
+					var card = this.findResource(cardInfo);
+
+					this.takeResource(card);
+
+					if (player) {
+						card.resources.forEach(resource => player.collectResource(resource));
+					}
 				}
 				takeResource(card) {
 					card.played = true;
@@ -186,7 +198,7 @@ mainApp.factory('ClassFactory', [
 				playCard(card) {
 					this.deck.play(card);
 				}
-				collect(item) {
+				collectResource(item) {
 					this.collectables.push(_.clone(item));
 				}
 			}

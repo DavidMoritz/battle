@@ -31,18 +31,18 @@ mainApp.factory('EventFactory', [
 					EF.chooseBattle(resolve);
 				});
 			},
-			// if a function uses `this` for the event, it cannot be an arrow function
-			playCard: function(resolve) {
-				var card = $s.currentPlayer.deck.findById(this.cardId);
+			// // if a function uses `this` for the event, it cannot be an arrow function
+			// playCard: function(resolve) {
+			// 	var card = $s.currentPlayer.deck.findById(this.cardId);
 
-				if ($s.currentPlayer.playCard(card)) {
-					console.log(`Event ${$s.eventTracker}:`, $s);
-					$s.state = 'strength';
-					resolve();
-				} else {
-					resolve();
-				}
-			},
+			// 	if ($s.currentPlayer.playCard(card)) {
+			// 		console.log(`Event ${$s.eventTracker}:`, $s);
+			// 		$s.state = 'strength';
+			// 		resolve();
+			// 	} else {
+			// 		resolve();
+			// 	}
+			// },
 			closeModal: resolve => {
 				$s.modalInstance.close();
 				resolve();
@@ -103,12 +103,29 @@ mainApp.factory('EventFactory', [
 					}
 				});
 
+				$s.currentPlayer = $s.allPlayers[0];
+
 				$s.state = 'determineWinner';
 				resolve();
 			},
-			takeResource: function(resolve) {
-				// take a resource
-				resolve();
+			chooseResource: function(resolve) {
+				var idx = _.findIndex($s.allPlayers, $s.currentPlayer);
+
+				$s.resources.play(this.card, $s.currentPlayer);
+
+				if ($s.resources.available.length == 1) {
+					$s.resources.play($s.resources.available[0]);
+
+					if ($s.currentPlayer.deck.heldCards.length) {
+						EF.chooseBattle(resolve);
+					} else {
+						$s.state = 'upgrade';
+						EF.upgradeReady(resolve);
+					}
+				} else {
+					$s.currentPlayer = $s.allPlayers[idx + 1];
+					resolve();
+				}
 			},
 			upgradeReady: (count, resolve) => {
 				resolve();

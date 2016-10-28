@@ -234,6 +234,15 @@ mainApp.controller('MainCtrl', [
 			});
 		};
 
+		$s.chooseResource = card => {
+			if ($s.currentPlayer == $s.user) {
+				$s.addEvent({
+					name: 'chooseResource',
+					card
+				});
+			}
+		};
+
 		$s.fbLogin = () => {
 			FF.facebookLogin(err => {
 				console.log('There was a Facebook Login error', err);

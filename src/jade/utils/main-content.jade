@@ -54,7 +54,15 @@ mixin chooseBattle()
 
 mixin determineWinner()
 	.row(ng-if='state == "determineWinner"')
-		+col(6)
+		+col(8)
+			.alert.alert-success(ng-if='currentPlayer.uid == user.uid') Choose a resource card!
+			.alert.alert-warning(ng-if='currentPlayer.uid != user.uid') {{currentPlayer.name}} must choose a resource card
+			h3 Resources:
+			ul.cards
+				li.played-card(ng-repeat='card in resources.available' ng-click='chooseResource(card)')
+					.card-img
+						.card-value.capitalize {{card.symbol}}
+		+col(4)
 			h3 Players
 			ul.players
 				li(ng-repeat='player in allPlayers') {{player.name}}: {{player.battlePower}}
@@ -64,8 +72,8 @@ mixin determineWinner()
 							.card-img.small(class='{{card.color}}')
 								.card-value {{card.value}}
 					hr
-			button.btn.btn-success(ng-if='user.deck.heldCards.length' ng-click='changeState("chooseBattle")') Next Battle
-			button.btn.btn-success(ng-if='!user.deck.heldCards.length' ng-click='changeState("upgrade")') Choose Upgrades
+			//button.btn.btn-success(ng-if='user.deck.heldCards.length' ng-click='changeState("chooseBattle")') Next Battle
+			//button.btn.btn-success(ng-if='!user.deck.heldCards.length' ng-click='changeState("upgrade")') Choose Upgrades
 
 mixin upgrade()
 	.row(ng-if='state == "upgrade"')
