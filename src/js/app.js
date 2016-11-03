@@ -1,4 +1,4 @@
-var mainApp = angular.module('mainApp', ['firebase', 'angular.filter', 'ngAnimate', 'ui.bootstrap', 'ngDraggable']);
+var mainApp = angular.module('mainApp', ['firebase', 'ui.bootstrap']);
 
 mainApp.config(() => {
 	var config = {
@@ -12,6 +12,5 @@ mainApp.config(() => {
 
 mainApp.run(function runWithDependencies($rootScope) {
 	$rootScope._ = _;
-	$rootScope.moment = moment;
 	$rootScope.mc = mc;
 });

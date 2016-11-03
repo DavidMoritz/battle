@@ -60,6 +60,6 @@ module.exports = function(grunt) {
 		'replace:prod',
 		'pleeease:prod',
 		'concat',
-		'uglify'
+		'babel'
 	]);
 };

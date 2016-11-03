@@ -17,6 +17,7 @@ mainApp.factory('EventFactory', [
 			startGame: resolve => {
 				var users = FF.getFBObject('users');
 				users.$loaded(() => {
+					$s.activeGame.active = true;
 					$s.activeGame.playerIds.map(id => {
 						var user = users[id];
 						$s.allPlayers.push(new Class.Player({
@@ -25,60 +26,108 @@ mainApp.factory('EventFactory', [
 							idx: $s.allPlayers.length + 1
 						}));
 					});
-					$s.activeGame.active = true;
+					$s.resources = new Class.Resources($s.allPlayers.length, $s.activeGame.id);
 					$s.user = _.find($s.allPlayers, {uid: $s.currentUser.uid});
 					EF.chooseBattle(resolve);
 				});
 			},
-			// if a function uses `this` for the event, it cannot be an arrow function
-			playCard: function(resolve) {
-				var card = $s.currentPlayer.deck.findById(this.cardId);
+			// // if a function uses `this` for the event, it cannot be an arrow function
+			// playCard: function(resolve) {
+			// 	var card = $s.currentPlayer.deck.findById(this.cardId);
 
-				if ($s.currentPlayer.playCard(card)) {
-					console.log(`Event ${$s.eventTracker}:`, $s);
-					$s.state = 'strength';
-					resolve();
-				} else {
-					resolve();
-				}
-			},
+			// 	if ($s.currentPlayer.playCard(card)) {
+			// 		console.log(`Event ${$s.eventTracker}:`, $s);
+			// 		$s.state = 'strength';
+			// 		resolve();
+			// 	} else {
+			// 		resolve();
+			// 	}
+			// },
 			closeModal: resolve => {
 				$s.modalInstance.close();
 				resolve();
 			},
 			chooseBattle: resolve => {
 				$s.state = 'chooseBattle';
+				$s.resources.newResouces();
 				$s.activeGame.message = {};
 				resolve();
 			},
+			update: function(resolve) {
+				EF.submit.bind(this)(resolve);
+			},
 			submitBattle: function(resolve) {
-				var thisBattle = $s.activeGame.battleHistory[$s.getBattleCount()];
+				EF.submit.bind(this)(resolve);
+			},
+			submit: function(resolve) {
+				var history = this.name + 'History';
 
-				if (!thisBattle) {
-					thisBattle = {};
+				if (!$s[history][this.eventCount]) {
+					$s[history][this.eventCount] = {};
 				}
 
-				thisBattle[this.uid] = this;
+				$s[history][this.eventCount][this.uid] = this.cards;
 
-				if (_.keys(thisBattle).length == $s.allPlayers.length) {
-					EF.battle(resolve);
+				if (_.keys($s[history][this.eventCount]).length == $s.allPlayers.length) {
+					EF[this.name + 'Ready'](this.eventCount, resolve);
+					$s.waiting = false;
 				} else {
 					resolve();
 				}
 			},
-			battle: resolve => {
-				_.keys(thisBattle).forEach(battleSet => {
-					var player = _.findWhere($s.allPlayers, {uid: battleSet.uid});
+			submitBattleReady: (count, resolve) => {
+				_.mapKeys($s.submitBattleHistory[count], (cards, uid) => {
+					var player = _.find($s.allPlayers, {uid});
 
-					player.battlePower = player.deck.battleValue;
-					player.playCardSet(battleSet.cards);
+					player.battlePower = cards.reduce((total, card) => total + card.value, 0);
+					player.winner = false;
+					player.playCardSet(cards);
 				});
 
-				$s.activeGame.battleHistory = [];
+				EF.determineWinner(resolve);
+			},
+			determineWinner: resolve => {
+				$s.allPlayers.sort((a, b) => b.battlePower - a.battlePower);
+
+				$s.allPlayers.forEach((player, i) => {
+					var nextPlayer = $s.allPlayers[i + 1] || {};
+
+					if (i === 0) {
+						player.winner = true;
+					}
+
+					if (player.battlePower == nextPlayer.battlePower) {
+						player.duplicateBattlePower = true;
+						nextPlayer.duplicateBattlePower = true;
+						nextPlayer.winner = player.winner;
+					}
+				});
+
+				$s.currentPlayer = $s.allPlayers[0];
+
+				$s.state = 'determineWinner';
 				resolve();
 			},
-			takeResource: function(resolve) {
-				// take a resource
+			chooseResource: function(resolve) {
+				var idx = _.findIndex($s.allPlayers, $s.currentPlayer);
+
+				$s.resources.play(this.card, $s.currentPlayer);
+
+				if ($s.resources.available.length == 1) {
+					$s.resources.play($s.resources.available[0]);
+
+					if ($s.currentPlayer.deck.heldCards.length) {
+						EF.chooseBattle(resolve);
+					} else {
+						$s.state = 'upgrade';
+						EF.upgradeReady(resolve);
+					}
+				} else {
+					$s.currentPlayer = $s.allPlayers[idx + 1];
+					resolve();
+				}
+			},
+			upgradeReady: (count, resolve) => {
 				resolve();
 			}
 		};

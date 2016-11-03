@@ -114,9 +114,10 @@
 	}
 }
 .card-img {
-	box-shadow: black 0 0 10px 0;
+	box-shadow: white 0 0 10px 0;
 	width: 109px;
 	height: 150px;
+	border-radius: 6px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -126,17 +127,19 @@
 		font-family: serif;
 	}
 	&.selected {
-		box-shadow: yellow 0 0 10px 0;
+		box-shadow: blue 0 0 10px 0;
 	}
 	&.small {
 		width: 55px;
 		height: 75px;
+		border-radius: 4px;
 		background-image: url(../img/yellow_blank_sm.png);
 		.card-value {font-size: 20px}
 	}
 	&.large {
 		width: 218px;
 		height: 300px;
+		border-radius: 10px;
 		background-image: url(../img/yellow_blank_lg.png);
 		.card-value {font-size: 80px}
 	}

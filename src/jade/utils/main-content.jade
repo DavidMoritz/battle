@@ -30,11 +30,65 @@ mixin startGame()
 
 mixin chooseBattle()
 	.row(ng-if='state == "chooseBattle"')
-		+col(6)
-			h3 Cards:
+		+col(10)
+			div(ng-if='!waiting')
+				h3 Resources:
+				ul.cards
+					li.played-card(ng-repeat='card in resources.available')
+						.card-img
+							.card-value.capitalize {{card.symbol}}
+				h3 Cards:
+				ul.cards
+					li.held-card(ng-repeat='card in user.deck.heldCards' ng-click='selectCard(card)')
+						.card-img.small(class='{{card.color}} {{card.selected ? "selected" : ""}}')
+							.card-value {{card.value}}
+				.btn.btn-success(ng-disabled='!user.deck.submittable' ng-click='submitCards()') Submit
+				h3 Battle Value: {{user.deck.battleValue}}
+			h3(ng-if='waiting') Waiting for other players
+		+col(2)
+			h4 Other Players:
+			ul.players
+				li(ng-repeat='player in allPlayers' ng-hide='player.uid == currentUser.uid') {{player.name}}
+					.alert.alert-danger(ng-hide='submitBattleHistory[getEventCount("submitBattle")][player.uid]') Not Ready
+					.alert.alert-success(ng-show='submitBattleHistory[getEventCount("submitBattle")][player.uid]') Ready
+
+mixin determineWinner()
+	.row(ng-if='state == "determineWinner"')
+		+col(8)
+			.alert.alert-success(ng-if='currentPlayer.uid == user.uid') Choose a resource card!
+			.alert.alert-warning(ng-if='currentPlayer.uid != user.uid') {{currentPlayer.name}} must choose a resource card
+			h3 Resources:
 			ul.cards
-				li.held-card(ng-repeat='card in user.deck.cards' ng-click='selectCard(card)')
-					.card-img.small(class='{{card.team}} {{card.selected ? "selected" : ""}}')
-						.card-value {{card.value}}
-			.btn.btn-success(ng-disabled='!user.deck.submittable' ng-click='submitCards()') Submit
-			h3 Battle Value: {{user.deck.battleValue}}
+				li.played-card(ng-repeat='card in resources.available' ng-click='chooseResource(card)')
+					.card-img
+						.card-value.capitalize {{card.symbol}}
+		+col(4)
+			h3 Players
+			ul.players
+				li(ng-repeat='player in allPlayers') {{player.name}}: {{player.battlePower}}
+					span.winner(ng-show='player.winner') WINNER
+					ul.cards
+						li.held-card(ng-repeat='card in submitBattleHistory[getEventCount("submitBattle") - 1][player.uid]')
+							.card-img.small(class='{{card.color}}')
+								.card-value {{card.value}}
+					hr
+			//button.btn.btn-success(ng-if='user.deck.heldCards.length' ng-click='changeState("chooseBattle")') Next Battle
+			//button.btn.btn-success(ng-if='!user.deck.heldCards.length' ng-click='changeState("upgrade")') Choose Upgrades
+
+mixin upgrade()
+	.row(ng-if='state == "upgrade"')
+		+col(6)
+			div(ng-if='!waiting')
+				h3 Choose your upgrade
+				ul.upgrades.cards
+					li.held-card(ng-repeat='card in user.deck.upgradeCards' ng-click='selectCard(card)')
+						.card-img.small(class='{{user.color}} {{card.class}} {{card.selected ? "selected" : ""}}' title='{{card.name}}')
+							.card-value {{card.id}}
+				.btn.btn-success(ng-disabled='!user.deck.upgradable' ng-click='upgradeCards()') Upgrade
+			h3(ng-if='waiting') Waiting for other players
+		+col(6)
+			h3 Other Players:
+			ul.players
+				li(ng-repeat='player in allPlayers' ng-hide='player.uid == currentUser.uid') {{player.name}}
+					button.btn.btn-danger(ng-hide='upgradeHistory[getEventCount("upgrade")][player.uid]') Not Ready
+					button.btn.btn-success(ng-show='upgradeHistory[getEventCount("upgrade")][player.uid]') Ready

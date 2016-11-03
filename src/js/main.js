@@ -13,6 +13,10 @@ mainApp.controller('MainCtrl', [
 			//	init stuff
 			window.$s = $s;
 
+			if (typeof Promise !== 'function') {
+				alert('You\'re browser is not capable of supporting this game. Please trash your crappy backward browser and switch to modern browser like Chrome, Safair, or Firefox');
+			}
+
 			$s.joinableGames = _.mapKeys($s.allGames, (game, key) => {
 				if (typeof game === 'object' && game && game.name) {
 					switch (true) {
@@ -82,24 +86,6 @@ mainApp.controller('MainCtrl', [
 			return new Promise(eventFunction.bind(event));
 		}
 
-		/**
-		 * Shuffle Deck
-		 * The game needs to shuffle the cards in a predictable way
-		 * so that every user gets the same outcome. This is done by
-		 * 'seeding' the algorithm with the randomly generated gameId.
-		 * This algorthim has been tested over larger iterations here:
-		 * https://jsfiddle.net/sr7djh8x/6/
-		 */
-		function shuffleDeck(deck) {
-			return deck.sort((a, b) => {
-				var gameNumber = parseInt($s.activeGame.id, 36);
-				var firstCardNum = parseInt(a.id, 36);
-				var secondCardNum = parseInt(b.id, 36);
-
-				return (gameNumber % firstCardNum) - (gameNumber % secondCardNum);
-			});
-		}
-
 		function openModal(name, resolve) {
 			$s.modalInstance = $uibM.open({
 				animation: true,
@@ -114,6 +100,8 @@ mainApp.controller('MainCtrl', [
 			state: 'welcome',
 			allPlayers: [],
 			chatList: [],
+			submitBattleHistory: [],
+			upgradeHistory: [],
 			activeGame: {},
 			eventTracker: 0,
 			ff: {
@@ -121,11 +109,15 @@ mainApp.controller('MainCtrl', [
 			}
 		});
 
-		$s.getBattleCount = () => {
+		$s.getEventCount = (name) => {
 			var subEvents = $s.activeGame.events.slice(0, $s.eventTracker);
-			var submitEvents = _.partition(subEvents, {name: 'submitBattle'})[0].length - 1;
+			var submitEvents = _.partition(subEvents, {name})[0].length;
 
-			return submiteEvents ? Math.floor(submitEvents / $s.allPlayers.length) : 0;
+			if ($s.allPlayers.length == 1) {
+				return submitEvents;
+			}
+
+			return Math.floor(submitEvents / $s.allPlayers.length);
 		};
 
 		$s.notify = (message, type) => {
@@ -152,13 +144,23 @@ mainApp.controller('MainCtrl', [
 			$s.ff.chat = '';
 		};
 
-		$s.submitCards = () => {
-			// disable submit button
+		$s.waitEvent = (name, cards) => {
+			$s.waiting = true;
+
 			$s.addEvent({
-				name: 'submitBattle',
-				cards: $s.user.deck.selectedCards,
-				uid: $s.user.uid
+				name,
+				cards,
+				uid: $s.user.uid,
+				eventCount: $s.getEventCount(name)
 			});
+		};
+
+		$s.submitCards = () => {
+			$s.waitEvent('submitBattle', $s.user.deck.selectedCards);
+		};
+
+		$s.upgradeCards = () => {
+			$s.waitEvent('upgrade', $s.user.deck.chosenUpgrades);
 		};
 
 		$s.addEvent = event => {
@@ -169,7 +171,15 @@ mainApp.controller('MainCtrl', [
 			$s.activeGame.events.push(event);
 		};
 
+		$s.changeState = state => {
+			$s.state = state;
+		};
+
 		$s.createNewGame = () => {
+			// This should be separated based on something so that the
+			// "allGames" doesn't just continue to grow.
+			// maybe after a game is completed, it gets moved into an
+			// archive of some sort rather than continue to be in here.
 			var rand = Math.random().toString(36).substring(2, 10);
 			allGames.$ref().update({[rand]: {
 				id: rand,
@@ -201,14 +211,13 @@ mainApp.controller('MainCtrl', [
 					$s.activeGame.playerNames = [];
 				}
 
-				if (!$s.activeGame.battleHistory) {
-					$s.activeGame.battleHistory = [];
-				}
-
 				if ($s.activeGame.playerIds.indexOf($s.currentUser.uid) === -1) {
 					$s.activeGame.playerIds.push($s.currentUser.uid);
 					$s.activeGame.playerNames.push($s.currentUser.name);
 				}
+
+				$s.submitBattleHistory = [];
+				$s.upgradeHistory = [];
 				$s.eventTracker = 0;
 				$s.$watch('activeGame.events', updateGame);
 			});
@@ -225,11 +234,23 @@ mainApp.controller('MainCtrl', [
 			});
 		};
 
+		$s.chooseResource = card => {
+			if ($s.currentPlayer == $s.user) {
+				$s.addEvent({
+					name: 'chooseResource',
+					card
+				});
+			}
+		};
+
 		$s.fbLogin = () => {
 			FF.facebookLogin(err => {
 				console.log('There was a Facebook Login error', err);
-				// ** TEMPORARY FOR DEV ***
 				$s.notify('Facebook Login Error', 'danger');
+				// ** TEMPORARY FOR DEV ***
+				$s.currentUser = FF.getFBObject('users/DrocniTEYXeclP6n52ugMXEzAgF3');
+				$s.currentUser.$loaded(init);
+				// ** END TEMPORARY FOR DEV ***
 			}, authData => {
 				console.log('Authenticated successfully with payload:', authData);
 				$s.currentUser = FF.getFBObject('users/' + authData.uid);
