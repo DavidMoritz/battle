@@ -1,3 +1,5 @@
+@import "card-images";
+
 .cards {
 	display: flex;
 	flex-wrap: wrap;
@@ -11,6 +13,94 @@
 		border-right: solid 1px gray;
 		flex: 2;
 	}
+}
+.upgrade-card-inside {
+	width: 93px;
+	height: 131px;
+	margin: 10px 8px;
+	background-size: 118%;
+	background-position: center center;
+	background-repeat: no-repeat;
+	position: absolute;
+	.small ~ & {
+		width: 47px;
+		height: 65.5px;
+		margin: 4px 4px;
+	}
+	.large ~ & {
+		width: 186px;
+		height: 262px;
+		margin: 19px 16px;
+	}
+	.military ~ & {.military-image}
+	.double ~ & {.double-image}
+	.utopia ~ & {.utopia-image}
+	.progress-cards ~ & {.progress-image}
+	.defense ~ & {.defense-image}
+	.economy ~ & {.economy-image}
+	.converter ~ & {.converter-image}
+	.utility ~ & {.utility-image}
+	.knowledge ~ & {.knowledge-image}
+}
+.progress-card-inside {
+	width: 109px;
+	height: 110.5px;
+	border-radius: 6px 6px 0 0;
+	background-size: 100%;
+	background-repeat: no-repeat;
+	position: absolute;
+	.small ~ & {
+		width: 55px;
+		height: 55px;
+		border-radius: 4px 4px 0 0;
+	}
+	.large ~ & {
+		width: 218px;
+		height: 221px;
+		border-radius: 10px 10px 0 0;
+	}
+	&:after {
+		content: "";
+		height: 36px;
+		width: 21px;
+		background-size: 508%;
+		background-position: 0 225px;
+		position: absolute;
+		bottom: -35px;
+		.small ~ & {
+			height: 18px;
+			width: 10.5px;
+			background-size: 523%;
+			background-position: 0px 372px;
+			border-radius: 0 0 0 3px;
+			bottom: -18px;
+		}
+		.large ~ & {
+			height: 36px;
+			width: 21px;
+			background-size: 508%;
+			background-position: 0 225px;
+			bottom: -35px;
+		}
+		.progress-1 ~ & {.progress-1-image}
+		.progress-2 ~ & {.progress-2-image}
+		.progress-3 ~ & {.progress-3-image}
+		.progress-4 ~ & {.progress-4-image}
+		.progress-5 ~ & {.progress-5-image}
+		.progress-6 ~ & {.progress-6-image}
+		.progress-7 ~ & {.progress-7-image}
+		.progress-8 ~ & {.progress-8-image}
+		.progress-12 ~ & {.progress-12-image}
+	}
+	.progress-1 ~ & {.progress-1-image}
+	.progress-2 ~ & {.progress-2-image}
+	.progress-3 ~ & {.progress-3-image}
+	.progress-4 ~ & {.progress-4-image}
+	.progress-5 ~ & {.progress-5-image}
+	.progress-6 ~ & {.progress-6-image}
+	.progress-7 ~ & {.progress-7-image}
+	.progress-8 ~ & {.progress-8-image}
+	.progress-12 ~ & {.progress-12-image}
 }
 .active-card {
 	flex: 1;
@@ -83,6 +173,77 @@
 		}
 	}
 }
+.card-img {
+	box-shadow: white 0 0 10px 0;
+	width: 109px;
+	height: 150px;
+	border-radius: 6px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-size: 100%;
+	background-repeat: no-repeat;
+	.card-value {
+		font-size: 40px;
+		font-family: serif;
+	}
+	&.selected {
+		box-shadow: blue 0 0 10px 0;
+	}
+	&.small {
+		width: 55px;
+		height: 75px;
+		border-radius: 4px;
+		.card-value {font-size: 20px}
+	}
+	&.large {
+		width: 218px;
+		height: 300px;
+		border-radius: 10px;
+		.card-value {font-size: 80px}
+	}
+	&.purple {
+		filter: hue-rotate(203deg) saturate(130%) brightness(90%);
+	}
+	&.orange {
+		filter: hue-rotate(325deg);
+	}
+	&.cyan {
+		filter: hue-rotate(125deg);
+	}
+	&.battle {.battle-image}
+	&.military {.military-image}
+	&.double {.double-image}
+	&.utopia {.utopia-image}
+	&.progress-cards {.progress-image}
+	&.defense {.defense-image}
+	&.economy {.economy-image}
+	&.converter {.converter-image}
+	&.utility {.utility-image}
+	&.knowledge {.knowledge-image}
+	&.progress-1 {.progress-1-image}
+	&.progress-2 {.progress-2-image}
+	&.progress-3 {.progress-3-image}
+	&.progress-4 {.progress-4-image}
+	&.progress-5 {.progress-5-image}
+	&.progress-6 {.progress-6-image}
+	&.progress-7 {.progress-7-image}
+	&.progress-8 {.progress-8-image}
+	&.progress-12 {.progress-12-image}
+	&.two{ .bgpos(1px) }
+	&.three{ .bgpos(2px) }
+	&.four{ .bgpos(3px) }
+	&.five{ .bgpos(4px) }
+	&.six{ .bgpos(5px) }
+	&.seven{ .bgpos(6px) }
+	&.eight{ .bgpos(7px) }
+	&.nine{ .bgpos(8px) }
+	&.ten{ .bgpos(9px) }
+	&.jack{ .bgpos(10px) }
+	&.queen{ .bgpos(11px) }
+	&.king{ .bgpos(12px) }
+	&.ace{ .bgpos(13px) }
+}
 .bgpos(@val) {
 	&.spades {
 		background-position: (@val * 90 + 9) -11px;
@@ -112,57 +273,4 @@
 		&.large {
 			background-position: (@val * 180 + 18) -851px}
 	}
-}
-.card-img {
-	box-shadow: white 0 0 10px 0;
-	width: 109px;
-	height: 150px;
-	border-radius: 6px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background-image: url(../img/yellow_blank_md.png);
-	.card-value {
-		font-size: 40px;
-		font-family: serif;
-	}
-	&.selected {
-		box-shadow: blue 0 0 10px 0;
-	}
-	&.small {
-		width: 55px;
-		height: 75px;
-		border-radius: 4px;
-		background-image: url(../img/yellow_blank_sm.png);
-		.card-value {font-size: 20px}
-	}
-	&.large {
-		width: 218px;
-		height: 300px;
-		border-radius: 10px;
-		background-image: url(../img/yellow_blank_lg.png);
-		.card-value {font-size: 80px}
-	}
-	&.purple {
-		filter: hue-rotate(203deg) saturate(130%) brightness(90%);
-	}
-	&.orange {
-		filter: hue-rotate(325deg);
-	}
-	&.cyan {
-		filter: hue-rotate(125deg);
-	}
-	&.two{ .bgpos(1px) }
-	&.three{ .bgpos(2px) }
-	&.four{ .bgpos(3px) }
-	&.five{ .bgpos(4px) }
-	&.six{ .bgpos(5px) }
-	&.seven{ .bgpos(6px) }
-	&.eight{ .bgpos(7px) }
-	&.nine{ .bgpos(8px) }
-	&.ten{ .bgpos(9px) }
-	&.jack{ .bgpos(10px) }
-	&.queen{ .bgpos(11px) }
-	&.king{ .bgpos(12px) }
-	&.ace{ .bgpos(13px) }
 }
