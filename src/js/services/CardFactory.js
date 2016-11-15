@@ -250,8 +250,8 @@ mainApp.factory('CardFactory', [
 					name: 'Defense'
 				}, {
 					id: 'UP04',
-					class: 'knowledge',
-					name: 'Shared Knowledge'
+					class: 'utility',
+					name: 'Utility'
 				}, {
 					id: 'UP05',
 					class: 'converter',
@@ -264,6 +264,14 @@ mainApp.factory('CardFactory', [
 					id: 'UP07',
 					class: 'double',
 					name: 'Double Upgrade'
+				}, {
+					id: 'UP08',
+					class: 'economy',
+					name: 'Economy'
+				}, {
+					id: 'UP09',
+					class: 'knowledge',
+					name: 'Shared Knowledge'
 				}
 			],
 			resources: [
