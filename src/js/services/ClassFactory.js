@@ -193,14 +193,17 @@ mainApp.factory('ClassFactory', [
 					this.corp = new ClassFactory.Corp();
 					this.deck = new ClassFactory.Deck(this.color);
 					this.idx = options.idx;
-					this.collectables = [];
+					this.resources = [];
 				}
 				get upgradable() {
 					return this.deck.chosenUpgrades.length === Math.max(this.corp.knowledge.level, 2);
 				}
 				reset() {
-					this.collectables = this.collectables.filter(item => !item.expiring);
-					this.collectables.forEach(item => item.expiring = true);
+					this.resources = this.resources.filter(item => !item.expiring);
+
+					if (!this.corp.knowledge.level) {
+						this.resources.forEach(item => item.expiring = true);
+					}
 					this.deck.reset();
 				}
 				playCardSet(cardSet) {
@@ -212,7 +215,7 @@ mainApp.factory('ClassFactory', [
 					this.deck.play(card);
 				}
 				collectResource(item) {
-					this.collectables.push(_.clone(item));
+					this.resources.push(_.clone(item));
 				}
 			}
 		};

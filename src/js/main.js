@@ -5,8 +5,9 @@ mainApp.controller('MainCtrl', [
 	'$uibModal',
 	'ClassFactory',
 	'EventFactory',
+	'UpgradeFactory',
 	'FirebaseFactory',
-	function MainCtrl($s, $timeout, $interval, $uibM, CF, EF, FF) {
+	function MainCtrl($s, $timeout, $interval, $uibM, CF, EF, UF, FF) {
 		'use strict';
 
 		function init() {
@@ -106,7 +107,8 @@ mainApp.controller('MainCtrl', [
 			eventTracker: 0,
 			ff: {
 				gameName: 'newGame'
-			}
+			},
+			upgrades: UF
 		});
 
 		$s.getEventCount = (name) => {

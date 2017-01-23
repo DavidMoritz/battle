@@ -69,34 +69,30 @@ mainApp.factory('CardFactory', [
 			upgradeCards: [
 				{
 					id: 'UP1',
-					class: 'knowledge',
-					name: 'Shared Knowledge'
-				}, {
-					id: 'UP2',
 					class: 'military',
 					name: 'Military'
 				}, {
-					id: 'UP3',
+					id: 'UP2',
 					class: 'defense',
 					name: 'Defense'
 				}, {
-					id: 'UP4',
-					class: 'utility',
-					name: 'Utility'
-				}, {
-					id: 'UP5',
-					class: 'converter',
-					name: 'Resource Converter'
-				}, {
-					id: 'UP6',
+					id: 'UP3',
 					class: 'economy',
 					name: 'Economy'
 				}, {
-					id: 'UP7',
+					id: 'UP4',
+					class: 'converter',
+					name: 'Resource Converter'
+				}, {
+					id: 'UP5',
+					class: 'utility',
+					name: 'Utility'
+				}, {
+					id: 'UP6',
 					class: 'progress-cards',
 					name: 'Progress Cards'
 				}, {
-					id: 'UP8',
+					id: 'UP7',
 					class: 'double',
 					name: 'Double Upgrade'
 				}
@@ -302,7 +298,7 @@ mainApp.factory('CardFactory', [
 					resources: [{
 						name: 'food'
 					},{
-						name: 'food'		
+						name: 'food'
 					}]
 				}, {
 					id: 'RWF2',
@@ -314,7 +310,7 @@ mainApp.factory('CardFactory', [
 					resources: [{
 						name: 'food'
 					},{
-						name: 'lumber'		
+						name: 'lumber'
 					}]
 				}, {
 					id: 'RWF3',
@@ -326,7 +322,7 @@ mainApp.factory('CardFactory', [
 					resources: [{
 						name: 'food'
 					},{
-						name: 'mineral'		
+						name: 'mineral'
 					}]
 				}, {
 					id: 'RWL1',

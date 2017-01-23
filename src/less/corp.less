@@ -4,6 +4,24 @@
 	background-color: white;
 	position: absolute;
 	z-index: 20;
+	width: 1260px;
+	display: flex;
+	justify-content: space-around;
+	text-align: center;
+	.corp {
+		flex: 1;
+		&.resources {
+			flex: 2;
+			ul {
+				display: flex;
+				justify-content: space-around;
+				flex-wrap: wrap;
+				.expiring {
+					border: red solid 3px;
+				}
+			}
+		}
+	}
 }
 .corp-boats {
 	display: flex;
@@ -65,7 +83,7 @@
 		}
 		&.BI21 {
 			width: 135px;
-			background-position: -620px -22px; 
+			background-position: -620px -22px;
 			.content {
 				padding: 0;
 				&.tight .item {
