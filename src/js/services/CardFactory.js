@@ -3,291 +3,219 @@ mainApp.factory('CardFactory', [
 		'use strict';
 
 		return {
-			yellow: [
+			basic: [
 				{
-					id: 'YB0',
+					id: 'BC0',
 					value: 0,
-					class: 'zero',
-					color: 'yellow'
+					rank: 0,
+					class: 'zero'
 				}, {
-					id: 'YB1',
+					id: 'BC1',
 					value: 1,
-					class: 'one',
-					color: 'yellow'
+					rank: 0,
+					class: 'one'
 				}, {
-					id: 'YB2',
+					id: 'BC2',
 					value: 2,
-					class: 'two',
-					color: 'yellow'
+					rank: 0,
+					class: 'two'
 				}, {
-					id: 'YB3',
+					id: 'BC3',
 					value: 3,
-					class: 'three',
-					color: 'yellow'
+					rank: 0,
+					class: 'three'
 				}, {
-					id: 'YB4',
+					id: 'BC4',
 					value: 4,
-					class: 'four',
-					color: 'yellow'
+					rank: 0,
+					class: 'four'
 				}, {
-					id: 'YB5',
+					id: 'BC5',
 					value: 5,
-					class: 'five',
-					color: 'yellow'
+					rank: 0,
+					class: 'five'
 				}, {
-					id: 'YB6',
+					id: 'BC6',
 					value: 6,
-					class: 'six',
-					color: 'yellow'
+					rank: 0,
+					class: 'six'
 				}, {
-					id: 'YB7',
+					id: 'BC7',
 					value: 7,
-					class: 'seven',
-					color: 'yellow'
+					rank: 0,
+					class: 'seven'
 				}, {
-					id: 'YB8',
+					id: 'BC8',
 					value: 8,
-					class: 'eight',
-					color: 'yellow'
+					rank: 0,
+					class: 'eight'
 				}, {
-					id: 'YB9',
+					id: 'BC9',
 					value: 9,
-					class: 'nine',
-					color: 'yellow'
+					rank: 0,
+					class: 'nine'
 				}, {
-					id: 'YB10',
+					id: 'B10',
 					value: 10,
-					class: 'ten',
-					color: 'yellow'
-				}
-			],
-			purple: [
-				{
-					id: 'PB0',
-					value: 0,
-					class: 'zero',
-					color: 'purple'
+					rank: 0,
+					class: 'ten'
 				}, {
-					id: 'PB1',
-					value: 1,
-					class: 'one',
-					color: 'purple'
-				}, {
-					id: 'PB2',
-					value: 2,
-					class: 'two',
-					color: 'purple'
-				}, {
-					id: 'PB3',
-					value: 3,
-					class: 'three',
-					color: 'purple'
-				}, {
-					id: 'PB4',
-					value: 4,
-					class: 'four',
-					color: 'purple'
-				}, {
-					id: 'PB5',
-					value: 5,
-					class: 'five',
-					color: 'purple'
-				}, {
-					id: 'PB6',
-					value: 6,
-					class: 'six',
-					color: 'purple'
-				}, {
-					id: 'PB7',
-					value: 7,
-					class: 'seven',
-					color: 'purple'
-				}, {
-					id: 'PB8',
-					value: 8,
-					class: 'eight',
-					color: 'purple'
-				}, {
-					id: 'PB9',
-					value: 9,
-					class: 'nine',
-					color: 'purple'
-				}, {
-					id: 'PB10',
-					value: 10,
-					class: 'ten',
-					color: 'purple'
-				}
-			],
-			cyan: [
-				{
-					id: 'CB0',
-					value: 0,
-					class: 'zero',
-					color: 'cyan'
-				}, {
-					id: 'CB1',
-					value: 1,
-					class: 'one',
-					color: 'cyan'
-				}, {
-					id: 'CB2',
-					value: 2,
-					class: 'two',
-					color: 'cyan'
-				}, {
-					id: 'CB3',
-					value: 3,
-					class: 'three',
-					color: 'cyan'
-				}, {
-					id: 'CB4',
-					value: 4,
-					class: 'four',
-					color: 'cyan'
-				}, {
-					id: 'CB5',
-					value: 5,
-					class: 'five',
-					color: 'cyan'
-				}, {
-					id: 'CB6',
-					value: 6,
-					class: 'six',
-					color: 'cyan'
-				}, {
-					id: 'CB7',
-					value: 7,
-					class: 'seven',
-					color: 'cyan'
-				}, {
-					id: 'CB8',
-					value: 8,
-					class: 'eight',
-					color: 'cyan'
-				}, {
-					id: 'CB9',
-					value: 9,
-					class: 'nine',
-					color: 'cyan'
-				}, {
-					id: 'CB10',
-					value: 10,
-					class: 'ten',
-					color: 'cyan'
-				}
-			],
-			orange: [
-				{
-					id: 'OB0',
-					value: 0,
-					class: 'zero',
-					color: 'orange'
-				}, {
-					id: 'OB1',
-					value: 1,
-					class: 'one',
-					color: 'orange'
-				}, {
-					id: 'OB2',
-					value: 2,
-					class: 'two',
-					color: 'orange'
-				}, {
-					id: 'OB3',
-					value: 3,
-					class: 'three',
-					color: 'orange'
-				}, {
-					id: 'OB4',
-					value: 4,
-					class: 'four',
-					color: 'orange'
-				}, {
-					id: 'OB5',
-					value: 5,
-					class: 'five',
-					color: 'orange'
-				}, {
-					id: 'OB6',
-					value: 6,
-					class: 'six',
-					color: 'orange'
-				}, {
-					id: 'OB7',
-					value: 7,
-					class: 'seven',
-					color: 'orange'
-				}, {
-					id: 'OB8',
-					value: 8,
-					class: 'eight',
-					color: 'orange'
-				}, {
-					id: 'OB9',
-					value: 9,
-					class: 'nine',
-					color: 'orange'
-				}, {
-					id: 'OB10',
-					value: 10,
-					class: 'ten',
-					color: 'orange'
+					id: 'B11',
+					value: 11,
+					rank: 0,
+					class: 'eleven'
 				}
 			],
 			upgradeCards: [
 				{
-					id: 'UP01',
-					class: 'utopia',
-					name: 'Utopia'
+					id: 'UP1',
+					class: 'knowledge',
+					name: 'Shared Knowledge'
 				}, {
-					id: 'UP02',
+					id: 'UP2',
 					class: 'military',
 					name: 'Military'
 				}, {
-					id: 'UP03',
+					id: 'UP3',
 					class: 'defense',
 					name: 'Defense'
 				}, {
-					id: 'UP04',
+					id: 'UP4',
 					class: 'utility',
 					name: 'Utility'
 				}, {
-					id: 'UP05',
+					id: 'UP5',
 					class: 'converter',
 					name: 'Resource Converter'
 				}, {
-					id: 'UP06',
-					class: 'progress-cards',
-					name: 'Progress Cards'
-				}, {
-					id: 'UP07',
-					class: 'double',
-					name: 'Double Upgrade'
-				}, {
-					id: 'UP08',
+					id: 'UP6',
 					class: 'economy',
 					name: 'Economy'
 				}, {
-					id: 'UP09',
-					class: 'knowledge',
-					name: 'Shared Knowledge'
+					id: 'UP7',
+					class: 'progress-cards',
+					name: 'Progress Cards'
+				}, {
+					id: 'UP8',
+					class: 'double',
+					name: 'Double Upgrade'
+				}
+			],
+			progressCards: [
+				{
+					id: 'P1A',
+					rank: 1,
+					group: 'alien',
+					name: 'Alien Bank Teller',
+					description: 'When this card is played, collect 2 points.',
+					class: 'one',
+					value: 1
+				}, {
+					id: 'P1D',
+					rank: 1,
+					group: 'allied',
+					name: 'Risky Business',
+					description: 'When this card is played, lose 2 points.',
+					class: 'eight',
+					value: 9
+				}, {
+					id: 'P1M',
+					rank: 1,
+					group: 'military',
+					name: 'Military Supplies',
+					description: 'When you play this card, your next attack is free.',
+					class: 'three',
+					value: 3
+				}, {
+					id: 'P1N',
+					rank: 1,
+					group: 'native',
+					name: 'The Meek Shall Inherit',
+					description: 'If you "lose" with this card, collect an extra resource from thte discard pile (if there is one).',
+					class: 'eight',
+					value: 8
+				}, {
+					id: 'P2A',
+					rank: 2,
+					group: 'alien',
+					name: 'Extortion',
+					description: 'When this card is played, double your points during the next trashing phase.',
+					class: 'four',
+					value: 4
+				}, {
+					id: 'P2D',
+					rank: 2,
+					group: 'allied',
+					name: 'Strength in Diversity',
+					description: 'When this card is played... -Change your 0 to a 1 OR -Gain 2 points OR -Collect 1 common resource card from the discard pile (at random).',
+					class: 'zero',
+					value: 0
+				}, {
+					id: 'P2M',
+					rank: 2,
+					group: 'military',
+					name: 'Precise Strategy',
+					description: 'If you win with this card, negate other players\' progress cards for this phase.',
+					class: 'five',
+					value: 5
+				}, {
+					id: 'P2N',
+					rank: 2,
+					group: 'native',
+					name: 'The Last Shall Be First',
+					description: 'If you are last with this card, choose first resouce this phase.',
+					class: 'seven',
+					value: 7
+				}, {
+					id: 'P3A',
+					rank: 3,
+					group: 'alien',
+					name: 'Monopoly',
+					description: 'When this card is played, collect 5 points and any one resource.',
+					class: 'six',
+					value: 6
+				}, {
+					id: 'P3D',
+					rank: 3,
+					group: 'allied',
+					name: 'Allies in Shadows',
+					description: 'With this card, if you... -Win: gain 6 points -Lose: collect 1 rare resource card from the discard pile (at random) -Tie: immediately upgrade your lowest lvl rank on the board.',
+					class: 'eleven',
+					value: 11
+				}, {
+					id: 'P3M',
+					rank: 3,
+					group: 'military',
+					name: 'Double Strike',
+					description: 'If you win with this card, attack twice during the next attack phase.',
+					class: 'two',
+					value: 2
+				}, {
+					id: 'P3N',
+					rank: 3,
+					group: 'native',
+					name: 'We\'re Not Forgotten',
+					description: 'If you are last with this card, collect all resources in this phase. If you are not last, collect nothing.',
+					class: 'ten',
+					value: 12
 				}
 			],
 			resources: [
 				{
 					initial: 'RL1',
-					class: 'wood',
+					class: 'lumber',
 					title: 'Lumber',
+					image: 'basic_lumber.png',
 					symbol: 'l',
 					tradeValue: 3,
 					resources: [{
-						name: 'wood'
+						name: 'lumber'
 					}]
 				}, {
 					initial: 'RM2',
 					class: 'mineral',
 					title: 'Mineral Deposits',
+					image: 'basic_mineral.png',
 					symbol: 'm',
 					tradeValue: 3,
 					resources: [{
@@ -297,6 +225,7 @@ mainApp.factory('CardFactory', [
 					initial: 'RE3',
 					class: 'energy',
 					title: 'Energy Crystals',
+					image: 'basic_energy.png',
 					symbol: 'e',
 					tradeValue: 3,
 					resources: [{
@@ -305,7 +234,8 @@ mainApp.factory('CardFactory', [
 				}, {
 					initial: 'RF4',
 					class: 'food',
-					title: 'Food',
+					title: 'Exotic Food',
+					image: 'basic_food.png',
 					symbol: 'f',
 					tradeValue: 3,
 					resources: [{
@@ -315,31 +245,10 @@ mainApp.factory('CardFactory', [
 			],
 			winner: [
 				{
-					id: 'RWL1',
-					class: 'winner wood',
-					title: 'Double Lumber',
-					symbol: 'l l',
-					tradeValue: 5,
-					resources: [{
-						name: 'wood'
-					},{
-						name: 'wood'
-					}]
-				}, {
-					id: 'RWM2',
-					class: 'winner mineral',
-					title: 'Double Mineral Deposits',
-					symbol: 'm m',
-					tradeValue: 5,
-					resources: [{
-						name: 'mineral'
-					},{
-						name: 'mineral'
-					}]
-				}, {
-					id: 'RWE3',
+					id: 'RWE1',
 					class: 'winner energy',
 					title: 'Double Energy Crystals',
+					image: 'winner_double_energy.png',
 					symbol: 'e e',
 					tradeValue: 5,
 					resources: [{
@@ -348,20 +257,118 @@ mainApp.factory('CardFactory', [
 						name: 'energy'
 					}]
 				}, {
-					id: 'RWF4',
+					id: 'RWE2',
+					class: 'winner energy food',
+					title: 'Energy Crystals & Exotic Food',
+					image: 'winner_energy_food.png',
+					symbol: 'e f',
+					tradeValue: 5,
+					resources: [{
+						name: 'energy'
+					},{
+						name: 'food'
+					}]
+				}, {
+					id: 'RWE3',
+					class: 'winner energy lumber',
+					title: 'Energy Crystals & Lumber',
+					image: 'winner_energy_lumber.png',
+					symbol: 'e e',
+					tradeValue: 5,
+					resources: [{
+						name: 'energy'
+					},{
+						name: 'lumber'
+					}]
+				}, {
+					id: 'RWE4',
+					class: 'winner energy mineral',
+					title: 'Energy Crystals & Mineral Deposits',
+					image: 'winner_energy_mineral.png',
+					symbol: 'e m',
+					tradeValue: 5,
+					resources: [{
+						name: 'energy'
+					},{
+						name: 'mineral'
+					}]
+				}, {
+					id: 'RWF1',
 					class: 'winner food',
-					title: 'Double Food',
+					title: 'Double Exotic Food',
+					image: 'winner_double_food.png',
 					symbol: 'f f',
 					tradeValue: 5,
 					resources: [{
 						name: 'food'
 					},{
-						name: 'food'
+						name: 'food'		
 					}]
 				}, {
-					id: 'RWW5',
+					id: 'RWF2',
+					class: 'winner food lumber',
+					title: 'Exotic Food & Lumber',
+					image: 'winner_food_lumber.png',
+					symbol: 'f f',
+					tradeValue: 5,
+					resources: [{
+						name: 'food'
+					},{
+						name: 'lumber'		
+					}]
+				}, {
+					id: 'RWF3',
+					class: 'winner food',
+					title: 'Exotic Food & Mineral Deposits',
+					image: 'winner_food_mineral.png',
+					symbol: 'f m',
+					tradeValue: 5,
+					resources: [{
+						name: 'food'
+					},{
+						name: 'mineral'		
+					}]
+				}, {
+					id: 'RWL1',
+					class: 'winner lumber',
+					title: 'Double Lumber',
+					image: 'winner_double_lumber.png',
+					symbol: 'l l',
+					tradeValue: 5,
+					resources: [{
+						name: 'lumber'
+					},{
+						name: 'lumber'
+					}]
+				}, {
+					id: 'RWL2',
+					class: 'winner lumber mineral',
+					title: 'Lumber & Mineral Deposits',
+					image: 'winner_lumber_mineral.png',
+					symbol: 'l m',
+					tradeValue: 5,
+					resources: [{
+						name: 'lumber'
+					},{
+						name: 'mineral'
+					}]
+				}, {
+					id: 'RWM1',
+					class: 'winner mineral',
+					title: 'Double Mineral Deposits',
+					image: 'winner_double_mineral.png',
+					symbol: 'm m',
+					tradeValue: 5,
+					resources: [{
+						name: 'mineral'
+					},{
+						name: 'mineral'
+					}]
+				}, {
+					id: 'RWW1',
 					class: 'winner wild',
 					title: 'Wild',
+					image: 'winner_wild.png',
 					symbol: 'w',
 					tradeValue: 5,
 					resources: [{
@@ -370,7 +377,7 @@ mainApp.factory('CardFactory', [
 				}
 			],
 			get allCards() {
-				return [].concat(this.purple, this.yellow, this.cyan, this.orange, this.resources, this.winner);
+				return [].concat(this.basic, this.upgradeCards, this.progressCards, this.resources, this.winner);
 			}
 		};
 	}

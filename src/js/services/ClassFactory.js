@@ -33,11 +33,15 @@ mainApp.factory('ClassFactory', [
 						level: 0,
 						points: 0
 					};
-					this.resourceConverter = {
+					this.converter = {
 						level: 0,
 						points: 0
 					};
 					this.utopia = {
+						level: 0,
+						points: 0
+					};
+					this.knowledge = {
 						level: 0,
 						points: 0
 					};
@@ -107,8 +111,16 @@ mainApp.factory('ClassFactory', [
 
 			Deck: class Deck {
 				constructor(color) {
-					this.cards = CF[color];
-					this.upgradeCards = CF.upgradeCards;
+					const labelCard = card => {
+						card.color = color;
+						card.id = color.charAt(0).toUpperCase() + card.id;
+
+						return card;
+					};
+
+					this.cards = CF.basic.map(labelCard);
+					this.progressCards = CF.progressCards.map(labelCard);
+					this.upgradeCards = CF.upgradeCards.map(labelCard);
 					this.activeCardId = '';
 				}
 				get battleValue() {
@@ -117,16 +129,8 @@ mainApp.factory('ClassFactory', [
 				get selectedCards() {
 					return this.heldCards.filter(card => card.selected);
 				}
-				get submittable() {
-					var limit = Math.min(this.heldCards.length, 3);
-
-					return this.selectedCards.length === limit;
-				}
 				get chosenUpgrades() {
 					return this.upgradeCards.filter(card => card.selected);
-				}
-				get upgradable() {
-					return this.chosenUpgrades.length === 2;
 				}
 				get activeCard() {
 					return _.find(this.cards, {id: this.activeCardId});
@@ -145,6 +149,12 @@ mainApp.factory('ClassFactory', [
 
 						return value;
 					}, 0);
+				}
+				get progressCardRank() {
+					return this.cards.reduce((rank, card) => Math.max(card.rank, rank), 0);
+				}
+				get progressCardOptions() {
+					return this.progressCards.filter(card => card.rank == this.progressCardRank + 1);
 				}
 				findById(cardId) {
 					return _.find(this.cards, {id: cardId});
@@ -184,6 +194,9 @@ mainApp.factory('ClassFactory', [
 					this.deck = new ClassFactory.Deck(this.color);
 					this.idx = options.idx;
 					this.collectables = [];
+				}
+				get upgradable() {
+					return this.deck.chosenUpgrades.length === Math.max(this.corp.knowledge.level, 2);
 				}
 				reset() {
 					this.collectables = this.collectables.filter(item => !item.expiring);
