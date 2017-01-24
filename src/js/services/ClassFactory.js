@@ -53,6 +53,7 @@ mainApp.factory('ClassFactory', [
 					this.basic = [];
 					this.winner = CF.winner;
 					this.playCount = n;
+					this.seed = seed;
 
 					var push = resource => {
 						var item = _.clone(resource);
@@ -80,6 +81,10 @@ mainApp.factory('ClassFactory', [
 						this.winner.filter(card => card.available),
 						this.basic.filter(card => card.available)
 					);
+				}
+				resetBasic() {
+					this.basic.forEach(card => card.played = false);
+					this.basic = shuffleDeck(this.basic, this.seed);
 				}
 				findResource(resource) {
 					return _.find(this.winner, resource) || _.find(this.basic, resource);

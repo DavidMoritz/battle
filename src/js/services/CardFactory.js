@@ -70,30 +70,37 @@ mainApp.factory('CardFactory', [
 				{
 					id: 'UP1',
 					class: 'military',
+					type: 'military',
 					name: 'Military'
 				}, {
 					id: 'UP2',
 					class: 'defense',
+					type: 'defense',
 					name: 'Defense'
 				}, {
 					id: 'UP3',
 					class: 'economy',
+					type: 'utopia',
 					name: 'Economy'
 				}, {
 					id: 'UP4',
 					class: 'converter',
+					type: 'converter',
 					name: 'Resource Converter'
 				}, {
 					id: 'UP5',
 					class: 'utility',
-					name: 'Utility'
+					type: 'knowledge',
+					name: 'Unity'
 				}, {
 					id: 'UP6',
 					class: 'progress-cards',
+					type: 'progress',
 					name: 'Progress Cards'
 				}, {
 					id: 'UP7',
 					class: 'double',
+					type: 'double',
 					name: 'Double Upgrade'
 				}
 			],

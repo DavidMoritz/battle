@@ -1,8 +1,9 @@
 mainApp.factory('EventFactory', [
 	'CardFactory',
 	'FirebaseFactory',
+	'UpgradeFactory',
 	'ClassFactory',
-	function EventFactory(CF, FF, Class) {
+	function EventFactory(CF, FF, UF, Class) {
 		'use strict';
 
 		/**
@@ -53,7 +54,7 @@ mainApp.factory('EventFactory', [
 				$s.activeGame.message = {};
 				resolve();
 			},
-			update: function(resolve) {
+			upgrade: function(resolve) {
 				EF.submit.bind(this)(resolve);
 			},
 			submitBattle: function(resolve) {
@@ -120,15 +121,40 @@ mainApp.factory('EventFactory', [
 						EF.chooseBattle(resolve);
 					} else {
 						$s.state = 'upgrade';
-						EF.upgradeReady(resolve);
+						EF.military(resolve);
 					}
 				} else {
 					$s.currentPlayer = $s.allPlayers[idx + 1];
 					resolve();
 				}
 			},
-			upgradeReady: (count, resolve) => {
+			military: resolve => {
 				resolve();
+			},
+			upgradeCorp: (player, area) => {
+				player.corp[area] = _.clone(_.find(UF[area], {level: player.corp[area].level + 1}));
+			},
+			upgradeReady: (count, resolve) => {
+				_.mapKeys($s.upgradeHistory[count], (cards, uid) => {
+					var player = _.find($s.allPlayers, {uid}),
+						card = cards.type,
+						double = !!_.find(cards, {type: 'double'});
+
+					cards.forEach(card => {
+						if (card.type != 'progress-cards' && card.type != 'double') {
+							EF.upgradeCorp(player, card.type);
+
+							if (double) {
+								EF.upgradeCorp(player, card.type);
+							}
+						}
+					});
+
+					player.reset();
+				});
+
+				$s.resources.resetBasic();
+				EF.chooseBattle(resolve);
 			}
 		};
 
