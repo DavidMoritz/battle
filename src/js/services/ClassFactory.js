@@ -220,7 +220,7 @@ mainApp.factory('ClassFactory', [
 						} else {
 							level = this.corp[type].level;
 						}
-						tempCost.concat(UF[card.type][level].cost);
+						tempCost = tempCost.concat(UF[type][level].cost);
 					});
 
 					return this.resources.filter(item => {
