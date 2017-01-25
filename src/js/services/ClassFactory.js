@@ -1,6 +1,7 @@
 mainApp.factory('ClassFactory', [
 	'CardFactory',
-	function CFactory(CF) {
+	'UpgradeFactory',
+	function CFactory(CF, UF) {
 		'use strict';
 
 		/**
@@ -42,6 +43,10 @@ mainApp.factory('ClassFactory', [
 						points: 0
 					};
 					this.knowledge = {
+						level: 0,
+						points: 0
+					};
+					this.progress = {
 						level: 0,
 						points: 0
 					};
@@ -203,6 +208,36 @@ mainApp.factory('ClassFactory', [
 				get upgradable() {
 					return this.deck.chosenUpgrades.length === Math.max(this.corp.knowledge.level, 2);
 				}
+				get allocatedResources() {
+					var tempCost = [],
+						level, type;
+					this.deck.chosenUpgrades.forEach(card => {
+						type = card.type;
+
+						if (type == 'double') {
+							type = this.deck.chosenUpgrades[0].type;
+							level = this.corp[type].level + 1;
+						} else {
+							level = this.corp[type].level;
+						}
+						tempCost.concat(UF[card.type][level].cost);
+					});
+
+					return this.resources.filter(item => {
+						var t = tempCost.indexOf(item.name);
+
+						if (t > -1) {
+							tempCost.splice(t, 1);
+
+							return true;
+						}
+
+						return false;
+					});
+				}
+				get nonAllocatedResources() {
+					return _.difference(this.resources, this.allocatedResources);
+				}
 				reset() {
 					this.resources = this.resources.filter(item => !item.expiring);
 
@@ -210,6 +245,47 @@ mainApp.factory('ClassFactory', [
 						this.resources.forEach(item => item.expiring = true);
 					}
 					this.deck.reset();
+				}
+				affordUpgrade(type) {
+					var chosenLength = this.deck.chosenUpgrades.length,
+						wildCount = 0,
+						costTemp, value, i;
+
+					if (type == 'double') {
+						if (!chosenLength) {
+							return false;
+						}
+						type = this.deck.chosenUpgrades[chosenLength - 1].type;
+
+						if (!type) {
+							return false;
+						} else if (type == 'double') {
+							return true;
+						}
+						value = this.corp[type].level + 1;
+					} else {
+						value = this.corp[type].level;
+					}
+
+					costTemp = _.clone(UF[type][value].cost);
+
+					if (costTemp[0] == 'any') {
+						return this.nonAllocatedResources.length >= costTemp.length;
+					}
+
+					this.nonAllocatedResources.forEach(item => {
+						if (costTemp.length) {
+							i = costTemp.indexOf(item.name);
+
+							if (i > -1) {
+								costTemp.splice(i, 1);
+							} else if (item.name == 'wild') {
+								wildCount++;
+							}
+						}
+					});
+
+					return costTemp.length <= wildCount;
 				}
 				playCardSet(cardSet) {
 					cardSet.forEach(card => {
@@ -220,6 +296,7 @@ mainApp.factory('ClassFactory', [
 					this.deck.play(card);
 				}
 				collectResource(item) {
+					item.allocated = false;
 					this.resources.push(_.clone(item));
 				}
 			}

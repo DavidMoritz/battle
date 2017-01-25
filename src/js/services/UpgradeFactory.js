@@ -195,6 +195,33 @@ mainApp.factory('UpgradeFactory', [
 					]
 				}
 			],
+			progress: [
+				{
+					level: 1,
+					points: 0,
+					recurringPoimts: 0,
+					cost: [
+						'any'
+					]
+				}, {
+					level: 2,
+					points: 0,
+					recurringPoimts: 0,
+					cost: [
+						'any',
+						'any'
+					]
+				}, {
+					level: 3,
+					points: 0,
+					recurringPoimts: 0,
+					cost: [
+						'any',
+						'any',
+						'any'
+					]
+				}
+			],
 			get allUpgrades() {
 				return [].concat(this.military, this.defense, this.utopia, this.knowledge, this.converter);
 			}

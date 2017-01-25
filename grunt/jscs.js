@@ -5,7 +5,8 @@ module.exports = function(grunt) {
 			'!src/html/**/*.js'
 		],
 		options: {
-			config: '.jscsrc'
+			config: '.jscsrc',
+			fix: true
 		}
 	});
 
