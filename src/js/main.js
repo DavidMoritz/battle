@@ -146,23 +146,25 @@ mainApp.controller('MainCtrl', [
 			$s.ff.chat = '';
 		};
 
-		$s.waitEvent = (name, cards) => {
+		$s.waitEvent = (name, info) => {
 			$s.waiting = true;
 
-			$s.addEvent({
+			$s.addEvent(_.extend({
 				name,
-				cards,
 				uid: $s.user.uid,
 				eventCount: $s.getEventCount(name)
-			});
+			}, info));
 		};
 
 		$s.submitCards = () => {
-			$s.waitEvent('submitBattle', $s.user.deck.selectedCards);
+			$s.waitEvent('submitBattle', {cards: $s.user.deck.selectedCards});
 		};
 
 		$s.upgradeCards = () => {
-			$s.waitEvent('upgrade', $s.user.deck.chosenUpgrades);
+			$s.waitEvent('upgrade', {
+				cards: $s.user.deck.chosenUpgrades,
+				progressChoices: $s.user.progressChoices
+			});
 		};
 
 		$s.addEvent = event => {
@@ -228,12 +230,57 @@ mainApp.controller('MainCtrl', [
 
 		$s.selectCard = card => {
 			card.selected = !card.selected;
+
+			if (card.type == 'progress' || card.type == 'double') {
+				$s.selectResources(card);
+			}
+
+			if (card.type != 'double') {
+				_.find($s.user.deck.upgradeCards, {type: 'double'}).selected = false;
+			}
 		};
 
 		$s.viewCard = card => {
-			openModal('ViewCard', {
-				card: card
-			});
+			openModal('ViewCard', {card});
+		};
+
+		$s.selectResources = card => {
+			var double = card.type == 'double',
+				count = double ? $s.user.corp.progress.level + 2 : $s.user.corp.progress.level + 1,
+				deselectProgress = () => {
+					_.find($s.user.deck.upgradeCards, {type: 'progress'}).selected = false;
+					_.find($s.user.deck.upgradeCards, {type: 'double'}).selected = false;
+					$s.user.resetProgressChoices();
+				};
+
+			if (double && !_.find($s.user.deck.upgradeCards, {type: 'progress'}).selected) {
+				return;
+			}
+
+			if (card.selected) {
+				var items = {
+					count,
+					resources: _.clone($s.user.nonAllocatedResources),
+					progressCards: $s.user.deck.progressCards.filter(card => card.rank == count)
+				};
+
+				$s.selectResourceModalInstance = $uibM.open({
+					animation: true,
+					templateUrl: 'selectresourcesModal',
+					controller: 'SelectResourcesModalInstanceCtrl',
+					size: 'lg',
+					resolve: {items}
+				});
+
+				$s.selectResourceModalInstance.result.then(results => {
+					$s.user.progressChoices = {
+						cards: $s.user.progressChoices.cards.concat(results.card),
+						cost: $s.user.progressChoices.cost.concat(results.resources.map(res => res.name))
+					};
+				}, deselectProgress);
+			} else {
+				deselectProgress();
+			}
 		};
 
 		$s.chooseResource = card => {

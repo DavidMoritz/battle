@@ -200,26 +200,17 @@ mainApp.factory('UpgradeFactory', [
 					level: 1,
 					points: 0,
 					recurringPoimts: 0,
-					cost: [
-						'any'
-					]
+					cost: []
 				}, {
 					level: 2,
 					points: 0,
 					recurringPoimts: 0,
-					cost: [
-						'any',
-						'any'
-					]
+					cost: []
 				}, {
 					level: 3,
 					points: 0,
 					recurringPoimts: 0,
-					cost: [
-						'any',
-						'any',
-						'any'
-					]
+					cost: []
 				}
 			],
 			get allUpgrades() {

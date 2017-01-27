@@ -57,7 +57,7 @@ html(ng-app='mainApp')
 						{{upgrades.knowledge[currentPlayer.corp.knowledge.level].cost}}
 				.resources.corp
 					h3 Resources
-					ul
+					ul.resource-list
 						li.card-img.small(ng-repeat='res in currentPlayer.resources' class='{{res.expiring ? "expiring" : ""}}')
 							img.img-responsive(src='img/basic_{{res.name}}.png')
 		script(src='inc/lib.js')
@@ -76,4 +76,18 @@ html(ng-app='mainApp')
 					h4 Id: {{card.id}}
 					h4(ng-show='card.story') Story:
 					p {{card.story}}
+		script#selectresourcesModal(type='text/ng-template')
+			.modal-header
+				+close()
+				h3 Select {{count}} Resouce{{count == 1 ? "" : "s"}} for payment &amp; Progress Card
+			.modal-body.row.card-modal-body
+				ul.resource-list.col-xs-12
+					li.card-img(ng-repeat='res in resources' ng-click='select(res)' class='{{res.selected ? "selected" : ""}}')
+						img.img-responsive(src='img/basic_{{res.name}}.png')
+			.modal-footer
+				ul.cards.col-xs-12
+					li.played-card(ng-repeat='card in progressCards' ng-click='select(card)')
+						img.card-img(src='img/progress_{{card.rank}}_{{card.group}}.png' class='{{card.selected ? "selected" : ""}}' title='{{card.description}}')
+						h5.text-center {{card.name}}
+				.btn.btn-success.btn-lg(ng-click='choose()' ng-disabled='!chooseable()') Choose
 //		| @@javascriptReplaceFiles

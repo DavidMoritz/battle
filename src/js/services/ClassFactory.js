@@ -133,6 +133,9 @@ mainApp.factory('ClassFactory', [
 					this.upgradeCards = CF.upgradeCards.map(labelCard);
 					this.activeCardId = '';
 				}
+				get allCards() {
+					return Array.prototype.concat(this.cards, this.progressCards, this.upgradeCards);
+				}
 				get battleValue() {
 					return this.selectedCards.reduce((total, card) => total + card.value, 0);
 				}
@@ -170,7 +173,7 @@ mainApp.factory('ClassFactory', [
 					return _.find(this.cards, {id: cardId});
 				}
 				reset() {
-					this.cards.map(card => {
+					this.allCards.map(card => {
 						card.played = false;
 						card.selected = false;
 						card.plays = 0;
@@ -204,12 +207,16 @@ mainApp.factory('ClassFactory', [
 					this.deck = new ClassFactory.Deck(this.color);
 					this.idx = options.idx;
 					this.resources = [];
+					this.resetProgressChoices();
 				}
 				get upgradable() {
 					return this.deck.chosenUpgrades.length === Math.max(this.corp.knowledge.level, 2);
 				}
+				get chosenResources() {
+					return this.resources.filter(resource => resource.selected);
+				}
 				get allocatedResources() {
-					var tempCost = [],
+					var tempCost = _.clone(this.progressChoices.cost),
 						level, type;
 					this.deck.chosenUpgrades.forEach(card => {
 						type = card.type;
@@ -238,17 +245,37 @@ mainApp.factory('ClassFactory', [
 				get nonAllocatedResources() {
 					return _.difference(this.resources, this.allocatedResources);
 				}
+				payResources() {
+					this.resources = this.nonAllocatedResources.filter(item => !item.expiring);
+				}
+				resetProgressChoices() {
+					this.progressChoices = {
+						cards: [],
+						cost: []
+					};
+				}
 				reset() {
-					this.resources = this.resources.filter(item => !item.expiring);
-
 					if (!this.corp.knowledge.level) {
 						this.resources.forEach(item => item.expiring = true);
 					}
+					this.resetProgressChoices();
 					this.deck.reset();
 				}
-				affordUpgrade(type) {
+				upgradeCorp(area) {
+					this.corp[area] = _.clone(UF[area][this.corp[area].level]);
+				}
+				upgradeProgress() {
+					this.progressChoices.cards.forEach(card => {
+						_.find(this.deck.cards, {value: card.value}) = card;
+					});
+				}
+				affordUpgrade(card) {
+					if (card.selected) {
+						return true;
+					}
 					var chosenLength = this.deck.chosenUpgrades.length,
 						wildCount = 0,
+						type = card.type,
 						costTemp, value, i;
 
 					if (type == 'double') {
@@ -296,7 +323,6 @@ mainApp.factory('ClassFactory', [
 					this.deck.play(card);
 				}
 				collectResource(item) {
-					item.allocated = false;
 					this.resources.push(_.clone(item));
 				}
 			}

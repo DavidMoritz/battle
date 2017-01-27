@@ -79,7 +79,7 @@ mixin upgrade()
 			div(ng-if='!waiting')
 				h3 Choose your upgrade
 				ul.upgrades.cards
-					li.held-card(ng-repeat='card in user.deck.upgradeCards' ng-click='selectCard(card)' ng-disabled='!user.affordUpgrade(card.type)')
+					li.held-card(ng-repeat='card in user.deck.upgradeCards' ng-click='user.affordUpgrade(card) ? selectCard(card) : ""' ng-disabled='!user.affordUpgrade(card)')
 						.card-img(class='{{user.color}} {{card.class}} {{card.selected ? "selected" : ""}}')
 						.upgrade-card-inside(title='{{card.name}}')
 				.btn.btn-success(ng-disabled='!user.upgradable' ng-click='upgradeCards()') Upgrade

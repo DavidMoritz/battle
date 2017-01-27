@@ -67,7 +67,7 @@ mainApp.factory('EventFactory', [
 					$s[history][this.eventCount] = {};
 				}
 
-				$s[history][this.eventCount][this.uid] = this.cards;
+				$s[history][this.eventCount][this.uid] = this;
 
 				if (_.keys($s[history][this.eventCount]).length == $s.allPlayers.length) {
 					EF[this.name + 'Ready'](this.eventCount, resolve);
@@ -77,12 +77,12 @@ mainApp.factory('EventFactory', [
 				}
 			},
 			submitBattleReady: (count, resolve) => {
-				_.mapKeys($s.submitBattleHistory[count], (cards, uid) => {
+				_.mapKeys($s.submitBattleHistory[count], (info, uid) => {
 					var player = _.find($s.allPlayers, {uid});
 
-					player.battlePower = cards.reduce((total, card) => total + card.value, 0);
+					player.battlePower = info.cards.reduce((total, card) => total + card.value, 0);
 					player.winner = false;
-					player.playCardSet(cards);
+					player.playCardSet(info.cards);
 				});
 
 				EF.determineWinner(resolve);
@@ -131,21 +131,27 @@ mainApp.factory('EventFactory', [
 			military: resolve => {
 				resolve();
 			},
-			upgradeCorp: (player, area) => {
-				player.corp[area] = _.clone(_.find(UF[area], {level: player.corp[area].level + 1}));
-			},
 			upgradeReady: (count, resolve) => {
-				_.mapKeys($s.upgradeHistory[count], (cards, uid) => {
+				_.mapKeys($s.upgradeHistory[count], (info, uid) => {
 					var player = _.find($s.allPlayers, {uid}),
-						card = cards.type,
-						double = !!_.find(cards, {type: 'double'});
+						card = info.cards.type,
+						double = !!_.find(info.cards, {type: 'double'});
 
-					cards.forEach(card => {
+					info.cards.forEach(card => {
+						_.find(player.deck.upgradeCards, {type: card.type}).selected = true;
+					});
+
+					player.progressChoices = info.progressChoices;
+
+					player.payResources();
+					player.upgradeProgress();
+
+					info.cards.forEach(card => {
 						if (card.type != 'progress-cards' && card.type != 'double') {
-							EF.upgradeCorp(player, card.type);
+							player.upgradeCorp(card.type);
 
 							if (double) {
-								EF.upgradeCorp(player, card.type);
+								player.upgradeCorp(card.type);
 							}
 						}
 					});

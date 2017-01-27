@@ -89,7 +89,7 @@ mainApp.factory('CardFactory', [
 					name: 'Resource Converter'
 				}, {
 					id: 'UP5',
-					class: 'utility',
+					class: 'unity',
 					type: 'knowledge',
 					name: 'Unity'
 				}, {
