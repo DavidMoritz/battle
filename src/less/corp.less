@@ -12,7 +12,38 @@
 		flex: 1;
 		&.resources {
 			flex: 2;
+			border-radius: 0 5px 5px 0;
 		}
+		&.military {
+			border-radius: 5px 0 0 5px;
+		}
+	}
+}
+.corp {
+	&.circle {
+		display: inline-block;
+		border-radius: 50%;
+		margin-right: 2px;
+		height: 16px;
+		width: 16px;
+	}
+	&.resources {
+		background-color: lightgray;
+	}
+	&.military {
+		background-color: lightcoral;
+	}
+	&.defense {
+		background-color: lightsalmon;
+	}
+	&.utopia {
+		background-color: lightskyblue;
+	}
+	&.converter {
+	    background-color: lightgoldenrodyellow;
+	}
+	&.knowledge {
+		background-color: lightgreen;
 	}
 }
 ul.resource-list {

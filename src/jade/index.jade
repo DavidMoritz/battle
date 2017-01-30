@@ -27,38 +27,38 @@ html(ng-app='mainApp')
 			.current-user-corp
 				.military.corp
 					h3 Military
-					h4 {{currentPlayer.corp.military.level}}
+					h4 {{user.corp.military.level}}
 					.upgrade-cost
 						h4 Next Upgrade Cost:
-						{{upgrades.military[currentPlayer.corp.military.level].cost}}
+						{{upgrades.military[user.corp.military.level].cost}}
 				.defense.corp
 					h3 Defense
-					h4 {{currentPlayer.corp.defense.level}}
+					h4 {{user.corp.defense.level}}
 					.upgrade-cost
 						h4 Next Upgrade Cost:
-						{{upgrades.defense[currentPlayer.corp.defense.level].cost}}
+						{{upgrades.defense[user.corp.defense.level].cost}}
 				.utopia.corp
 					h3 Utopia
-					h4 {{currentPlayer.corp.utopia.level}}
+					h4 {{user.corp.utopia.level}}
 					.upgrade-cost
 						h4 Next Upgrade Cost:
-						{{upgrades.utopia[currentPlayer.corp.utopia.level].cost}}
+						{{upgrades.utopia[user.corp.utopia.level].cost}}
 				.converter.corp
 					h3 Resource Converter
-					h4 {{currentPlayer.corp.converter.level}}
+					h4 {{user.corp.converter.level}}
 					.upgrade-cost
 						h4 Next Upgrade Cost:
-						{{upgrades.converter[currentPlayer.corp.converter.level].cost}}
+						{{upgrades.converter[user.corp.converter.level].cost}}
 				.knowledge.corp
 					h3 Shared Knowledge
-					h4 {{currentPlayer.corp.knowledge.level}}
+					h4 {{user.corp.knowledge.level}}
 					.upgrade-cost
 						h4 Next Upgrade Cost:
-						{{upgrades.knowledge[currentPlayer.corp.knowledge.level].cost}}
+						{{upgrades.knowledge[user.corp.knowledge.level].cost}}
 				.resources.corp
 					h3 Resources
 					ul.resource-list
-						li.card-img.small(ng-repeat='res in currentPlayer.resources' class='{{res.expiring ? "expiring" : ""}}')
+						li.card-img.small(ng-repeat='res in user.resources' class='{{res.expiring ? "expiring" : ""}}')
 							img.img-responsive(src='img/basic_{{res.name}}.png')
 		script(src='inc/lib.js')
 		script(src='inc/main.js')

@@ -67,15 +67,15 @@ mixin determineWinner()
 				li(ng-repeat='player in allPlayers') {{player.name}}: {{player.battlePower}}
 					span.winner(ng-show='player.winner') WINNER
 					ul.cards
-						li.held-card(ng-repeat='card in submitBattleHistory[getEventCount("submitBattle") - 1][player.uid]')
+						li.held-card(ng-repeat='card in submitBattleHistory[getEventCount("submitBattle") - 1][player.uid].cards')
 							.card-img.battle.small(class='{{card.color}}' ng-hide='card.group')
 								.card-value {{card.value}}
-							img.card-img.small(src='img/progress_{{card.rank}}_{{card.group}}.png' title='{{card.description}}' class='{{card.selected ? "selected" : ""}}' ng-if='card.group')
+							img.card-img.small(src='img/progress_{{card.rank}}_{{card.group}}.png' title='{{card.description}}' ng-if='card.group')
 					hr
 
 mixin upgrade()
 	.row(ng-if='state == "upgrade"')
-		+col(10)
+		+col(8)
 			div(ng-if='!waiting')
 				h3 Choose your upgrade
 				ul.upgrades.cards
@@ -84,9 +84,15 @@ mixin upgrade()
 						.upgrade-card-inside(title='{{card.name}}')
 				.btn.btn-success(ng-disabled='!user.upgradable' ng-click='upgradeCards()') Upgrade
 			h3(ng-if='waiting') Waiting for other players
-		+col(2)
+		+col(4)
 			h3 Other Players:
 			ul.players
-				li(ng-repeat='player in allPlayers' ng-hide='player.uid == currentUser.uid') {{player.name}}
-					button.btn.btn-danger(ng-hide='upgradeHistory[getEventCount("upgrade")][player.uid]') Not Ready
-					button.btn.btn-success(ng-show='upgradeHistory[getEventCount("upgrade")][player.uid]') Ready
+				li.tally(ng-repeat='player in allPlayers' ng-hide='player.uid == currentUser.uid')
+					.left
+						span {{player.name}}
+						button.btn.btn-danger(ng-hide='upgradeHistory[getEventCount("upgrade")][player.uid]') Not Ready
+						button.btn.btn-success(ng-show='upgradeHistory[getEventCount("upgrade")][player.uid]') Ready
+					.right
+						.tally(ng-repeat='(name, corp) in player.corp' class='{{name}}')
+							span.marking {{name | limitTo: 1 | uppercase}}:
+							.corp.circle(ng-repeat='i in upgrades.military | limitTo: corp.level' class='{{name}}')

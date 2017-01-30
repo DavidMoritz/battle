@@ -57,26 +57,26 @@ body {
 	}
 }
 .board-spaces-container {
-    background-image: url(../img/board-spaces.jpg);
-    background-size: cover;
-    width: 562px;
-    height: 430px;
-    margin: auto;
-    margin-top: -46px;
-    margin-bottom: -30px;
-    display: flex;
-    flex-wrap: wrap;
-    padding: 45px;
-    .modal-body & {
+	background-image: url(../img/board-spaces.jpg);
+	background-size: cover;
+	width: 562px;
+	height: 430px;
+	margin: auto;
+	margin-top: -46px;
+	margin-bottom: -30px;
+	display: flex;
+	flex-wrap: wrap;
+	padding: 45px;
+	.modal-body & {
 		margin-top: -25px;
 		margin-bottom: 0;
 		h3 {
 			display: none;
 		}
-    }
-    .board-space {
-    	width: 150px;
-    	height: 107px;
+	}
+	.board-space {
+		width: 150px;
+		height: 107px;
 		margin: 3px;
 		border-radius: 5px;
 		padding: 5px;
@@ -106,7 +106,7 @@ body {
 		&.center {
 			align-items: center;
 		}
-    }
+	}
 }
 .main-content {
 	display: flex;
@@ -378,6 +378,32 @@ body {
 ul.players {
 	list-style: none;
 	padding: 0;
+	li.tally {
+		display: flex;
+	}
+	.left {
+		display: flex;
+		flex-direction: column;
+		margin-right: 10px;
+		.marking {
+			width: 16px;
+			display: inline-block;
+		}
+	}
+	.right {
+		display: flex;
+		flex-direction: column;
+		flex-wrap: wrap;
+		height: 70px;
+		align-items: space-around;
+		justify-content: center;
+		.tally {
+			min-width: 60px;
+			&.progress {
+				display: none;
+			}
+		}
+	}
 }
 .space {
 	position: relative;

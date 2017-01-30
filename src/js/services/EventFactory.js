@@ -120,7 +120,7 @@ mainApp.factory('EventFactory', [
 					if ($s.currentPlayer.deck.heldCards.length) {
 						EF.chooseBattle(resolve);
 					} else {
-						$s.state = 'upgrade';
+						$s.state = 'military';
 						EF.military(resolve);
 					}
 				} else {
@@ -129,25 +129,25 @@ mainApp.factory('EventFactory', [
 				}
 			},
 			military: resolve => {
+				$s.state = 'upgrade';
 				resolve();
 			},
 			upgradeReady: (count, resolve) => {
 				_.mapKeys($s.upgradeHistory[count], (info, uid) => {
 					var player = _.find($s.allPlayers, {uid}),
-						card = info.cards.type,
 						double = !!_.find(info.cards, {type: 'double'});
 
 					info.cards.forEach(card => {
 						_.find(player.deck.upgradeCards, {type: card.type}).selected = true;
 					});
 
-					player.progressChoices = info.progressChoices;
+					player.progressChoices = info.progressChoices || player.progressChoices;
 
 					player.payResources();
 					player.upgradeProgress();
 
 					info.cards.forEach(card => {
-						if (card.type != 'progress-cards' && card.type != 'double') {
+						if (card.type != 'progress' && card.type != 'double') {
 							player.upgradeCorp(card.type);
 
 							if (double) {
@@ -160,6 +160,10 @@ mainApp.factory('EventFactory', [
 				});
 
 				$s.resources.resetBasic();
+
+				if ($s.resources.heldWinner.length === 0) {
+					$s.resources.resetWinner();
+				}
 				EF.chooseBattle(resolve);
 			}
 		};

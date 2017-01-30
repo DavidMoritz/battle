@@ -377,6 +377,16 @@ mainApp.factory('CardFactory', [
 					resources: [{
 						name: 'wild'
 					}]
+				}, {
+					id: 'RWW2',
+					class: 'winner wild',
+					title: 'Wild',
+					image: 'winner_wild.png',
+					symbol: 'w',
+					tradeValue: 5,
+					resources: [{
+						name: 'wild'
+					}]
 				}
 			],
 			get allCards() {

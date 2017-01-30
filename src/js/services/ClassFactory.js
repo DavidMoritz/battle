@@ -91,6 +91,10 @@ mainApp.factory('ClassFactory', [
 					this.basic.forEach(card => card.played = false);
 					this.basic = shuffleDeck(this.basic, this.seed);
 				}
+				resetWinner() {
+					this.winner.forEach(card => card.played = false);
+					this.winner = shuffleDeck(this.winner, this.seed);
+				}
 				findResource(resource) {
 					return _.find(this.winner, resource) || _.find(this.basic, resource);
 				}
@@ -122,6 +126,7 @@ mainApp.factory('ClassFactory', [
 			Deck: class Deck {
 				constructor(color) {
 					const labelCard = card => {
+						card = _.clone(card);
 						card.color = color;
 						card.id = color.charAt(0).toUpperCase() + card.id;
 
@@ -207,7 +212,10 @@ mainApp.factory('ClassFactory', [
 					this.deck = new ClassFactory.Deck(this.color);
 					this.idx = options.idx;
 					this.resources = [];
-					this.resetProgressChoices();
+					this.progressChoices = {
+						cards: [],
+						cost: []
+					};
 				}
 				get upgradable() {
 					return this.deck.chosenUpgrades.length === Math.max(this.corp.knowledge.level, 2);
@@ -266,7 +274,9 @@ mainApp.factory('ClassFactory', [
 				}
 				upgradeProgress() {
 					this.progressChoices.cards.forEach(card => {
-						_.find(this.deck.cards, {value: card.value}) = card;
+						var idx = _.findIndex(this.deck.cards, {class: card.class});
+
+						this.deck.cards[idx] = card;
 					});
 				}
 				affordUpgrade(card) {
@@ -292,6 +302,10 @@ mainApp.factory('ClassFactory', [
 						value = this.corp[type].level + 1;
 					} else {
 						value = this.corp[type].level;
+					}
+
+					if (value == UF[type].length) {
+						return false;
 					}
 
 					costTemp = _.clone(UF[type][value].cost);
