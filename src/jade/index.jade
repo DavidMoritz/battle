@@ -24,42 +24,7 @@ html(ng-app='mainApp')
 						+determineWinner()
 						+upgrade()
 				.stage-right
-			.current-user-corp
-				.military.corp
-					h3 Military
-					h4 {{user.corp.military.level}}
-					.upgrade-cost
-						h4 Next Upgrade Cost:
-						{{upgrades.military[user.corp.military.level].cost}}
-				.defense.corp
-					h3 Defense
-					h4 {{user.corp.defense.level}}
-					.upgrade-cost
-						h4 Next Upgrade Cost:
-						{{upgrades.defense[user.corp.defense.level].cost}}
-				.utopia.corp
-					h3 Utopia
-					h4 {{user.corp.utopia.level}}
-					.upgrade-cost
-						h4 Next Upgrade Cost:
-						{{upgrades.utopia[user.corp.utopia.level].cost}}
-				.converter.corp
-					h3 Resource Converter
-					h4 {{user.corp.converter.level}}
-					.upgrade-cost
-						h4 Next Upgrade Cost:
-						{{upgrades.converter[user.corp.converter.level].cost}}
-				.knowledge.corp
-					h3 Shared Knowledge
-					h4 {{user.corp.knowledge.level}}
-					.upgrade-cost
-						h4 Next Upgrade Cost:
-						{{upgrades.knowledge[user.corp.knowledge.level].cost}}
-				.resources.corp
-					h3 Resources
-					ul.resource-list
-						li.card-img.small(ng-repeat='res in user.resources' class='{{res.expiring ? "expiring" : ""}}')
-							img.img-responsive(src='img/basic_{{res.name}}.png')
+			+current-user-corp()
 		script(src='inc/lib.js')
 		script(src='inc/main.js')
 		//- Modals should be used for reference only!

@@ -80,8 +80,16 @@ mainApp.factory('EventFactory', [
 				_.mapKeys($s.submitBattleHistory[count], (info, uid) => {
 					var player = _.find($s.allPlayers, {uid});
 
-					player.battlePower = info.cards.reduce((total, card) => total + card.value, 0);
+					player.battlePower = info.cards.reduce((total, card) => {
+						if(card.special) {
+							player.special = player.special || [];
+							player.special.push(card.special);
+						}
+
+						return total + card.value;
+					}, 0);
 					player.winner = false;
+					player.special =
 					player.playCardSet(info.cards);
 				});
 
@@ -104,10 +112,90 @@ mainApp.factory('EventFactory', [
 					}
 				});
 
+				EF.handleSpecials();
+
 				$s.currentPlayer = $s.allPlayers[0];
 
 				$s.state = 'determineWinner';
 				resolve();
+			},
+			doWinSpecials: player => {
+				var negate = false;
+
+				player.special.filter(spec => spec.condition == 'win' || spec.condition == 'mixed').forEach(special => {
+					switch(special.name) {
+						case 'negateSpecials':
+							negate = true;
+							break;
+						case 'attackTwice':
+							player.attackTwice = true;
+							break;
+						case 'mixedOutcome':
+							player.gainPoints(6);
+							player.mixedOutcome = true;
+							break;
+					}
+				});
+
+				return negate;
+			},
+			doRegSpecials: (players, winner) => {
+				players.forEach(player => {
+					player.special.filter(spec => spec.condition != 'last' && spec.condition != 'win').forEach(special => {
+						switch(special.name) {
+							case 'freeAttack':
+							case 'doubleTrash':
+								player[special.name] = true;
+								break;
+							case 'collectFive':
+								player.gainPoints(3);
+								player.gainAnyResource = true;
+							case 'collectTwo':
+							case 'chooseSpecial':
+								player.gainPoints(2);
+								break;
+							case 'loseTwo':
+								player.gainPoints(-2);
+								break;
+							case 'freeResource':
+								if(!winner) {
+									player.gainDiscard = true;
+								}
+								break;
+							case 'mixedOutcome':
+								if(!player.mixedOutcome) {
+									if(player.duplicateBattlePower) {
+										player.freeUpgrade = true;
+									} else {
+										player.collectRare = true;
+									}
+								}
+						}
+					});
+				})
+			},
+			doLastSpecials: player => {
+				player.special.filter(spec => spec.condition == 'last').forEach(special => {
+					player[special.name] = true;
+				});
+			},
+			handleSpecials: () => {
+				var winner = $s.allPlayers[0];
+				var last = $s.allPlayers.slice(-1)[0];
+
+				if(!winner.duplicateBattlePower) {
+					if(EF.doWinSpecials(winner)) {
+						doRegSpecials([winner], true);
+
+						return;
+					}
+				}
+
+				doRegSpecials($s.allPlayers);
+
+				if(!last.duplicateBattlePower) {
+					doLastSpecials(last);
+				}
 			},
 			chooseResource: function(resolve) {
 				var idx = _.findIndex($s.allPlayers, $s.currentPlayer);

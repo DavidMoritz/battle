@@ -111,6 +111,10 @@ mainApp.factory('CardFactory', [
 					group: 'alien',
 					name: 'Alien Bank Teller',
 					description: 'When this card is played, collect 2 points.',
+					special: {
+						name: 'collectTwo',
+						condition: 'none'
+					},
 					class: 'one',
 					value: 1
 				}, {
@@ -119,6 +123,10 @@ mainApp.factory('CardFactory', [
 					group: 'allied',
 					name: 'Risky Business',
 					description: 'When this card is played, lose 2 points.',
+					special: {
+						name: 'loseTwo',
+						condition: 'none'
+					},
 					class: 'eight',
 					value: 9
 				}, {
@@ -127,6 +135,10 @@ mainApp.factory('CardFactory', [
 					group: 'military',
 					name: 'Military Supplies',
 					description: 'When you play this card, your next attack is free.',
+					special: {
+						name: 'freeAttack',
+						condition: 'none'
+					},
 					class: 'three',
 					value: 3
 				}, {
@@ -134,7 +146,11 @@ mainApp.factory('CardFactory', [
 					rank: 1,
 					group: 'native',
 					name: 'The Meek Shall Inherit',
-					description: 'If you "lose" with this card, collect an extra resource from thte discard pile (if there is one).',
+					description: 'If you "lose" with this card, collect an extra resource from the discard pile (if there is one).',
+					special: {
+						name: 'freeResource',
+						condition: 'lose'
+					},
 					class: 'eight',
 					value: 8
 				}, {
@@ -143,6 +159,10 @@ mainApp.factory('CardFactory', [
 					group: 'alien',
 					name: 'Extortion',
 					description: 'When this card is played, double your points during the next trashing phase.',
+					special: {
+						name: 'doubleTrash',
+						condition: 'none'
+					},
 					class: 'four',
 					value: 4
 				}, {
@@ -151,6 +171,10 @@ mainApp.factory('CardFactory', [
 					group: 'allied',
 					name: 'Strength in Diversity',
 					description: 'When this card is played... -Change your 0 to a 1 OR -Gain 2 points OR -Collect 1 common resource card from the discard pile (at random).',
+					special: {
+						name: 'chooseSpecial',
+						condition: 'none'
+					},
 					class: 'zero',
 					value: 0
 				}, {
@@ -159,6 +183,10 @@ mainApp.factory('CardFactory', [
 					group: 'military',
 					name: 'Precise Strategy',
 					description: 'If you win with this card, negate other players\' progress cards for this phase.',
+					special: {
+						name: 'negateSpecials',
+						condition: 'win'
+					},
 					class: 'five',
 					value: 5
 				}, {
@@ -167,6 +195,10 @@ mainApp.factory('CardFactory', [
 					group: 'native',
 					name: 'The Last Shall Be First',
 					description: 'If you are last with this card, choose first resouce this phase.',
+					special: {
+						name: 'lastFirst',
+						condition: 'last'
+					},
 					class: 'seven',
 					value: 7
 				}, {
@@ -175,6 +207,10 @@ mainApp.factory('CardFactory', [
 					group: 'alien',
 					name: 'Monopoly',
 					description: 'When this card is played, collect 5 points and any one resource.',
+					special: {
+						name: 'collectFive',
+						condition: 'none'
+					},
 					class: 'six',
 					value: 6
 				}, {
@@ -183,6 +219,10 @@ mainApp.factory('CardFactory', [
 					group: 'allied',
 					name: 'Allies in Shadows',
 					description: 'With this card, if you... -Win: gain 6 points -Lose: collect 1 rare resource card from the discard pile (at random) -Tie: immediately upgrade your lowest lvl rank on the board.',
+					special: {
+						name: 'mixedOutcome',
+						condition: 'mixed'
+					},
 					class: 'eleven',
 					value: 11
 				}, {
@@ -191,6 +231,10 @@ mainApp.factory('CardFactory', [
 					group: 'military',
 					name: 'Double Strike',
 					description: 'If you win with this card, attack twice during the next attack phase.',
+					special: {
+						name: 'attackTwice',
+						condition: 'win'
+					},
 					class: 'two',
 					value: 2
 				}, {
@@ -199,6 +243,10 @@ mainApp.factory('CardFactory', [
 					group: 'native',
 					name: 'We\'re Not Forgotten',
 					description: 'If you are last with this card, collect all resources in this phase. If you are not last, collect nothing.',
+					special: {
+						name: 'lastAll',
+						condition: 'last'
+					},
 					class: 'ten',
 					value: 12
 				}
