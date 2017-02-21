@@ -51,6 +51,9 @@ mainApp.factory('ClassFactory', [
 						points: 0
 					};
 				}
+				get totalPoints() {
+					return this.military.points + this.defense.points + this.converter.points + this.utopia.points + this.knowledge.points + this.progress.points;
+				}
 			},
 
 			Resources: class Resources {
@@ -212,6 +215,7 @@ mainApp.factory('ClassFactory', [
 					this.deck = new ClassFactory.Deck(this.color);
 					this.idx = options.idx;
 					this.resources = [];
+					this.extraPointsArray = [];
 					this.progressChoices = {
 						cards: [],
 						cost: []
@@ -253,8 +257,35 @@ mainApp.factory('ClassFactory', [
 				get nonAllocatedResources() {
 					return _.difference(this.resources, this.allocatedResources);
 				}
+				get totalPoints() {
+					var extraSum = this.extraPointsArray.reduce((total, num) => total += num);
+
+					return extraSum + this.corp.totalPoints;
+				}
+				gainPoints(amount) {
+					this.extraPointsArray.push(amount);
+				}
 				payResources() {
 					this.resources = this.nonAllocatedResources.filter(item => !item.expiring);
+				}
+				expireResources() {
+					if (!this.corp.knowledge.level) {
+						this.resources.forEach(item => item.expiring = true);
+					}
+				}
+				resetProgressSpecials() {
+					var specialArray = [
+						'attackTwice',
+						'mixedOutcome',
+						'freeAttack',
+						'doubleTrash',
+						'gainAnyResource',
+						'freeResource',
+						'gainDiscard',
+						'freeUpgrade',
+						'collectRare'
+					];
+					specialArray.forEach(special => delete this.special);
 				}
 				resetProgressChoices() {
 					this.progressChoices = {
@@ -263,10 +294,9 @@ mainApp.factory('ClassFactory', [
 					};
 				}
 				reset() {
-					if (!this.corp.knowledge.level) {
-						this.resources.forEach(item => item.expiring = true);
-					}
+					this.expireResources();
 					this.resetProgressChoices();
+					this.resetProgressSpecials();
 					this.deck.reset();
 				}
 				upgradeCorp(area) {
